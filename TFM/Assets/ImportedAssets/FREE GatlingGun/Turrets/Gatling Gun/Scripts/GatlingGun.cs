@@ -47,7 +47,7 @@ public class GatlingGun : MonoBehaviour
     // Detect an Enemy, aim and fire
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Player")
         {
             go_target = other.transform;
             canFire = true;
@@ -57,7 +57,7 @@ public class GatlingGun : MonoBehaviour
     // Stop firing
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Player")
         {
             canFire = false;
         }
