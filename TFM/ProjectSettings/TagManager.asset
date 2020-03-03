@@ -11,7 +11,7 @@ TagManager:
   - Shoot
   - Dead
   - Test
-  - Misile
+  - Missile
   layers:
   - Default
   - TransparentFX
