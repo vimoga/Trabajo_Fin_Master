@@ -12,6 +12,7 @@ TagManager:
   - Dead
   - Test
   - Missile
+  - Player_Drone
   layers:
   - Default
   - TransparentFX

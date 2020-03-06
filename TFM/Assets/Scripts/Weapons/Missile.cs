@@ -2,14 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour of the missiles
+/// </summary>
 public class Missile : MonoBehaviour
 {
 
-    public bool isEnemy;
+    /// <summary>
+    /// objective of the missile
+    /// </summary>
+    public GameObject enemy;
 
+    /// <summary>
+    /// speed of the missile
+    /// </summary>
     public float speed = 5f;
 
-    public Transform target;
+    /// <summary>
+    /// damage of the missile
+    /// </summary>
+    public float damage = 25f;
+
+    /// <summary>
+    /// explosion sound
+    /// </summary>
+    public AudioClip explosionSound;
+
+    private AudioSource audioSource;
+
+    private Transform target;
 
     private Rigidbody rb;
 
@@ -20,8 +41,17 @@ public class Missile : MonoBehaviour
     {
         rb = GetComponentInChildren<Rigidbody>();
 
-        if (isEnemy) {
-            target = GameObject.FindWithTag("Player").transform;
+        target = enemy.transform;
+
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    public void CollisionDetected(GameObject childInpact)
+    {
+        //si colisiona con un enemigo se le resta a la vida la fuerza del inpacto
+        if (childInpact.tag == "Player" || childInpact.tag == "Player_Drone" )
+        {
+            childInpact.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
         }
     }
 
@@ -39,14 +69,18 @@ public class Missile : MonoBehaviour
             if (Vector3.Distance(transform.position, target.position) < 0.001f)
             {
                 //add explosion effect
-                foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject)))
+                foreach (Transform child in transform)
                 {
-                    if (obj.name.Equals("Explosion"))
+                    if (child.gameObject.name.Equals("Explosion"))
                     {
-                        obj.SetActive(true);
+                        child.gameObject.SetActive(true);
+                        isDestroyed = true;
+                        audioSource.Stop();
+                        audioSource.PlayOneShot(explosionSound,1);
+                        Object.Destroy(gameObject, 2.0f);
                     }
                     else {
-                        obj.SetActive(false);
+                        child.gameObject.SetActive(false);
                     }
                 }
                 

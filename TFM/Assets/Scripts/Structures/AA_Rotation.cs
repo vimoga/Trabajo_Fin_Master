@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Modificacion de rotor.cs para laa estructura del arma antiaerea 
+/// Modificacio of rotor.cs for the AA gun
 /// </summary>
 public class AA_Rotation : MonoBehaviour
 {
@@ -21,6 +21,11 @@ public class AA_Rotation : MonoBehaviour
     /// <para> Set this in the editor
     /// </summary>
     public bool animationActivated = false;
+
+    /// <summary>
+    /// Current enemy of the AA gun
+    /// </summary>
+    public GameObject enemy;
 
     /// <summary>
     /// Function called before of the first update
@@ -47,5 +52,16 @@ public class AA_Rotation : MonoBehaviour
     /// <summary>
     /// Function called once per frame
     /// </summary>
-    void Update() { if (animationActivated) transform.Rotate(0, power * 70 * Time.deltaTime * (counterclockwise ? -1 : 1), 0); }
+    void FixedUpdate() {
+        if (!enemy)
+        {
+            if (animationActivated)
+            {
+                transform.Rotate(0, power * 70 * Time.deltaTime * (counterclockwise ? -1 : 1), 0);
+            }
+        }
+        else {
+            transform.LookAt(enemy.transform);
+        }
+    }
 }
