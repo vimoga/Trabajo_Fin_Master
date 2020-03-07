@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
             //indicamos al agente que su destino es el punto marcado
             agente.destination = hit.point;
+            
         }
 
     }
@@ -54,5 +55,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Clicked();
         }
+
+        jugador.transform.LookAt(agente.nextPosition);
     }
 }

@@ -61,10 +61,10 @@ public class BasicDrone : MonoBehaviour
             if (life > 0)
             {
 
-                if (life <= 50)
+                if (life <= (life/2))
                 {
 
-                    if (life <= 25)
+                    if (life <= (life/3))
                     {
                         if (!greatDamage.activeSelf)
                         {
