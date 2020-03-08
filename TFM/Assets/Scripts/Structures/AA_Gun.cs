@@ -16,7 +16,7 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
     /// <summary>
     /// time between shoots
     /// </summary>
-    public float timeBetweenShoots = 1.0f;
+    public float timeBetweenShoots = 2.0f;
 
     /// <summary>
     /// current fire rate
@@ -37,7 +37,7 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
 
     public float missileDamage = 25f;
 
-    private GameObject enemy;
+    private GameObject aa_Enemy;
 
     /// <summary>
     /// effect played when the estructure are destroyed
@@ -71,7 +71,7 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
         currentFireRate = 0;
 
         Missile shootMissile = missile.GetComponent<Missile>();
-        shootMissile.enemy = enemy;
+        shootMissile.enemy = aa_Enemy;
         shootMissile.speed = missileSpeed;
         shootMissile.damage = missileDamage;
 
@@ -94,9 +94,9 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
     // Stop firing
     void OnTriggerExit(Collider other)
     {
-        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
+        if (AuxiliarOperations.IsPlayer(other))
         {
-            enemy = null;
+            aa_Enemy = null;
         }
     }
 
@@ -106,18 +106,18 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
+        if (AuxiliarOperations.IsPlayer(other))
         {
-            if (enemy == null)
+            if (aa_Enemy == null)
             {
-                enemy = other.gameObject;
+                aa_Enemy = other.gameObject;
 
             }
             else
             {
-                if (Vector3.Distance(enemy.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
+                if (Vector3.Distance(aa_Enemy.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
                 {
-                    enemy = other.gameObject;
+                    aa_Enemy = other.gameObject;
                 }
             }
         }
@@ -136,7 +136,8 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
             if (life > 0)
             {
 
-                if (!AuxiliarOpereations.IsDestroyed(enemy))
+                //if (!AuxiliarOperations.IsDestroyed(aa_Enemy))
+                if (aa_Enemy != null)
                 {
                     currentFireRate += Time.deltaTime;
 
@@ -146,7 +147,7 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
                     }
                 }
                 else {
-                    enemy = null;
+                    aa_Enemy = null;
                 }
             }
             else

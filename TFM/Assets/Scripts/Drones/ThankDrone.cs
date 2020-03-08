@@ -39,7 +39,6 @@ public class ThankDrone : MonoBehaviour,DroneInterface
         if (gameObject.tag == "Player" || gameObject.tag == "Player_Drone") {
             isCaptured = true;
         }
-        //audioSource.Stop();
     }
 
 
@@ -145,7 +144,7 @@ public class ThankDrone : MonoBehaviour,DroneInterface
     void Update()
     {
         if (!isCaptured && tnk_enemy != null) {
-            if (!AuxiliarOpereations.IsDestroyed(tnk_enemy))
+            if (!AuxiliarOperations.IsDestroyed(tnk_enemy))
             {
                 if (!tnk_enemy.GetComponent<CommonInterface>().isDestroyed())
                 {

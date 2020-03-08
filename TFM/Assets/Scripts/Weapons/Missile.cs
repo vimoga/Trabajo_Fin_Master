@@ -55,35 +55,49 @@ public class Missile : MonoBehaviour
         }
     }
 
+    //add explosion effect
+    private void Explode()
+    {
+        
+        foreach (Transform child in transform)
+        {
+            if (child.gameObject.name.Equals("Explosion"))
+            {
+                child.gameObject.SetActive(true);
+                isDestroyed = true;
+                audioSource.Stop();
+                audioSource.PlayOneShot(explosionSound, 1);
+                Object.Destroy(gameObject, 2.0f);
+            }
+            else
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
         if (!isDestroyed) {
-            transform.LookAt(target);
 
-            // Move our position a step closer to the target.
-            float step = speed * Time.deltaTime; // calculate distance to move
-            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-
-            // Check if the position of the cube and sphere are approximately equal.
-            if (Vector3.Distance(transform.position, target.position) < 0.001f)
+            if (!AuxiliarOperations.IsDestroyed(enemy))
             {
-                //add explosion effect
-                foreach (Transform child in transform)
+                transform.LookAt(target);
+
+                // Move our position a step closer to the target.
+                float step = speed * Time.deltaTime; // calculate distance to move
+                transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+
+                // Check if the position of the cube and sphere are approximately equal.
+                if (Vector3.Distance(transform.position, target.position) < 0.001f)
                 {
-                    if (child.gameObject.name.Equals("Explosion"))
-                    {
-                        child.gameObject.SetActive(true);
-                        isDestroyed = true;
-                        audioSource.Stop();
-                        audioSource.PlayOneShot(explosionSound,1);
-                        Object.Destroy(gameObject, 2.0f);
-                    }
-                    else {
-                        child.gameObject.SetActive(false);
-                    }
+                    Explode();
                 }
-                
+            }
+            else {
+                Explode();
             }
         }
     }

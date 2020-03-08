@@ -187,7 +187,7 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces, CommonInter
             if (life > 0)
             {
 
-                if (!AuxiliarOpereations.IsDestroyed(enemy))
+                if (!AuxiliarOperations.IsDestroyed(enemy))
                 {
                     currentFireRate += Time.deltaTime;
 

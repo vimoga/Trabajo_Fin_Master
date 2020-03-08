@@ -22,6 +22,10 @@ public class Missile_Launcher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameObject.Instantiate(missile, gameObject.transform.position, gameObject.transform.rotation);
+        if (!AuxiliarOperations.IsDestroyed(enemy))
+        {
+            GameObject.Instantiate(missile, gameObject.transform.position, gameObject.transform.rotation);
+        }
+        
     }
 }

@@ -43,10 +43,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Physics.Raycast(MousePosition(), out hit))
         {
-
             //indicamos al agente que su destino es el punto marcado
-            agente.destination = hit.point;
-            
+            agente.destination = hit.point;           
         }
 
     }
@@ -86,44 +84,45 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //detección del input del jugador
-        if (Input.GetMouseButtonDown(0))
+        if (!AuxiliarOperations.IsDestroyed(jugador))
         {
-            Clicked();
-        }
-
-        //detección del input del jugador
-        if (Input.GetMouseButtonDown(1))
-        {
-            RightClicked();
-        }
-
-        if (isAttacking)
-        {
-            if (!AuxiliarOpereations.IsDestroyed(currentObjective))
+            //detección del input del jugador
+            if (Input.GetMouseButtonDown(0))
             {
-                if (Vector3.Distance(jugador.transform.position, currentObjective.transform.position) > jugador.GetComponent<DroneInterface>().GetFiringRange())
+                Clicked();
+            }
+
+            //detección del input del jugador
+            if (Input.GetMouseButtonDown(1))
+            {
+                RightClicked();
+            }
+
+            if (isAttacking)
+            {
+                if (!AuxiliarOperations.IsDestroyed(currentObjective))
                 {
-                    agente.destination = currentObjective.transform.position;
+                    if (Vector3.Distance(jugador.transform.position, currentObjective.transform.position) > jugador.GetComponent<DroneInterface>().GetFiringRange())
+                    {
+                        agente.destination = currentObjective.transform.position;
+                    }
+                    else
+                    {
+                        if (!currentObjective.GetComponent<CommonInterface>().isDestroyed())
+                        {
+                            jugador.GetComponent<DroneInterface>().Attack(currentObjective);
+                        }
+
+                    }
+
                 }
                 else
                 {
-                    if (!currentObjective.GetComponent<CommonInterface>().isDestroyed())
-                    {
-                        jugador.GetComponent<DroneInterface>().Attack(currentObjective);
-                    }
-                    
+                    currentObjective = null;
+                    isAttacking = false;
                 }
-
             }
-            else {
-                currentObjective = null;
-                isAttacking = false;
-            }
-            
-
         }
 
-        //jugador.transform.LookAt(agente.nextPosition);
     }
 }
