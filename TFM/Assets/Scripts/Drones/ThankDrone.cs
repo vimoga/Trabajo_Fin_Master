@@ -11,6 +11,9 @@ public class ThankDrone : MonoBehaviour,DroneInterface
 
     public float firerate = 5f;
 
+    // Distance the turret can aim and fire from
+    public float firingRange = 30;
+
     // Gameobjects need to control rotation and aiming
     public GameObject tnk_turret;
 
@@ -19,20 +22,24 @@ public class ThankDrone : MonoBehaviour,DroneInterface
 
     private GameObject tnk_enemy;
 
-    // Used to start and stop the turret firing
-    private bool canFire = false;
-
     private AudioSource audioSource;
 
     private float currentFireRate = 0;
 
     private bool isCaptured = false;
 
-
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Set the firing range distance
+        this.GetComponent<SphereCollider>().radius = firingRange;
+
+        audioSource = GetComponent<AudioSource>();
+
+        if (gameObject.tag == "Player" || gameObject.tag == "Player_Drone") {
+            isCaptured = true;
+        }
+        //audioSource.Stop();
     }
 
 
@@ -63,11 +70,12 @@ public class ThankDrone : MonoBehaviour,DroneInterface
         {
             if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
             {
-                canFire = false;
                 tnk_enemy = null;
             }
         }
-        
+
+        //fix
+        //tnk_turret.transform.rotation = gameObject.transform.rotation;
 
     }
 
@@ -82,29 +90,75 @@ public class ThankDrone : MonoBehaviour,DroneInterface
             if (tnk_enemy == null)
             {
                 tnk_enemy = other.gameObject;
-
             }
             else
             {
                 if (Vector3.Distance(tnk_enemy.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
                 {
-
                     tnk_enemy = other.gameObject;
                 }
             }
-
-            canFire = true;
         }
     }
 
     public void Attack(GameObject enemy)
     {
-        throw new System.NotImplementedException();
+        //fix
+        //tnk_turret.transform.LookAt(enemy.transform);
+        gameObject.transform.LookAt(enemy.transform);
+
+        if ((currentFireRate > firerate))
+        {
+            if (enemy)
+            {
+                enemy.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
+            }
+
+            currentFireRate = 0;
+
+        }
+
+        // start particle system 
+        if (!muzzelFlash.isPlaying)
+        {
+            muzzelFlash.Play();
+            audioSource.PlayOneShot(shootSound,1);
+        }
+    }
+
+    public void SetCaptured(bool isCaptured)
+    {
+        this.isCaptured = isCaptured;
+    }
+
+    public bool GetCaptured()
+    {
+        return isCaptured;
+    }
+
+    public float GetFiringRange()
+    {
+        return firingRange;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!isCaptured && tnk_enemy != null) {
+            if (!AuxiliarOpereations.IsDestroyed(tnk_enemy))
+            {
+                if (!tnk_enemy.GetComponent<CommonInterface>().isDestroyed())
+                {
+                    Attack(tnk_enemy);
+                }
+                
+            }
+            else {
+                tnk_enemy = null;
+            }           
+        }
+
+        currentFireRate += Time.deltaTime;
     }
+    
 }

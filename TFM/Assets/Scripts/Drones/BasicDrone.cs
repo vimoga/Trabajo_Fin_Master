@@ -6,9 +6,8 @@ using UnityEngine;
 /// <summary>
 /// Basic behaviour of the drones
 /// </summary>
-public class BasicDrone : MonoBehaviour
+public class BasicDrone : MonoBehaviour, CommonInterface
 {
-
 
     /// <summary>
     /// life of the structure
@@ -52,6 +51,12 @@ public class BasicDrone : MonoBehaviour
         life -= damage;
         Debug.Log("Drone hitted: " + life);
     }
+
+    bool CommonInterface.isDestroyed()
+    {
+        return isDestroyed;
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -97,4 +102,6 @@ public class BasicDrone : MonoBehaviour
         }
         
     }
+
+    
 }

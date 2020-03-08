@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,6 +20,10 @@ public class PlayerMovement : MonoBehaviour
     /// Agente del NavMesh del jugador
     /// </summary>
     private NavMeshAgent agente;
+
+    private bool isAttacking = false;
+
+    private GameObject currentObjective;
 
     // Start is called before the first frame update
     void Start()
@@ -52,14 +57,18 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(MousePosition(), out hit))
         {
 
-           GameObject auxiliar = hit.transform.gameObject;
-           if (auxiliar.tag.Equals("Player_Drone"))
-           {
+            GameObject auxiliar = hit.transform.gameObject;
+            //change drone
+            if (auxiliar.tag.Equals("Player_Drone"))
+            {
                 GameObject.FindGameObjectWithTag("Player").tag = "Player_Drone";
                 auxiliar.tag = "Player";
 
                 jugador = auxiliar;
                 agente = auxiliar.GetComponent<NavMeshAgent>();
+            } else if (auxiliar.tag.Equals("Enemy") || auxiliar.tag.Equals("Enemy_Structure")) {      
+                currentObjective = auxiliar;
+                isAttacking = true;
             }
 
         }
@@ -87,6 +96,32 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             RightClicked();
+        }
+
+        if (isAttacking)
+        {
+            if (!AuxiliarOpereations.IsDestroyed(currentObjective))
+            {
+                if (Vector3.Distance(jugador.transform.position, currentObjective.transform.position) > jugador.GetComponent<DroneInterface>().GetFiringRange())
+                {
+                    agente.destination = currentObjective.transform.position;
+                }
+                else
+                {
+                    if (!currentObjective.GetComponent<CommonInterface>().isDestroyed())
+                    {
+                        jugador.GetComponent<DroneInterface>().Attack(currentObjective);
+                    }
+                    
+                }
+
+            }
+            else {
+                currentObjective = null;
+                isAttacking = false;
+            }
+            
+
         }
 
         //jugador.transform.LookAt(agente.nextPosition);

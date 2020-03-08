@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 
 /// </summary>
-public class AA_Gun : MonoBehaviour
+public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
 {
 
     /// <summary>
@@ -33,12 +33,18 @@ public class AA_Gun : MonoBehaviour
     /// </summary>
     public GameObject missile;
 
-
     public float missileSpeed = 5f;
 
     public float missileDamage = 25f;
 
     private GameObject enemy;
+
+    /// <summary>
+    /// effect played when the estructure are destroyed
+    /// </summary>
+    public GameObject explosion;
+
+    private bool isDestroyed = false;
 
 
     // Start is called before the first frame update
@@ -60,7 +66,7 @@ public class AA_Gun : MonoBehaviour
     /// <summary>
     /// gestiona el comportamiento de un disparo del arma
     /// </summary>
-    private void Shoot()
+    public void Attack()
     {
         currentFireRate = 0;
 
@@ -72,43 +78,85 @@ public class AA_Gun : MonoBehaviour
         GameObject.Instantiate(missile, barrel.transform.position, barrel.transform.rotation);
     }
 
-    public void OnTriggerEnter(Collider col)
+    // Detect an Enemy, aim and fire
+    void OnTriggerEnter(Collider other)
     {
-        if (col.gameObject.tag == "Player") {
-            enemy = col.gameObject;
-        }
-
+        OnTriggerBehaviour(other);
     }
 
-    public void OnTriggerStay(Collider col)
+    // keep firing
+    void OnTriggerStay(Collider other)
     {
-        if (col.gameObject.tag == "Player")
+        OnTriggerBehaviour(other);
+    }
+
+
+    // Stop firing
+    void OnTriggerExit(Collider other)
+    {
+        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
         {
-            enemy = col.gameObject;
+            enemy = null;
         }
     }
 
-    public void OnTriggerExit(Collider col)
+    /// <summary>
+    /// custom function to avoid code duplicity on colliders
+    /// </summary>
+    /// <param name="other">object collided</param>
+    void OnTriggerBehaviour(Collider other)
     {
-        enemy = null;
+        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
+        {
+            if (enemy == null)
+            {
+                enemy = other.gameObject;
+
+            }
+            else
+            {
+                if (Vector3.Distance(enemy.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
+                {
+                    enemy = other.gameObject;
+                }
+            }
+        }
+    }
+
+    bool CommonInterface.isDestroyed()
+    {
+        return isDestroyed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (life > 0)
+        if (!isDestroyed)
         {
+            if (life > 0)
+            {
 
-            if (enemy) { 
-                currentFireRate += Time.deltaTime;
-
-                if ((currentFireRate > timeBetweenShoots))
+                if (!AuxiliarOpereations.IsDestroyed(enemy))
                 {
-                    Shoot();
+                    currentFireRate += Time.deltaTime;
+
+                    if ((currentFireRate > timeBetweenShoots))
+                    {
+                        Attack();
+                    }
+                }
+                else {
+                    enemy = null;
                 }
             }
-  
+            else
+            {
+                explosion.SetActive(true);
+                Object.Destroy(gameObject, 2.0f);
+                isDestroyed = true;
+            }
         }
     }
+
+    
 }

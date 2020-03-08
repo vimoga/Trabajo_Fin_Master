@@ -5,4 +5,7 @@ using UnityEngine;
 public interface DroneInterface
 {
     void Attack(GameObject enemy);
+    void SetCaptured(bool isCaptured);
+    bool GetCaptured();
+    float GetFiringRange();
 }

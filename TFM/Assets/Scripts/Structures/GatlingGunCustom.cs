@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GatlingGunCustom : MonoBehaviour
+public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces, CommonInterface
 {
     // target the gun will aim at
     Transform go_target;
@@ -56,25 +56,7 @@ public class GatlingGunCustom : MonoBehaviour
         audioSource.Stop();
     }
 
-    void Update()
-    {
-        if (!isDestroyed)
-        {
-
-            if (life > 0)
-            {
-                AimAndFire();
-            }
-            else
-            {
-                explosion.SetActive(true);
-
-                audioSource.Stop();
-                Object.Destroy(gameObject, 2.0f);
-                isDestroyed = true;
-            }
-        }
-    }
+   
 
     void OnDrawGizmosSelected()
     {
@@ -86,9 +68,7 @@ public class GatlingGunCustom : MonoBehaviour
     // Detect an Enemy, aim and fire
     void OnTriggerEnter(Collider other)
     {
-
         OnTriggerBehaviour(other);
-
     }
 
     // keep firing
@@ -143,7 +123,7 @@ public class GatlingGunCustom : MonoBehaviour
         Debug.Log("Gatling Gun hitted: " + life);
     }
 
-    void AimAndFire()
+    public void Attack()
     {
         // Gun barrel rotation
         go_barrel.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
@@ -161,14 +141,14 @@ public class GatlingGunCustom : MonoBehaviour
             go_baseRotation.transform.LookAt(baseTargetPostition);
             go_GunBody.transform.LookAt(gunBodyTargetPostition);
 
-            currentFireRate += Time.deltaTime;
-
             if ((currentFireRate > firerate))
             {
                 if (enemy)
                 {
                     enemy.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
                 }
+
+                currentFireRate = 0;
                 
             }
             
@@ -190,6 +170,47 @@ public class GatlingGunCustom : MonoBehaviour
             {
                 audioSource.Stop();
                 muzzelFlash.Stop();
+            }
+        }
+    }
+
+    bool CommonInterface.isDestroyed()
+    {
+        return isDestroyed;
+    }
+
+    void Update()
+    {
+        if (!isDestroyed)
+        {
+
+            if (life > 0)
+            {
+
+                if (!AuxiliarOpereations.IsDestroyed(enemy))
+                {
+                    currentFireRate += Time.deltaTime;
+
+                    if ((currentFireRate > firerate))
+                    {
+                        Attack();
+                    }
+                }
+                else
+                {
+                    enemy = null;
+                }
+
+
+                Attack();
+            }
+            else
+            {
+                explosion.SetActive(true);
+
+                audioSource.Stop();
+                Object.Destroy(gameObject, 2.0f);
+                isDestroyed = true;
             }
         }
     }
