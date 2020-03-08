@@ -86,22 +86,50 @@ public class GatlingGunCustom : MonoBehaviour
     // Detect an Enemy, aim and fire
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
-        {
-            go_target = other.transform;
-            canFire = true;
-        }
+
+        OnTriggerBehaviour(other);
 
     }
+
+    // keep firing
+    void OnTriggerStay(Collider other)
+    {
+        OnTriggerBehaviour(other);
+    }
+
+    
     // Stop firing
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
         {
             canFire = false;
-        }
-        else {
-            enemy = other.gameObject;
+            go_target = null;
+        }      
+    }
+
+    /// <summary>
+    /// custom function to avoid code duplicity on colliders
+    /// </summary>
+    /// <param name="other">object collided</param>
+    void OnTriggerBehaviour(Collider other)
+    {
+        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
+        {
+            if (go_target == null)
+            {
+                go_target = other.transform;
+
+            }
+            else
+            {
+                if (Vector3.Distance(go_target.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
+                {
+                    go_target = other.transform;
+                }
+            }
+
+            canFire = true;
         }
     }
 

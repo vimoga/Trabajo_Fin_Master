@@ -32,11 +32,11 @@ public class PlayerMovement : MonoBehaviour
     {
 
         //Obtencion del punto donde a clickado el jugador
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit = new RaycastHit();
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(MousePosition(), out hit))
         {
 
             //indicamos al agente que su destino es el punto marcado
@@ -45,6 +45,33 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+
+    void RightClicked() {
+        RaycastHit hit = new RaycastHit();
+
+        if (Physics.Raycast(MousePosition(), out hit))
+        {
+
+           GameObject auxiliar = hit.transform.gameObject;
+           if (auxiliar.tag.Equals("Player_Drone"))
+           {
+                GameObject.FindGameObjectWithTag("Player").tag = "Player_Drone";
+                auxiliar.tag = "Player";
+
+                jugador = auxiliar;
+                agente = auxiliar.GetComponent<NavMeshAgent>();
+            }
+
+        }
+    }
+
+    /// <summary>
+    /// Obtencion del punto donde a clickado el jugador
+    /// </summary>
+    /// <returns>punto donde a clickado el jugador</returns>
+    Ray MousePosition() {
+        return Camera.main.ScreenPointToRay(Input.mousePosition);
+    } 
 
 
     // Update is called once per frame
@@ -56,6 +83,12 @@ public class PlayerMovement : MonoBehaviour
             Clicked();
         }
 
-        jugador.transform.LookAt(agente.nextPosition);
+        //detección del input del jugador
+        if (Input.GetMouseButtonDown(1))
+        {
+            RightClicked();
+        }
+
+        //jugador.transform.LookAt(agente.nextPosition);
     }
 }
