@@ -9302,7 +9302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3318263651368665470}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.013, y: -0.056, z: -0.024}
+  m_LocalPosition: {x: -0.03, y: -0.02, z: 0.1175}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8951352511585154797}
@@ -33314,6 +33314,7 @@ MonoBehaviour:
   firingRange: 1.5
   missile: {fileID: 7459252645901394141, guid: e4c0730182e952048a3997ceb8685b33, type: 3}
   missileSpeed: 10
+  missileLauncher: {fileID: 3318263651368665470}
 --- !u!82 &8985707193075396320
 AudioSource:
   m_ObjectHideFlags: 0

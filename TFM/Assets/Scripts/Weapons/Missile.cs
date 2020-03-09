@@ -8,6 +8,7 @@ using UnityEngine;
 public class Missile : MonoBehaviour
 {
 
+  
     /// <summary>
     /// objective of the missile
     /// </summary>
@@ -27,6 +28,7 @@ public class Missile : MonoBehaviour
     /// explosion sound
     /// </summary>
     public AudioClip explosionSound;
+
 
     private AudioSource audioSource;
 
@@ -49,10 +51,10 @@ public class Missile : MonoBehaviour
     public void CollisionDetected(GameObject childInpact)
     {
         //si colisiona con un enemigo se le resta a la vida la fuerza del inpacto
-        if (childInpact.tag == "Player" || childInpact.tag == "Player_Drone" )
+        /*if (childInpact.tag == "Player" || childInpact.tag == "Player_Drone" )
         {
             childInpact.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
-        }
+        }*/
     }
 
     //add explosion effect
@@ -93,6 +95,7 @@ public class Missile : MonoBehaviour
                 // Check if the position of the cube and sphere are approximately equal.
                 if (Vector3.Distance(transform.position, target.position) < 0.001f)
                 {
+                    enemy.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
                     Explode();
                 }
             }

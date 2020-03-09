@@ -8,7 +8,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
 
     public float firerate = 1.0f;
 
-    // Distance the turret can aim and fire from
+    // Distance the drone can aim and fire from
     public float firingRange = 1.5f;
 
     /// <summary>
@@ -18,7 +18,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
 
     public float missileSpeed = 10f;
 
-    private GameObject missileLauncher;
+    public GameObject missileLauncher;
 
     private GameObject airDroneEnemy;
 
@@ -106,7 +106,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
             currentFireRate = 0;
 
             Missile shootMissile = missile.GetComponent<Missile>();
-            shootMissile.enemy = airDroneEnemy;
+            shootMissile.enemy = enemy;
             shootMissile.speed = missileSpeed;
             shootMissile.damage = damage;
 

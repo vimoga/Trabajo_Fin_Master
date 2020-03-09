@@ -23,4 +23,27 @@ public static class AuxiliarOperations
     {
         return (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Enemy_Structure") && !other.isTrigger;
     }
+
+    public static string getAllies(string tag)
+    {
+        string allies = "";
+        switch (tag)
+        {
+            case "Enemy":
+                allies = "Enemy_Structure";
+                break;
+            case "Enemy_Structure":
+                allies = "Enemy";
+                break;
+            case "Player_Drone":
+                allies = "Player_Structure";
+                break;
+            case "Player_Structure":
+                allies = "Player_Drone";
+                break;
+
+        }
+
+        return allies;
+    }
 }
