@@ -1,4 +1,35 @@
 Base path: 'C:/Program Files/Unity/Hub/Editor/2019.3.2f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2019.3.2f1/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
 Cmd: compileComputeKernel
-  api=4 insize=2953 outsize=375 ok=1
+  api=4 insize=15840 outsize=10500 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=9415 outsize=4294 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=8070 outsize=6014 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=17620 outsize=8154 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=12535 outsize=819 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=857 outsize=578 ok=1
+Cmd: compileComputeKernel
+  error: 2 plat 4 at VolumetricLighting.compute(224): 'ComputeShadowColor': no matching 2 parameter function
+  api=4 insize=36538 outsize=0 ok=0
+Cmd: compileComputeKernel
+  api=4 insize=7918 outsize=1857 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=2905 outsize=1865 ok=1
+Cmd: compileComputeKernel
+  api=4 insize=25900 outsize=14181 ok=1
+Cmd: compileComputeKernel
+  error: 2 plat 4 at Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/SurfaceShading.hlsl(97): 'ComputeShadowColor': no matching 2 parameter function
+  api=4 insize=15603 outsize=0 ok=0
+Cmd: compileComputeKernel
+  error: 2 plat 4 at Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/SurfaceShading.hlsl(97): 'ComputeShadowColor': no matching 2 parameter function
+  api=4 insize=15603 outsize=0 ok=0
+Cmd: compileComputeKernel
+  error: 2 plat 4 at Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/SurfaceShading.hlsl(97): 'ComputeShadowColor': no matching 2 parameter function
+  api=4 insize=15603 outsize=0 ok=0
+Cmd: compileComputeKernel
+  error: 2 plat 4 at Packages/com.unity.render-pipelines.high-definition/Runtime/Lighting/SurfaceShading.hlsl(97): 'ComputeShadowColor': no matching 2 parameter function
+  api=4 insize=15603 outsize=0 ok=0

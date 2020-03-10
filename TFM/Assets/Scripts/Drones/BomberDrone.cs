@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BomberDrone : MonoBehaviour, DroneInterface
 {
@@ -122,7 +123,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
 
     public float GetFiringRange()
     {
-        return firingRange;
+        return 0;
     }
 
     // Update is called once per frame
@@ -134,9 +135,13 @@ public class BomberDrone : MonoBehaviour, DroneInterface
             {
                 if (!airDroneEnemy.GetComponent<CommonInterface>().isDestroyed())
                 {
-                    Attack(airDroneEnemy);
+                    if (Vector3.Distance(airDroneEnemy.transform.position, gameObject.transform.position) > 2)
+                    {
+                        gameObject.GetComponent<NavMeshAgent>().destination = airDroneEnemy.transform.position;
+                    } else {
+                        Attack(airDroneEnemy);
+                    }                    
                 }
-
             }
             else
             {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 
 /// <summary>
 /// Basic behaviour of the drones
@@ -29,11 +29,20 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     /// </summary>
     public GameObject explosion;
 
+    /// <summary>
+    /// effect played when the drones are stuned
+    /// </summary>
+    public GameObject stuntDamage;
+
     private Rigidbody rb;
 
     private AudioSource audioSource;
 
     private bool isDestroyed = false;
+
+    private bool isStuned = false;
+
+    private float droneSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +50,8 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         rb = GetComponentInChildren<Rigidbody>();
 
         audioSource = GetComponent<AudioSource>();
+
+        droneSpeed = GetComponent<NavMeshAgent>().speed;
     }
 
     /// <summary>
@@ -50,6 +61,20 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     {
         life -= damage;
         Debug.Log("Drone hitted: " + life);
+    }
+
+    public void StuntIn()
+    {
+        isStuned = true;
+        stuntDamage.SetActive(true);
+        GetComponent<NavMeshAgent>().speed = 1;
+    }
+
+    public void StuntOut()
+    {
+        isStuned = false;
+        stuntDamage.SetActive(true);
+        GetComponent<NavMeshAgent>().speed = droneSpeed;
     }
 
     bool CommonInterface.isDestroyed()

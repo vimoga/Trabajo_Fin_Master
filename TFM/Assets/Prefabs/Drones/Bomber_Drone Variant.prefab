@@ -31,7 +31,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924742421943677644}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
@@ -171,9 +171,8 @@ MonoBehaviour:
   damage: 200
   firerate: 6
   firingRange: 120
-  bomb: {fileID: 0}
-  bombLauncher: {fileID: 8663531991617894462, guid: 0012f793aa2747842aaeff8754cfffd5,
-    type: 3}
+  bomb: {fileID: 8663531991617894462, guid: 0012f793aa2747842aaeff8754cfffd5, type: 3}
+  bombLauncher: {fileID: 4874263746362162447}
 --- !u!82 &2175316041824162824
 AudioSource:
   m_ObjectHideFlags: 0
