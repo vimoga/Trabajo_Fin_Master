@@ -14,7 +14,14 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     /// </summary>
     public GameObject PEMEffect;
 
+    /// <summary>
+    /// PEM effect
+    /// </summary>
+    public GameObject PEMWave;
+
     private bool isCaptured = false;
+
+    private enum colliderStatus {enter,stay,exit};
 
     // Start is called before the first frame update
     void Start()
@@ -36,15 +43,18 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         {
             if (AuxiliarOperations.IsPlayer(other))
             {
-                other.transform.gameObject.SendMessage("StuntIn", SendMessageOptions.RequireReceiver);
+                ColliderBehaviour(colliderStatus.enter, other);
             }
         }
         else {
             if (AuxiliarOperations.IsEnemy(other))
             {
-                other.transform.gameObject.SendMessage("StuntIn", SendMessageOptions.RequireReceiver);
+                ColliderBehaviour(colliderStatus.enter, other);
             }
         }
+
+       
+
     }
 
 
@@ -55,13 +65,13 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         {
             if (AuxiliarOperations.IsPlayer(other))
             {
-                other.transform.gameObject.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
+                ColliderBehaviour(colliderStatus.stay, other);
             }
         }
         else {
             if (AuxiliarOperations.IsEnemy(other))
             {
-                other.transform.gameObject.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
+                ColliderBehaviour(colliderStatus.stay, other);
             }
         }
 
@@ -74,16 +84,56 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         {
             if (AuxiliarOperations.IsPlayer(other))
             {
-                other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
+                ColliderBehaviour(colliderStatus.exit, other);
             }
         }
         else
         {
             if (AuxiliarOperations.IsEnemy(other))
             {
-                other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
+                ColliderBehaviour(colliderStatus.exit, other);
             }
         }
+
+       
+    }
+
+    private void ColliderBehaviour(colliderStatus colStatus, Collider other)
+    {
+        switch (colStatus) {
+            case colliderStatus.enter:
+
+                other.transform.gameObject.SendMessage("StuntIn", SendMessageOptions.RequireReceiver);
+                if (!PEMEffect.activeSelf && !PEMWave.activeSelf)
+                {
+                    PEMEffect.SetActive(true);
+                    PEMWave.SetActive(true);
+                }
+
+                break;
+            case colliderStatus.stay:
+
+                other.transform.gameObject.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
+                if (AuxiliarOperations.IsDestroyed(other.transform.gameObject))
+                {
+                    PEMEffect.SetActive(false);
+                    PEMWave.SetActive(false);
+                }
+
+                    break;
+            case colliderStatus.exit:
+
+                other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
+
+                if (PEMEffect.activeSelf && PEMWave.activeSelf)
+                {
+                    PEMEffect.SetActive(false);
+                    PEMWave.SetActive(false);
+                }
+
+                break;
+        }
+
     }
 
     public void SetCaptured(bool isCaptured)

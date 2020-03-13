@@ -10,7 +10,17 @@ public static class AuxiliarOperations
         // and returns null when the object has been destroyed, but 
         // actually the object is still there but has not been cleaned up yet
         // if we test both we can determine if the object has been destroyed.
-        return gameObject == null && !ReferenceEquals(gameObject, null);
+        if (gameObject == null && !ReferenceEquals(gameObject, null)) {
+
+            return true;
+        }
+
+        if (gameObject.GetComponent<BasicDrone>() != null) {
+            return gameObject.GetComponent<BasicDrone>().life <= 0;
+        }
+
+
+        return false;
     }
 
 

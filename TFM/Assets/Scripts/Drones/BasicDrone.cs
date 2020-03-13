@@ -73,7 +73,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public void StuntOut()
     {
         isStuned = false;
-        stuntDamage.SetActive(true);
+        stuntDamage.SetActive(false);
         GetComponent<NavMeshAgent>().speed = droneSpeed;
     }
 

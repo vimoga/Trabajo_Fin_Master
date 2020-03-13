@@ -278,3 +278,7 @@ C:\Users\victo\Documents\Master videojuegos\TFM\TFM\TFM\obj\Debug\Assembly-CShar
 C:\Users\victo\Documents\Master videojuegos\TFM\TFM\TFM\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\victo\Documents\Master videojuegos\TFM\TFM\TFM\obj\Debug\Assembly-CSharp.dll
 C:\Users\victo\Documents\Master videojuegos\TFM\TFM\TFM\obj\Debug\Assembly-CSharp.pdb
+C:\Users\victo\Documents\Master videojuegos\TFM\TFM\TFM\Temp\bin\Debug\Unity.Postprocessing.Editor.dll
+C:\Users\victo\Documents\Master videojuegos\TFM\TFM\TFM\Temp\bin\Debug\Unity.Postprocessing.Runtime.dll
+C:\Users\victo\Documents\Master videojuegos\TFM\TFM\TFM\Temp\bin\Debug\Unity.Postprocessing.Editor.pdb
+C:\Users\victo\Documents\Master videojuegos\TFM\TFM\TFM\Temp\bin\Debug\Unity.Postprocessing.Runtime.pdb
