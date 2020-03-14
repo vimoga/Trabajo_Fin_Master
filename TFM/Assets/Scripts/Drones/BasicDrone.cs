@@ -10,9 +10,19 @@ public class BasicDrone : MonoBehaviour, CommonInterface
 {
 
     /// <summary>
-    /// life of the structure
+    /// life of the drone
     /// </summary>
     public float life = 100;
+
+    /// <summary>
+    /// cost of capture the drone
+    /// </summary>
+    public float captureCost = 1;
+
+    /// <summary>
+    /// cost of capture the drone
+    /// </summary>
+    private float captureStatus = 0;
 
     /// <summary>
     /// effect played when the drones are damaged
@@ -40,6 +50,8 @@ public class BasicDrone : MonoBehaviour, CommonInterface
 
     private bool isDestroyed = false;
 
+    public bool isCaptured = false;
+
     private bool isStuned = false;
 
     private float droneSpeed;
@@ -52,6 +64,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         audioSource = GetComponent<AudioSource>();
 
         droneSpeed = GetComponent<NavMeshAgent>().speed;
+
     }
 
     /// <summary>
@@ -61,6 +74,15 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     {
         life -= damage;
         Debug.Log("Drone hitted: " + life);
+    }
+
+    /// <summary>
+    /// Obtenemos curacion y sumamos vida
+    /// </summary>
+    public void Heal(float heal)
+    {
+        life += heal;
+        Debug.Log("Drone healed: " + life);
     }
 
     public void StuntIn()
@@ -77,9 +99,25 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         GetComponent<NavMeshAgent>().speed = droneSpeed;
     }
 
+    public void Capture() {
+        captureStatus +=  (captureCost)*0.5f;
+        
+        if (captureStatus >= 1000)
+        {
+            gameObject.tag = "Player_Drone";
+            isCaptured = true;
+            Debug.Log("Drone captured: " + captureStatus);
+        }
+    }
+
     bool CommonInterface.isDestroyed()
     {
         return isDestroyed;
+    }
+
+    bool CommonInterface.isCaptured()
+    {
+        return isCaptured;
     }
 
 
@@ -120,12 +158,13 @@ public class BasicDrone : MonoBehaviour, CommonInterface
             {
                 explosion.SetActive(true);
                 isDestroyed = true;
+                isCaptured = true;
                 audioSource.Stop();
                 rb.useGravity = true;
                 Object.Destroy(gameObject, 2.0f);
             }
         }
-        
+
     }
 
     

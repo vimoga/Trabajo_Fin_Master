@@ -50,7 +50,7 @@ public class Bomb : MonoBehaviour
         if (isExploted)
         {
             if (!affectedObjectives.Contains(other.transform.position)) {
-                if (other.tag.Equals(enemy.tag) || other.tag.Equals(AuxiliarOperations.getAllies(enemy.tag)))
+                if (other.tag.Equals(enemy.tag) || other.tag.Equals(AuxiliarOperations.GetAllies(enemy.tag)))
                 {
                     other.transform.gameObject.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
                     affectedObjectives.Add(other.transform.position);

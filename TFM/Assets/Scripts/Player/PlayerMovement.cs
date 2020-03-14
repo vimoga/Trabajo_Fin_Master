@@ -44,7 +44,8 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(MousePosition(), out hit))
         {
             //indicamos al agente que su destino es el punto marcado
-            agente.destination = hit.point;           
+            agente.destination = hit.point;
+            isAttacking = false;
         }
 
     }
@@ -100,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (isAttacking)
             {
-                if (!AuxiliarOperations.IsDestroyed(currentObjective))
+                if (!AuxiliarOperations.IsDestroyed(currentObjective) && !AuxiliarOperations.IsCaptured(currentObjective))
                 {
                     if (Vector3.Distance(jugador.transform.position, currentObjective.transform.position) > jugador.GetComponent<DroneInterface>().GetFiringRange())
                     {

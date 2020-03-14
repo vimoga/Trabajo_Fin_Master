@@ -214,4 +214,19 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces, CommonInter
             }
         }
     }
+
+    public void SetCaptured(bool isCaptured)
+    {
+       
+    }
+
+    public bool GetCaptured()
+    {
+        return false;
+    }
+
+    public bool isCaptured()
+    {
+        return false;
+    }
 }

@@ -159,5 +159,17 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
         }
     }
 
-    
+    public void SetCaptured(bool isCaptured)
+    {
+    }
+
+    public bool GetCaptured()
+    {
+        return false;
+    }
+
+    public bool isCaptured()
+    {
+        return false;
+    }
 }

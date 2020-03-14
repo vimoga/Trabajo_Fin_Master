@@ -23,6 +23,16 @@ public static class AuxiliarOperations
         return false;
     }
 
+    public static bool IsCaptured(this GameObject gameObject)
+    {
+       
+        if (gameObject.GetComponent<BasicDrone>() != null)
+        {
+            return gameObject.GetComponent<BasicDrone>().isCaptured;
+        }
+        return false;
+    }
+
 
     public static bool IsPlayer(this Collider other)
     {
@@ -34,7 +44,7 @@ public static class AuxiliarOperations
         return (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Enemy_Structure") && !other.isTrigger;
     }
 
-    public static string getAllies(string tag)
+    public static string GetAllies(string tag)
     {
         string allies = "";
         switch (tag)
@@ -55,5 +65,10 @@ public static class AuxiliarOperations
         }
 
         return allies;
+    }
+
+    public static bool EnemyIsAerial(GameObject player, GameObject enemy)
+    {
+        return (enemy.transform.position.y - player.transform.position.y) >= GameConstants.SEPARATION_TERRAIN_AERIAL;
     }
 }
