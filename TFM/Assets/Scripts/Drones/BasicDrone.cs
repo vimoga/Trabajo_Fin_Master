@@ -15,14 +15,19 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public float life = 100;
 
     /// <summary>
-    /// cost of capture the drone
+    /// max life of the drone
     /// </summary>
-    public float captureCost = 1;
+    public float maxHeath;
 
     /// <summary>
     /// cost of capture the drone
     /// </summary>
-    private float captureStatus = 0;
+    public float captureCost = 1f;
+
+    /// <summary>
+    /// cost of capture the drone
+    /// </summary>
+    private float captureStatus = 0f;
 
     /// <summary>
     /// effect played when the drones are damaged
@@ -44,6 +49,12 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     /// </summary>
     public GameObject stuntDamage;
 
+    public SimpleHealthBar healthBar;
+
+    public SimpleHealthBar captureBar;
+
+    public Canvas uiInfo;
+
     private Rigidbody rb;
 
     private AudioSource audioSource;
@@ -56,6 +67,10 @@ public class BasicDrone : MonoBehaviour, CommonInterface
 
     private float droneSpeed;
 
+    
+
+  
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +80,14 @@ public class BasicDrone : MonoBehaviour, CommonInterface
 
         droneSpeed = GetComponent<NavMeshAgent>().speed;
 
+        if (maxHeath == 0)
+        {
+            maxHeath = life;
+        }
+        else {
+            healthBar.UpdateBar(life, maxHeath);
+        }
+        
     }
 
     /// <summary>
@@ -74,6 +97,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     {
         life -= damage;
         Debug.Log("Drone hitted: " + life);
+        healthBar.UpdateBar(life, maxHeath);
     }
 
     /// <summary>
@@ -83,6 +107,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     {
         life += heal;
         Debug.Log("Drone healed: " + life);
+        healthBar.UpdateBar(life, maxHeath);
     }
 
     public void StuntIn()
@@ -101,8 +126,8 @@ public class BasicDrone : MonoBehaviour, CommonInterface
 
     public void Capture() {
         captureStatus +=  (captureCost)*0.5f;
-        
-        if (captureStatus >= 1000)
+        captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
+        if (captureStatus >= GameConstants.CAPTURE_LIMIT)
         {
             gameObject.tag = "Player_Drone";
             isCaptured = true;
@@ -167,5 +192,11 @@ public class BasicDrone : MonoBehaviour, CommonInterface
 
     }
 
-    
-}
+    void LateUpdate()
+    {
+        uiInfo.transform.LookAt(Camera.main.transform);
+        uiInfo.transform.Rotate(new Vector3(0,180,0));
+    }
+
+
+    }
