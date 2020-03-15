@@ -31,10 +31,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         // Set the firing range distance
         this.GetComponent<SphereCollider>().radius = firingRange;
 
-        if (gameObject.tag == "Player" || gameObject.tag == "Player_Drone")
-        {
-            isCaptured = true;
-        }
+        isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
 
@@ -150,6 +147,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         }
 
         currentFireRate += Time.deltaTime;
+        isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 }
 

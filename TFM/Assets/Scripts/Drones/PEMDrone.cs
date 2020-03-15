@@ -29,10 +29,7 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         // Set the firing range distance
         this.GetComponent<SphereCollider>().radius = firingRange;
 
-        if (gameObject.tag == "Player" || gameObject.tag == "Player_Drone")
-        {
-            isCaptured = true;
-        }
+        isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
 
@@ -52,9 +49,6 @@ public class PEMDrone : MonoBehaviour, DroneInterface
                 ColliderBehaviour(colliderStatus.enter, other);
             }
         }
-
-       
-
     }
 
 
@@ -93,9 +87,7 @@ public class PEMDrone : MonoBehaviour, DroneInterface
             {
                 ColliderBehaviour(colliderStatus.exit, other);
             }
-        }
-
-       
+        }     
     }
 
     private void ColliderBehaviour(colliderStatus colStatus, Collider other)
@@ -133,7 +125,6 @@ public class PEMDrone : MonoBehaviour, DroneInterface
 
                 break;
         }
-
     }
 
     public void SetCaptured(bool isCaptured)
@@ -159,7 +150,7 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     // Update is called once per frame
     void Update()
     {
-
+        isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
     
