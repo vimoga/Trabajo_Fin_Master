@@ -34,10 +34,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
         // Set the firing range distance
         this.GetComponent<SphereCollider>().radius = firingRange;
 
-        if (gameObject.tag == "Player" || gameObject.tag == "Player_Drone")
-        {
-            isCaptured = true;
-        }
+        isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
 
@@ -148,6 +145,8 @@ public class AirDrone : MonoBehaviour, DroneInterface
                 airDroneEnemy = null;
             }
         }
+
+        isCaptured = GetComponent<BasicDrone>().isCaptured;
 
         currentFireRate += Time.deltaTime;
     }

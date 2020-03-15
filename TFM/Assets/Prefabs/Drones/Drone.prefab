@@ -33981,7 +33981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 60
-  maxHeath: 0
+  maxHeath: 60
   captureCost: 1
   smallDamage: {fileID: 362493659913590685}
   greatDamage: {fileID: 361100701209766336}
@@ -33990,7 +33990,7 @@ MonoBehaviour:
   healthBar: {fileID: 8923713602728108969}
   captureBar: {fileID: 8923713602728149391}
   uiInfo: {fileID: 8923713601275398344}
-  isCaptured: 0
+  isCaptured: 1
 --- !u!82 &6451521947506053486
 AudioSource:
   m_ObjectHideFlags: 0

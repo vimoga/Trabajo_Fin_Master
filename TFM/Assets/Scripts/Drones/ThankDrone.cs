@@ -36,9 +36,7 @@ public class ThankDrone : MonoBehaviour,DroneInterface
 
         audioSource = GetComponent<AudioSource>();
 
-        if (gameObject.tag == "Player" || gameObject.tag == "Player_Drone") {
-            isCaptured = true;
-        }
+        isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
 
@@ -115,14 +113,13 @@ public class ThankDrone : MonoBehaviour,DroneInterface
 
             currentFireRate = 0;
 
-        }
-
-        // start particle system 
-        if (!muzzelFlash.isPlaying)
-        {
-            muzzelFlash.Play();
-            audioSource.PlayOneShot(shootSound,1);
-        }
+            // start particle system 
+            if (!muzzelFlash.isPlaying)
+            {
+                muzzelFlash.Play();
+                audioSource.PlayOneShot(shootSound, 1);
+            }
+        }       
     }
 
     public void SetCaptured(bool isCaptured)
@@ -156,6 +153,8 @@ public class ThankDrone : MonoBehaviour,DroneInterface
                 tnk_enemy = null;
             }           
         }
+
+        isCaptured = GetComponent<BasicDrone>().isCaptured;
 
         currentFireRate += Time.deltaTime;
     }
