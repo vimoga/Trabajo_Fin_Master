@@ -96,8 +96,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
     public void Attack(GameObject enemy)
     {
         gameObject.transform.LookAt(enemy.transform);
-
-       
+     
         if ((currentFireRate > firerate))
         {
             if (enemy)
@@ -114,8 +113,6 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                 audioSource.PlayOneShot(shootSound, 1);
             }
         }
-
-        
     }
 
     
