@@ -5,13 +5,8 @@ using UnityEngine;
 /// <summary>
 /// 
 /// </summary>
-public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
+public class AA_Gun : MonoBehaviour, StructuresInterfaces
 {
-
-    /// <summary>
-    /// life of the structure
-    /// </summary>
-    public float life = 100;
 
     /// <summary>
     /// time between shoots
@@ -39,11 +34,6 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
 
     private GameObject aa_Enemy;
 
-    /// <summary>
-    /// effect played when the estructure are destroyed
-    /// </summary>
-    public GameObject explosion;
-
     private bool isDestroyed = false;
 
 
@@ -51,15 +41,6 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
     void Start()
     {
         
-    }
-
-    /// <summary>
-    /// Obtenemos el disparo y restamos vida
-    /// </summary>
-    public void Impact(float damage)
-    {
-        life -= damage;
-        Debug.Log("Enemy hitted: " + life);
     }
 
 
@@ -123,39 +104,23 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces, CommonInterface
         }
     }
 
-    bool CommonInterface.isDestroyed()
-    {
-        return isDestroyed;
-    }
+
 
     // Update is called once per frame
     void Update()
-    {
-        if (!isDestroyed)
+    {   
+        if (!AuxiliarOperations.IsDestroyed(aa_Enemy))
+        //if (aa_Enemy != null)
         {
-            if (life > 0)
-            {
+            currentFireRate += Time.deltaTime;
 
-                //if (!AuxiliarOperations.IsDestroyed(aa_Enemy))
-                if (aa_Enemy != null)
-                {
-                    currentFireRate += Time.deltaTime;
-
-                    if ((currentFireRate > timeBetweenShoots))
-                    {
-                        Attack();
-                    }
-                }
-                else {
-                    aa_Enemy = null;
-                }
-            }
-            else
+            if ((currentFireRate > timeBetweenShoots))
             {
-                explosion.SetActive(true);
-                Object.Destroy(gameObject, 2.0f);
-                isDestroyed = true;
+                Attack();
             }
+        }
+        else {
+            aa_Enemy = null;
         }
     }
 
