@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces, CommonInterface
+public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
 {
     // target the gun will aim at
     Transform go_target;
@@ -20,22 +20,7 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces, CommonInter
     public float firingRange;
 
     // Particle system for the muzzel flash
-    public ParticleSystem muzzelFlash;
-
-    // Used to start and stop the turret firing
-    bool canFire = false;
-
-    /// <summary>
-    /// life of the structure
-    /// </summary>
-    public float life = 100;
-
-    /// <summary>
-    /// effect played when the drones are destroyed
-    /// </summary>
-    public GameObject explosion;
-
-    private bool isDestroyed = false;
+    public GameObject muzzelFlash;
 
     private AudioSource audioSource;
 
@@ -55,8 +40,6 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces, CommonInter
         audioSource = GetComponent<AudioSource>();
         audioSource.Stop();
     }
-
-   
 
     void OnDrawGizmosSelected()
     {
@@ -81,10 +64,12 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces, CommonInter
     // Stop firing
     void OnTriggerExit(Collider other)
     {
-        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
+        if (AuxiliarOperations.IsPlayer(other))
         {
-            canFire = false;
+            
             go_target = null;
+            enemy = null;
+            CancelAttack();
         }      
     }
 
@@ -94,33 +79,22 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces, CommonInter
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
+        if (AuxiliarOperations.IsPlayer(other))
         {
             if (go_target == null)
             {
                 go_target = other.transform;
-
+                enemy = other.gameObject;
             }
             else
             {
                 if (Vector3.Distance(go_target.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
                 {
                     go_target = other.transform;
+                    enemy = other.gameObject;
                 }
             }
-
-            canFire = true;
         }
-    }
-
-
-    /// <summary>
-    /// Obtenemos el disparo y restamos vida
-    /// </summary>
-    public void Impact(float damage)
-    {
-        life -= damage;
-        Debug.Log("Gatling Gun hitted: " + life);
     }
 
     public void Attack()
@@ -128,91 +102,63 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces, CommonInter
         // Gun barrel rotation
         go_barrel.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
 
-        // if can fire turret activates
-        if (canFire)
+        // start rotation
+        currentRotationSpeed = barrelRotationSpeed;
+
+        // aim at enemy
+        Vector3 baseTargetPostition = new Vector3(go_target.position.x, this.transform.position.y, go_target.position.z);
+        Vector3 gunBodyTargetPostition = new Vector3(go_target.position.x, go_target.position.y, go_target.position.z);
+
+        go_baseRotation.transform.LookAt(baseTargetPostition);
+        go_GunBody.transform.LookAt(gunBodyTargetPostition);
+
+        if ((currentFireRate > firerate))
         {
-            // start rotation
-            currentRotationSpeed = barrelRotationSpeed;
+            if (enemy)
+            {
+                enemy.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
+            }
+               
+            // start particle system 
+            if (!muzzelFlash.activeSelf)
+            {
+                muzzelFlash.SetActive(true);
+                audioSource.Play();
+            }
 
-            // aim at enemy
-            Vector3 baseTargetPostition = new Vector3(go_target.position.x, this.transform.position.y, go_target.position.z);
-            Vector3 gunBodyTargetPostition = new Vector3(go_target.position.x, go_target.position.y, go_target.position.z);
+            currentFireRate = 0;
+        }                
+    }
 
-            go_baseRotation.transform.LookAt(baseTargetPostition);
-            go_GunBody.transform.LookAt(gunBodyTargetPostition);
+    private void CancelAttack()
+    {
+        // slow down barrel rotation and stop
+        currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, 0, 10 * Time.deltaTime);
 
+        // stop the particle system
+        if (muzzelFlash.activeSelf)
+        {
+            muzzelFlash.SetActive(false);
+            audioSource.Stop();
+        }
+    }
+
+    void Update()
+    {      
+        if (!AuxiliarOperations.IsDestroyed(enemy))
+        {
             if ((currentFireRate > firerate))
             {
-                if (enemy)
-                {
-                    enemy.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
-                }
-
-                currentFireRate = 0;
-                
-            }
-            
-
-            // start particle system 
-            if (!muzzelFlash.isPlaying)
-            {
-                muzzelFlash.Play();
-                audioSource.Play();
+                Attack();
             }
         }
         else
         {
-            // slow down barrel rotation and stop
-            currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, 0, 10 * Time.deltaTime);
-
-            // stop the particle system
-            if (muzzelFlash.isPlaying)
-            {
-                audioSource.Stop();
-                muzzelFlash.Stop();
-            }
+            enemy = null;
+            CancelAttack();
         }
-    }
 
-    bool CommonInterface.isDestroyed()
-    {
-        return isDestroyed;
-    }
-
-    void Update()
-    {
-        if (!isDestroyed)
-        {
-
-            if (life > 0)
-            {
-
-                if (!AuxiliarOperations.IsDestroyed(enemy))
-                {
-                    currentFireRate += Time.deltaTime;
-
-                    if ((currentFireRate > firerate))
-                    {
-                        Attack();
-                    }
-                }
-                else
-                {
-                    enemy = null;
-                }
-
-
-                Attack();
-            }
-            else
-            {
-                explosion.SetActive(true);
-
-                audioSource.Stop();
-                Object.Destroy(gameObject, 2.0f);
-                isDestroyed = true;
-            }
-        }
+        currentFireRate += Time.deltaTime;
     }
 
     public void SetCaptured(bool isCaptured)

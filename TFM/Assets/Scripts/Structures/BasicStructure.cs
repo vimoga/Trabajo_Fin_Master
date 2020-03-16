@@ -93,9 +93,9 @@ public class BasicStructure : MonoBehaviour,CommonInterface
             captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
             if (captureStatus >= GameConstants.CAPTURE_LIMIT)
             {
-                gameObject.tag = "Player_Drone";
+                gameObject.tag = "Player_Structure";
                 isCaptured = true;
-                Debug.Log("Drone captured: " + captureStatus);
+                Debug.Log("Player_Structure captured: ");
             }
         }       
     }

@@ -109,19 +109,23 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
     // Update is called once per frame
     void Update()
     {   
-        if (!AuxiliarOperations.IsDestroyed(aa_Enemy))
-        //if (aa_Enemy != null)
+        
+        if (aa_Enemy != null)
         {
-            currentFireRate += Time.deltaTime;
-
-            if ((currentFireRate > timeBetweenShoots))
+            
+            if (!AuxiliarOperations.IsDestroyed(aa_Enemy))
             {
-                Attack();
+                if ((currentFireRate > timeBetweenShoots))
+                {
+                    Attack();
+                }
+            } else {
+                aa_Enemy = null;
             }
+            
         }
-        else {
-            aa_Enemy = null;
-        }
+
+        currentFireRate += Time.deltaTime;
     }
 
     public void SetCaptured(bool isCaptured)

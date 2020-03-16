@@ -14,12 +14,17 @@ public static class AuxiliarOperations
 
             return true;
         }
+        if (gameObject == null)
+        {
 
-        if (gameObject.GetComponent<BasicDrone>() != null) {
-            return gameObject.GetComponent<BasicDrone>().life <= 0;
+            return true;
         }
 
-
+        if (gameObject.GetComponent<BasicDrone>() != null)
+        {
+            return gameObject.GetComponent<BasicDrone>().life <= 0;
+        }
+        
         return false;
     }
 
