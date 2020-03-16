@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Barracs_test/Barracs_test.unity
+- path: Assets/Scenes/PEMTower_test/PEMTower_Demo.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
