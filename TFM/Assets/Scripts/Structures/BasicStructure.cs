@@ -63,6 +63,8 @@ public class BasicStructure : MonoBehaviour,CommonInterface
         {
             healthBar.UpdateBar(life, maxHeath);
         }
+
+        isCaptured = AuxiliarOperations.IsCaptured(gameObject.tag);
     }
 
     /// <summary>

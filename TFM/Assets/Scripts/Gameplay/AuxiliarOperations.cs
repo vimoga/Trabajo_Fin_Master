@@ -72,6 +72,29 @@ public static class AuxiliarOperations
         return allies;
     }
 
+    public static bool IsCaptured(string tag)
+    {
+        bool captured = false;
+        switch (tag)
+        {
+            case "Enemy":
+                captured = false;
+                break;
+            case "Enemy_Structure":
+                captured = false;
+                break;
+            case "Player_Drone":
+                captured = true;
+                break;
+            case "Player_Structure":
+                captured = true;
+                break;
+
+        }
+
+        return captured;
+    }
+
     public static bool EnemyIsAerial(GameObject player, GameObject enemy)
     {
         return (enemy.transform.position.y - player.transform.position.y) >= GameConstants.SEPARATION_TERRAIN_AERIAL;

@@ -144,7 +144,7 @@ public class PEMDrone : MonoBehaviour, DroneInterface
 
     public void Attack(GameObject enemy)
     {
- 
+        gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().destination = enemy.transform.position;
     }
 
     // Update is called once per frame
