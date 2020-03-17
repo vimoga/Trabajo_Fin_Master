@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/PEMTower_test/PEMTower_Demo.unity
+- path: Assets/Scenes/Radar_test/Radar_test.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
