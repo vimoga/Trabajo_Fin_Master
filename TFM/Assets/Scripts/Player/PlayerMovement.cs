@@ -1,8 +1,10 @@
-﻿using System;
+﻿using RTS_Cam;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 /// <summary>
 /// Clase encargada de implementar el movimento del jugador 
@@ -25,11 +27,18 @@ public class PlayerMovement : MonoBehaviour
 
     private GameObject currentObjective;
 
+    private GameObject currentSetection;
+
+    private RTS_Camera camera;
+
     // Start is called before the first frame update
     void Start()
     {
         jugador = GameObject.FindGameObjectWithTag("Player");
+        currentSetection = AuxiliarOperations.GetChildObject(jugador.transform, "Selection");
         agente = jugador.GetComponent<NavMeshAgent>();
+        camera = GameObject.FindObjectOfType<RTS_Camera>();
+        camera.SetTarget(jugador.transform);
     }
 
 
@@ -48,6 +57,24 @@ public class PlayerMovement : MonoBehaviour
             isAttacking = false;
         }
 
+        
+            GameObject auxiliar = hit.transform.gameObject;
+            if (AuxiliarOperations.IsPlayableObject(hit.transform.gameObject.tag))
+            {
+                if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+                {
+                    Unselect();
+                }
+                Select(auxiliar);
+            }
+            else {
+               if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+                {
+                    Unselect();
+                }
+            }
+
+
     }
 
     void RightClicked() {
@@ -57,17 +84,30 @@ public class PlayerMovement : MonoBehaviour
         {
 
             GameObject auxiliar = hit.transform.gameObject;
-            //change drone
-            if (auxiliar.tag.Equals("Player_Drone"))
-            {
-                GameObject.FindGameObjectWithTag("Player").tag = "Player_Drone";
-                auxiliar.tag = "Player";
 
-                jugador = auxiliar;
-                agente = auxiliar.GetComponent<NavMeshAgent>();
-            } else if (auxiliar.tag.Equals("Enemy") || auxiliar.tag.Equals("Enemy_Structure")) {      
-                currentObjective = auxiliar;
-                isAttacking = true;
+            if (AuxiliarOperations.IsPlayableObject(hit.transform.gameObject.tag))
+            {
+                //change drone
+                if (auxiliar.tag.Equals("Player_Drone"))
+                {
+                    GameObject.FindGameObjectWithTag("Player").tag = "Player_Drone";
+                    auxiliar.tag = "Player";
+
+                    jugador = auxiliar;
+                    agente = auxiliar.GetComponent<NavMeshAgent>();
+                    camera.SetTarget(jugador.transform);
+                }
+                else if (auxiliar.tag.Equals("Enemy") || auxiliar.tag.Equals("Enemy_Structure"))
+                {
+                    currentObjective = auxiliar;
+                    isAttacking = true;
+                }
+
+                if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+                {
+                    Unselect();
+                }
+                Select(auxiliar);
             }
 
         }
@@ -79,7 +119,43 @@ public class PlayerMovement : MonoBehaviour
     /// <returns>punto donde a clickado el jugador</returns>
     Ray MousePosition() {
         return Camera.main.ScreenPointToRay(Input.mousePosition);
-    } 
+    }
+
+    private void Select(GameObject toSelect)
+    {
+        GameObject selection=AuxiliarOperations.GetChildObject(toSelect.transform, "Selection");
+        if (selection)
+        {
+            selection.SetActive(true);
+            RawImage rawImage = selection.GetComponent<RawImage>();
+            switch (toSelect.gameObject.tag)
+            {
+                case "Enemy":
+                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy.png");
+                    break;
+                case "Enemy_Structure":
+                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy.png");
+                    break;
+                case "Player_Drone":
+                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy.png");
+                    break;
+                case "Player_Structure":
+                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy.png");
+                    break;
+                case "Player":
+                    rawImage.texture = (Texture)Resources.Load("Textures/selection.png");
+                    break;
+            }
+        }
+            
+    }
+
+    private void Unselect()
+    {
+        currentSetection.SetActive(false);
+    }
+
+
 
 
     // Update is called once per frame
@@ -115,7 +191,6 @@ public class PlayerMovement : MonoBehaviour
                         }
 
                     }
-
                 }
                 else
                 {

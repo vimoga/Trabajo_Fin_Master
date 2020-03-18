@@ -13,6 +13,7 @@ TagManager:
   - Test
   - Missile
   - Player_Drone
+  - Selection
   layers:
   - Default
   - TransparentFX

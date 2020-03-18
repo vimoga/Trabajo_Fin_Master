@@ -72,6 +72,11 @@ public static class AuxiliarOperations
         return allies;
     }
 
+    public static bool IsPlayableObject(string tag)
+    {
+        return tag == "Enemy" || tag == "Enemy_Structure" || tag == "Player_Drone" || tag == "Player_Structure";
+    }
+
     public static bool IsCaptured(string tag)
     {
         bool captured = false;
@@ -98,5 +103,24 @@ public static class AuxiliarOperations
     public static bool EnemyIsAerial(GameObject player, GameObject enemy)
     {
         return (enemy.transform.position.y - player.transform.position.y) >= GameConstants.SEPARATION_TERRAIN_AERIAL;
+    }
+
+    public static GameObject GetChildObject(Transform parent, string _tag)
+    {
+        GameObject find = null;
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+            if (child.tag == _tag)
+            {
+                find = child.gameObject;
+            }
+            if (child.childCount > 0)
+            {
+                find = GetChildObject(child, _tag);
+            }
+        }
+
+        return find;
     }
 }
