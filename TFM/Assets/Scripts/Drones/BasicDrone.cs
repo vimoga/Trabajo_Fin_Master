@@ -25,6 +25,16 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public float captureCost = 1f;
 
     /// <summary>
+    /// current ammo of the drone
+    /// </summary>
+    public int ammo = -1;
+
+    /// <summary>
+    /// max ammo of the drone
+    /// </summary>
+    public int maxAmmo = -1;
+
+    /// <summary>
     /// cost of capture the drone
     /// </summary>
     private float captureStatus = 0f;
@@ -119,6 +129,18 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         isStuned = false;
         stuntDamage.SetActive(false);
         GetComponent<NavMeshAgent>().speed = droneSpeed;
+    }
+
+    public void AmmoIn(int ammo)
+    {
+        this.ammo += ammo;
+        Debug.Log("Drone get ammo: " + this.ammo);
+    }
+
+    public void AmmoOut()
+    {
+        this.ammo -= ammo;
+        Debug.Log("Drone loss ammo: " + this.ammo);
     }
 
     public void Capture() {

@@ -131,21 +131,23 @@ public class PlayerMovement : MonoBehaviour
             switch (toSelect.gameObject.tag)
             {
                 case "Enemy":
-                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy.png");
+                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy");
                     break;
                 case "Enemy_Structure":
-                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy.png");
+                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy");
                     break;
                 case "Player_Drone":
-                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy.png");
+                    rawImage.texture = (Texture)Resources.Load("Textures/selection_friend");
                     break;
                 case "Player_Structure":
-                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy.png");
+                    rawImage.texture = (Texture)Resources.Load("Textures/selection_friend");
                     break;
                 case "Player":
-                    rawImage.texture = (Texture)Resources.Load("Textures/selection.png");
+                    rawImage.texture = (Texture)Resources.Load("Textures/selection");
                     break;
             }
+
+            currentSetection = selection;
         }
             
     }

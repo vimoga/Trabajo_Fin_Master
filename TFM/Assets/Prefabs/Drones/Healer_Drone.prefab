@@ -19142,6 +19142,8 @@ MonoBehaviour:
   life: 50
   maxHeath: 50
   captureCost: 1
+  ammo: -1
+  maxAmmo: -1
   smallDamage: {fileID: 6973671264229036130}
   greatDamage: {fileID: 6972205738809054843}
   explosion: {fileID: 2137200449571596287}
