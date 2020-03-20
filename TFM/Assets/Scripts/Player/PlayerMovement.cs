@@ -187,9 +187,13 @@ public class PlayerMovement : MonoBehaviour
                     }
                     else
                     {
+
                         if (!currentObjective.GetComponent<CommonInterface>().isDestroyed())
                         {
-                            jugador.GetComponent<DroneInterface>().Attack(currentObjective);
+                            if (jugador.GetComponent<BasicDrone>().maxAmmo != GameConstants.INFINITE_AMMO && jugador.GetComponent<BasicDrone>().ammo > 0) {
+                                jugador.GetComponent<DroneInterface>().Attack(currentObjective);
+                            }
+                            
                         }
 
                     }

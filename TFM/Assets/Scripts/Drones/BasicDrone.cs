@@ -97,7 +97,10 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         else {
             healthBar.UpdateBar(life, maxHeath);
         }
-        
+
+        setAmmoCount();
+
+
     }
 
     /// <summary>
@@ -138,12 +141,14 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     {
         this.ammo += ammo;
         Debug.Log("Drone get ammo: " + this.ammo);
+        setAmmoCount();
     }
 
     public void AmmoOut()
     {
-        this.ammo -= ammo;
+        this.ammo -= 1;
         Debug.Log("Drone loss ammo: " + this.ammo);
+        setAmmoCount();
     }
 
     public void Capture() {
@@ -154,6 +159,15 @@ public class BasicDrone : MonoBehaviour, CommonInterface
             gameObject.tag = "Player_Drone";
             isCaptured = true;
             Debug.Log("Drone captured: " + captureStatus);
+        }
+    }
+
+
+
+    private void setAmmoCount() {
+        if (maxAmmo != -1)
+        {
+            ammoCount.text = ammo.ToString();
         }
     }
 
@@ -176,29 +190,24 @@ public class BasicDrone : MonoBehaviour, CommonInterface
             if (life > 0)
             {
 
-                if (life <= (life/2))
+                if (life <= (maxHeath / 2))
                 {
 
-                    if (life <= (life/3))
+                    if (life <= (maxHeath / 3))
                     {
-                        if (!greatDamage.activeSelf)
-                        {
                             greatDamage.SetActive(true);
                             smallDamage.SetActive(false);
-                        }
                     }
                     else
-                    {
-                        if (!smallDamage.activeSelf)
-                        {
+                    {                       
                             smallDamage.SetActive(true);
                             greatDamage.SetActive(false);
-                        }
                     }
                 }
                 else
                 {
                     smallDamage.SetActive(false);
+                    greatDamage.SetActive(false);
                 }
             }
             else

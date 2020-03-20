@@ -94,12 +94,28 @@ public class AirDrone : MonoBehaviour, DroneInterface
 
     public void Attack(GameObject enemy)
     {
+        if (!isCaptured)
+        {
+            MakeAttack(enemy);
+        }
+        else
+        {
+            if (gameObject.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO)
+            {
+                MakeAttack(enemy);
+            }
+            else {
+                if (gameObject.GetComponent<BasicDrone>().ammo >0) {
+                    MakeAttack(enemy);
+                }
+            }
+        }    
+    }
 
-        //gameObject.transform.LookAt(enemy.transform);
-
+    private void MakeAttack(GameObject enemy)
+    {
         if ((currentFireRate > firerate))
         {
-            
             currentFireRate = 0;
 
             Missile shootMissile = missile.GetComponent<Missile>();
@@ -109,7 +125,11 @@ public class AirDrone : MonoBehaviour, DroneInterface
 
             GameObject.Instantiate(missile, missileLauncher.transform.position, missileLauncher.transform.rotation);
 
-        }       
+            if (isCaptured)
+            {
+                gameObject.GetComponent<BasicDrone>().AmmoOut();
+            }
+        }
     }
 
     public void SetCaptured(bool isCaptured)

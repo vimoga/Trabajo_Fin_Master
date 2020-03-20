@@ -100,6 +100,29 @@ public class ThankDrone : MonoBehaviour,DroneInterface
 
     public void Attack(GameObject enemy)
     {
+
+        if (!isCaptured)
+        {
+            MakeAttack(enemy);
+        }
+        else
+        {
+            if (gameObject.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO)
+            {
+                MakeAttack(enemy);
+            }
+            else
+            {
+                if (gameObject.GetComponent<BasicDrone>().ammo > 0 && enemy.transform.position.y < GameConstants.SEPARATION_TERRAIN_AERIAL)
+                {
+                    MakeAttack(enemy);
+                }
+            }
+        }             
+    }
+
+    private void MakeAttack(GameObject enemy)
+    {
         //fix
         //tnk_turret.transform.LookAt(enemy.transform);
         gameObject.transform.LookAt(enemy.transform);
@@ -119,7 +142,7 @@ public class ThankDrone : MonoBehaviour,DroneInterface
                 muzzelFlash.Play();
                 audioSource.PlayOneShot(shootSound, 1);
             }
-        }       
+        }
     }
 
     public void SetCaptured(bool isCaptured)
@@ -141,7 +164,7 @@ public class ThankDrone : MonoBehaviour,DroneInterface
     void Update()
     {
         if (!isCaptured && tnk_enemy != null) {
-            if (!AuxiliarOperations.IsDestroyed(tnk_enemy))
+            if (!AuxiliarOperations.IsDestroyed(tnk_enemy) && tnk_enemy.transform.position.y < GameConstants.SEPARATION_TERRAIN_AERIAL)
             {
                 if (!tnk_enemy.GetComponent<CommonInterface>().isDestroyed())
                 {
