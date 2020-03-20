@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 /// <summary>
 /// Basic behaviour of the drones
@@ -62,6 +63,8 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public SimpleHealthBar healthBar;
 
     public SimpleHealthBar captureBar;
+
+    public Text ammoCount;
 
     public Canvas uiInfo;
 

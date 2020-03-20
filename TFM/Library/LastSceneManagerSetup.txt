@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Selection_test/Selection_test.unity
+- path: Assets/Scenes/Drone_test/Drone_test.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

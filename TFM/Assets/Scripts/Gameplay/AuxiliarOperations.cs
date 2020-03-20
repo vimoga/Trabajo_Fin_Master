@@ -24,7 +24,12 @@ public static class AuxiliarOperations
         {
             return gameObject.GetComponent<BasicDrone>().life <= 0;
         }
-        
+
+        if (gameObject.GetComponent<BasicStructure>() != null)
+        {
+            return gameObject.GetComponent<BasicStructure>().life <= 0;
+        }
+
         return false;
     }
 
@@ -35,6 +40,13 @@ public static class AuxiliarOperations
         {
             return gameObject.GetComponent<BasicDrone>().isCaptured;
         }
+
+        if (gameObject.GetComponent<BasicStructure>() != null)
+        {
+            return gameObject.GetComponent<BasicStructure>().isCaptured;
+        }
+
+
         return false;
     }
 
