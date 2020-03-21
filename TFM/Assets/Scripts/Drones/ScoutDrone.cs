@@ -31,7 +31,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
     void Start()
     {
         // Set the firing range distance
-        this.GetComponent<SphereCollider>().radius = firingRange;
+        this.GetComponentInChildren<SphereCollider>().radius = firingRange;
 
         audioSource = GetComponent<AudioSource>();
 
@@ -95,8 +95,34 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
 
     public void Attack(GameObject enemy)
     {
-        gameObject.transform.LookAt(enemy.transform);
-     
+        if (!isCaptured)
+        {
+            MakeAttack(enemy);
+        }
+        else
+        {
+            if (gameObject.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO)
+            {
+                MakeAttack(enemy);
+            }
+            else
+            {
+                if (gameObject.GetComponent<BasicDrone>().ammo > 0)
+                {
+                    MakeAttack(enemy);
+                }
+            }
+        }      
+    }
+
+    private void MakeAttack(GameObject enemy)
+    {
+        Vector3 targetPostition = new Vector3(enemy.transform.position.x, gameObject.transform.position.y, enemy.transform.position.z);
+        //gameObject.transform.LookAt(enemy.transform);
+        gameObject.transform.LookAt(targetPostition);
+        muzzelFlash.gameObject.transform.LookAt(enemy.transform);
+
+
         if ((currentFireRate > firerate))
         {
             if (enemy)
@@ -114,8 +140,6 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
             }
         }
     }
-
-    
 
     public void SetCaptured(bool isCaptured)
     {
@@ -143,7 +167,6 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                 {
                     Attack(scout_enemy);
                 }
-
             }
             else
             {

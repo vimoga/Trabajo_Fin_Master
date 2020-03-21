@@ -113,7 +113,7 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
         if (aa_Enemy != null)
         {
             
-            if (!AuxiliarOperations.IsDestroyed(aa_Enemy) && aa_Enemy.transform.position.y>=GameConstants.SEPARATION_TERRAIN_AERIAL)
+            if (!AuxiliarOperations.IsDestroyed(aa_Enemy) && AuxiliarOperations.EnemyIsAerial(gameObject,aa_Enemy))
             {
                 if ((currentFireRate > timeBetweenShoots))
                 {

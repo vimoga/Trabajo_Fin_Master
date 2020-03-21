@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/TankDrone_test/TankDrone_test.unity
+- path: Assets/Scenes/Scout_test/Scout_test.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

@@ -63,18 +63,31 @@ public class PlayerMovement : MonoBehaviour
             GameObject auxiliar = hit.transform.gameObject;
             if (AuxiliarOperations.IsPlayableObject(hit.transform.gameObject.tag))
             {
-                if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+                if (!AuxiliarOperations.IsDestroyed(currentSetection))
                 {
-                    Unselect();
+                    if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+                    {
+                        Unselect();
+                    }
+                    Select(auxiliar);
                 }
-                Select(auxiliar);
+                else {
+                    
+                }              
             }
             else
             {
-                if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+                if (!AuxiliarOperations.IsDestroyed(currentSetection))
                 {
-                    Unselect();
+                    if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+                    {
+                        Unselect();
+                    }
                 }
+                else {
+                    currentSetection = null;
+                }
+                
             }
         }
       

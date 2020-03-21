@@ -24,7 +24,7 @@ public class MainDrone : MonoBehaviour, DroneInterface
     void Start()
     {
         // Set the firing range distance
-        this.GetComponent<SphereCollider>().radius = firingRange;
+        this.GetComponentInChildren<SphereCollider>().radius = firingRange;
 
         audioSource = GetComponent<AudioSource>();
 

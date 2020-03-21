@@ -32,7 +32,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
     void Start()
     {
         // Set the firing range distance
-        this.GetComponent<SphereCollider>().radius = firingRange;
+        this.GetComponentInChildren<SphereCollider>().radius = firingRange;
 
         audioSource = GetComponent<AudioSource>();
 
@@ -113,7 +113,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
             }
             else
             {
-                if (gameObject.GetComponent<BasicDrone>().ammo > 0 && enemy.transform.position.y < GameConstants.SEPARATION_TERRAIN_AERIAL)
+                if (gameObject.GetComponent<BasicDrone>().ammo > 0 && !AuxiliarOperations.EnemyIsAerial(gameObject, enemy))
                 {
                     MakeAttack(enemy);
                 }
@@ -164,7 +164,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
     void Update()
     {
         if (!isCaptured && tnk_enemy != null) {
-            if (!AuxiliarOperations.IsDestroyed(tnk_enemy) && tnk_enemy.transform.position.y < GameConstants.SEPARATION_TERRAIN_AERIAL)
+            if (!AuxiliarOperations.IsDestroyed(tnk_enemy) && !AuxiliarOperations.EnemyIsAerial(gameObject, tnk_enemy))
             {
                 if (!tnk_enemy.GetComponent<CommonInterface>().isDestroyed())
                 {
