@@ -572,7 +572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a9256cdb178f2849b90902560493bb6, type: 3}
---- !u!1001 &1651948119805079988
+--- !u!1001 &7062664771899506893
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -638,11 +638,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AA_Gun Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 4234254970643778166, guid: c3a0fb85f1f3afc42b9229355d62d429,
-        type: 3}
-      propertyPath: missileDamage
-      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3a0fb85f1f3afc42b9229355d62d429, type: 3}

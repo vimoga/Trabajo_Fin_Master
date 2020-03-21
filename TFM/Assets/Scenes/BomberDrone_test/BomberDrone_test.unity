@@ -494,7 +494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c46f0b18ffc7ac44cac105175ae40598, type: 3}
---- !u!1001 &4874263746663791628
+--- !u!1001 &2108603453701750339
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -560,31 +560,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bomber_Drone Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 924742421943677644, guid: 9e809e53c1235aa48b4e99f41bc8765c,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 1500031778548936707, guid: 9e809e53c1235aa48b4e99f41bc8765c,
-        type: 3}
-      propertyPath: m_AgentTypeID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1500031778548936707, guid: 9e809e53c1235aa48b4e99f41bc8765c,
-        type: 3}
-      propertyPath: m_BaseOffset
-      value: 26.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 1500031778548936707, guid: 9e809e53c1235aa48b4e99f41bc8765c,
-        type: 3}
-      propertyPath: m_Height
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1500031778548936707, guid: 9e809e53c1235aa48b4e99f41bc8765c,
-        type: 3}
-      propertyPath: m_AutoBraking
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e809e53c1235aa48b4e99f41bc8765c, type: 3}

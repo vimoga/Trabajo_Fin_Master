@@ -36,7 +36,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
 
 
     // Detect an Enemy, aim and fire
-    void OnTriggerEnter(Collider other)
+    void DroneInterface.OnTriggerEnter(Collider other)
     {
         if (!isCaptured)
         {
@@ -46,7 +46,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
 
 
     // keep firing
-    void OnTriggerStay(Collider other)
+    void DroneInterface.OnTriggerStay(Collider other)
     {
         if (!isCaptured)
         {
@@ -56,7 +56,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
     }
 
     // Stop firing
-    void OnTriggerExit(Collider other)
+    void DroneInterface.OnTriggerExit(Collider other)
     {
         if (!isCaptured)
         {

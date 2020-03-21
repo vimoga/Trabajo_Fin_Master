@@ -217,6 +217,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
                 isCaptured = true;
                 audioSource.Stop();
                 rb.useGravity = true;
+                rb.isKinematic = false;
                 Object.Destroy(gameObject, 2.0f);
             }
         }

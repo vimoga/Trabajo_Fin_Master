@@ -8,4 +8,7 @@ public interface DroneInterface
     void SetCaptured(bool isCaptured);
     bool GetCaptured();
     float GetFiringRange();
+    void OnTriggerEnter(Collider other);
+    void OnTriggerStay(Collider other);
+    void OnTriggerExit(Collider other);
 }

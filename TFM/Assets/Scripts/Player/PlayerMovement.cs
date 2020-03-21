@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     private RTS_Camera camera;
 
+    private Ray raytest;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,18 +48,18 @@ public class PlayerMovement : MonoBehaviour
     {
 
         //Obtencion del punto donde a clickado el jugador
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
         RaycastHit hit = new RaycastHit();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(MousePosition(), out hit))
+        raytest = ray;
+        
+
+        if (Physics.Raycast(ray, out hit))
         {
             //indicamos al agente que su destino es el punto marcado
             agente.destination = hit.point;
             isAttacking = false;
-        }
 
-        
             GameObject auxiliar = hit.transform.gameObject;
             if (AuxiliarOperations.IsPlayableObject(hit.transform.gameObject.tag))
             {
@@ -67,20 +69,24 @@ public class PlayerMovement : MonoBehaviour
                 }
                 Select(auxiliar);
             }
-            else {
-               if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+            else
+            {
+                if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
                 {
                     Unselect();
                 }
             }
-
-
+        }
+      
+        
     }
 
     void RightClicked() {
+        //Obtencion del punto donde a clickado el jugador
         RaycastHit hit = new RaycastHit();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(MousePosition(), out hit))
+        if (Physics.Raycast(ray, out hit))
         {
 
             GameObject auxiliar = hit.transform.gameObject;
@@ -109,7 +115,6 @@ public class PlayerMovement : MonoBehaviour
                 }
                 Select(auxiliar);
             }
-
         }
     }
 
@@ -205,6 +210,13 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+
+
+       
+
+        Debug.DrawLine(raytest.origin, raytest.origin + raytest.direction * 100, Color.red);
+        Debug.DrawRay(raytest.origin, raytest.direction * 100, Color.red);
+        
 
     }
 }

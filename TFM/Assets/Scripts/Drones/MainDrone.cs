@@ -56,6 +56,20 @@ public class MainDrone : MonoBehaviour, DroneInterface
         return firingRange;
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -69,4 +83,5 @@ public class MainDrone : MonoBehaviour, DroneInterface
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
+    
 }

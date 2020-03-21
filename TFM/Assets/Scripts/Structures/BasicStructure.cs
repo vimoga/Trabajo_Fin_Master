@@ -120,24 +120,18 @@ public class BasicStructure : MonoBehaviour,CommonInterface
         {
             if (life > 0)
             {
-                if (life <= (life / 2))
+                if (life <= (maxHeath / 2))
                 {
 
-                    if (life <= (life / 3))
+                    if (life <= (maxHeath / 3))
                     {
-                        if (!greatDamage.activeSelf)
-                        {
                             greatDamage.SetActive(true);
                             smallDamage.SetActive(false);
-                        }
                     }
                     else
                     {
-                        if (!smallDamage.activeSelf)
-                        {
                             smallDamage.SetActive(true);
                             greatDamage.SetActive(false);
-                        }
                     }
                 }
                 else

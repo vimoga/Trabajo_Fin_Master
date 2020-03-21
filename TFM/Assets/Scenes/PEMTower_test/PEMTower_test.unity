@@ -2043,7 +2043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9687d9f72565c1b4f863ef4a31e1efec, type: 3}
---- !u!1001 &3397805837747709715
+--- !u!1001 &6971308360753265332
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2055,11 +2055,6 @@ PrefabInstance:
       propertyPath: energyGenerator
       value: 
       objectReference: {fileID: 430431888155695298}
-    - target: {fileID: 2495892240625031446, guid: 94f9cf4a3239a994bbf3aa3241e2cd73,
-        type: 3}
-      propertyPath: firingRange
-      value: 85
-      objectReference: {fileID: 0}
     - target: {fileID: 5575989820005802658, guid: 94f9cf4a3239a994bbf3aa3241e2cd73,
         type: 3}
       propertyPath: m_Name

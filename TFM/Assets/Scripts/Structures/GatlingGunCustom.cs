@@ -35,7 +35,7 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
     void Start()
     {
         // Set the firing range distance
-        this.GetComponent<SphereCollider>().radius = firingRange;
+        this.GetComponentInChildren<SphereCollider>().radius = firingRange;
 
         audioSource = GetComponent<AudioSource>();
         audioSource.Stop();
@@ -49,20 +49,20 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
     }
 
     // Detect an Enemy, aim and fire
-    void OnTriggerEnter(Collider other)
+    void StructuresInterfaces.OnTriggerEnter(Collider other)
     {
         OnTriggerBehaviour(other);
     }
 
     // keep firing
-    void OnTriggerStay(Collider other)
+    void StructuresInterfaces.OnTriggerStay(Collider other)
     {
         OnTriggerBehaviour(other);
     }
 
     
     // Stop firing
-    void OnTriggerExit(Collider other)
+    void StructuresInterfaces.OnTriggerExit(Collider other)
     {
         if (AuxiliarOperations.IsPlayer(other))
         {

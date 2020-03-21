@@ -42,7 +42,7 @@ public class Armory : MonoBehaviour, StructuresInterfaces
 
 
     // Detect an player
-    void OnTriggerEnter(Collider other)
+    void StructuresInterfaces.OnTriggerEnter(Collider other)
     {
         if (isCaptured)
         {
@@ -58,7 +58,7 @@ public class Armory : MonoBehaviour, StructuresInterfaces
 
 
     // keep player recovery
-    void OnTriggerStay(Collider other)
+    void StructuresInterfaces.OnTriggerStay(Collider other)
     {
         if (isCaptured)
         {
@@ -74,7 +74,7 @@ public class Armory : MonoBehaviour, StructuresInterfaces
     }
 
     // Stop recovery
-    void OnTriggerExit(Collider other)
+    void StructuresInterfaces.OnTriggerExit(Collider other)
     {
         if (isCaptured)
         {

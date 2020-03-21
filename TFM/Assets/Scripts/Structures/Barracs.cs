@@ -34,7 +34,7 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
 
 
     // Detect an Enemy, aim and fire
-    void OnTriggerEnter(Collider other)
+    void StructuresInterfaces.OnTriggerEnter(Collider other)
     {
         if (isCaptured)
         {
@@ -54,7 +54,7 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
 
 
     // keep firing
-    void OnTriggerStay(Collider other)
+    void StructuresInterfaces.OnTriggerStay(Collider other)
     {
         if (isCaptured)
         {
@@ -74,7 +74,7 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
     }
 
     // Stop firing
-    void OnTriggerExit(Collider other)
+    void StructuresInterfaces.OnTriggerExit(Collider other)
     {
         if (isCaptured)
         {

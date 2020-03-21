@@ -32,7 +32,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
 
 
     // Detect an Enemy, aim and fire
-    void OnTriggerEnter(Collider other)
+    void StructuresInterfaces.OnTriggerEnter(Collider other)
     {
         if (!AuxiliarOperations.IsDestroyed(energyGenerator)) {
             if (AuxiliarOperations.IsPlayer(other))
@@ -45,7 +45,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
 
 
     // keep firing
-    void OnTriggerStay(Collider other)
+    void StructuresInterfaces.OnTriggerStay(Collider other)
     {
         if (!AuxiliarOperations.IsDestroyed(energyGenerator))
         {
@@ -57,7 +57,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
     }
 
     // Stop firing
-    void OnTriggerExit(Collider other)
+    void StructuresInterfaces.OnTriggerExit(Collider other)
     {
         if (!AuxiliarOperations.IsDestroyed(energyGenerator))
         {

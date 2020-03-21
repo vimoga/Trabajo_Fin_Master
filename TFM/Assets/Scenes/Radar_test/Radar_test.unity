@@ -390,7 +390,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &7056873873071610541
+--- !u!1001 &7403989770944117150
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2

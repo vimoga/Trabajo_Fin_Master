@@ -26,20 +26,18 @@ public class AirDrone : MonoBehaviour, DroneInterface
 
     private bool isCaptured = false;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
         // Set the firing range distance
-        this.GetComponent<SphereCollider>().radius = firingRange;
+        this.GetComponentInChildren<SphereCollider>().radius = firingRange;
 
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
 
     // Detect an Enemy, aim and fire
-    void OnTriggerEnter(Collider other)
+    void DroneInterface.OnTriggerEnter(Collider other)
     {
         if (!isCaptured)
         {
@@ -49,7 +47,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
 
 
     // keep firing
-    void OnTriggerStay(Collider other)
+    void DroneInterface.OnTriggerStay(Collider other)
     {
         if (!isCaptured)
         {
@@ -59,7 +57,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
     }
 
     // Stop firing
-    void OnTriggerExit(Collider other)
+    void DroneInterface.OnTriggerExit(Collider other)
     {
         if (!isCaptured)
         {
