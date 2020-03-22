@@ -17,7 +17,7 @@ public class TargetSelector : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        /*if(Input.GetMouseButtonDown(0))
         {
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -28,6 +28,6 @@ public class TargetSelector : MonoBehaviour
                 else
                     cam.ResetTarget();
             }
-        }
+        }*/
     }
 }

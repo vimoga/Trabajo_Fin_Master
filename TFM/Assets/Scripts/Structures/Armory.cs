@@ -35,7 +35,7 @@ public class Armory : MonoBehaviour, StructuresInterfaces
     void Start()
     {
         // Set the firing range distance
-        this.GetComponent<SphereCollider>().radius = firingRange;
+        this.GetComponentInChildren<SphereCollider>().radius = firingRange;
 
         isCaptured = GetComponent<BasicStructure>().isCaptured;
     }
@@ -69,6 +69,7 @@ public class Armory : MonoBehaviour, StructuresInterfaces
         }
         if (isDestroyed)
         {
+
             ColliderBehaviour(colliderStatus.destroyed, other);
         }
     }
@@ -125,6 +126,7 @@ public class Armory : MonoBehaviour, StructuresInterfaces
                                 ammoWave.SetActive(true);
                             }
                         }
+                        currentRecoveryRate = 0;
                     }
                 }
 
@@ -141,7 +143,7 @@ public class Armory : MonoBehaviour, StructuresInterfaces
 
             case colliderStatus.destroyed:
 
-                if (!AuxiliarOperations.IsDestroyed(other.transform.gameObject))
+                if (!AuxiliarOperations.IsDestroyed(other.transform.gameObject) && !other.isTrigger)
                 {
                     other.transform.gameObject.SendMessage("Impact", explosionDamage, SendMessageOptions.RequireReceiver);
                 }

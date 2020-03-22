@@ -138,6 +138,11 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                 muzzelFlash.Play();
                 audioSource.PlayOneShot(shootSound, 1);
             }
+
+            if (isCaptured)
+            {
+                gameObject.GetComponent<BasicDrone>().AmmoOut();
+            }
         }
     }
 

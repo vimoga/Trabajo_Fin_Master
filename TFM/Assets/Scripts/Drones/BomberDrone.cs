@@ -124,6 +124,11 @@ public class BomberDrone : MonoBehaviour, DroneInterface
             shootMissile.damage = damage;
 
             GameObject.Instantiate(bomb, bombLauncher.transform.position, bombLauncher.transform.rotation);
+
+            if (isCaptured)
+            {
+                gameObject.GetComponent<BasicDrone>().AmmoOut();
+            }
         }
     }
 

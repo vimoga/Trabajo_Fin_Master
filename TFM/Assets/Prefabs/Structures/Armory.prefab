@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 1718427507893934341}
   m_Layer: 0
   m_Name: Armory
-  m_TagString: Enemy_Structure
+  m_TagString: Player_Structure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -707,7 +707,7 @@ MonoBehaviour:
   captureBar: {fileID: 4361862602069541249}
   uiInfo: {fileID: 4361862602915301574}
   isCapturable: 1
-  isCaptured: 0
+  isCaptured: 1
 --- !u!114 &1718427507893934340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,8 +721,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoRecovery: 1
-  ammoRecoveryRate: 5
-  firingRange: 25
+  ammoRecoveryRate: 2
+  firingRange: 40
   explosionDamage: 200
   ammoEffect: {fileID: 113289742175845060}
   ammoWave: {fileID: 6561595690334894049}

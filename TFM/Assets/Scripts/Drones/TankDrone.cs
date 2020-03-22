@@ -142,6 +142,11 @@ public class TankDrone : MonoBehaviour,DroneInterface
                 muzzelFlash.Play();
                 audioSource.PlayOneShot(shootSound, 1);
             }
+
+            if (isCaptured)
+            {
+                gameObject.GetComponent<BasicDrone>().AmmoOut();
+            }
         }
     }
 

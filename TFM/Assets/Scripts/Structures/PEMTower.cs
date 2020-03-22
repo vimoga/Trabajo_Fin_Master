@@ -27,7 +27,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
     void Start()
     {
         // Set the firing range distance
-        this.GetComponent<SphereCollider>().radius = firingRange;
+        this.GetComponentInChildren<SphereCollider>().radius = firingRange;
     }
 
 

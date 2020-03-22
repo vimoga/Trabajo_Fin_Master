@@ -35,14 +35,42 @@ public class HealerDrone : MonoBehaviour, DroneInterface
     // Detect an Enemy, aim and fire
     void DroneInterface.OnTriggerEnter(Collider other)
     {
-          OnTriggerBehaviour(other);
+        if (!isCaptured)
+        {
+            if (AuxiliarOperations.IsEnemy(other))
+            {
+                OnTriggerBehaviour(other);
+            }
+        }
+        else
+        {
+            if (AuxiliarOperations.IsPlayer(other))
+            {
+                OnTriggerBehaviour(other);
+            }
+        }
+        //OnTriggerBehaviour(other);
     }
 
 
     // keep firing
     void DroneInterface.OnTriggerStay(Collider other)
     {
-          OnTriggerBehaviour(other);
+        if (!isCaptured)
+        {
+            if (AuxiliarOperations.IsEnemy(other))
+            {
+                OnTriggerBehaviour(other);
+            }
+        }
+        else
+        {
+            if (AuxiliarOperations.IsPlayer(other))
+            {
+                OnTriggerBehaviour(other);
+            }
+        }
+        //OnTriggerBehaviour(other);
     }
 
     // Stop firing

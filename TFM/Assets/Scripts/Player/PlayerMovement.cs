@@ -210,6 +210,7 @@ public class PlayerMovement : MonoBehaviour
                         {
                             if (jugador.GetComponent<BasicDrone>().maxAmmo != GameConstants.INFINITE_AMMO && jugador.GetComponent<BasicDrone>().ammo > 0) {
                                 jugador.GetComponent<DroneInterface>().Attack(currentObjective);
+                                agente.destination = agente.gameObject.transform.position;
                             }
                             
                         }
@@ -224,11 +225,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
-       
-
-        Debug.DrawLine(raytest.origin, raytest.origin + raytest.direction * 100, Color.red);
-        Debug.DrawRay(raytest.origin, raytest.direction * 100, Color.red);
+        /*Debug.DrawLine(raytest.origin, raytest.origin + raytest.direction * 100, Color.red);
+        Debug.DrawRay(raytest.origin, raytest.direction * 100, Color.red);*/
         
 
     }
