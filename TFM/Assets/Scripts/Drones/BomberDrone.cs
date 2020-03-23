@@ -81,7 +81,8 @@ public class BomberDrone : MonoBehaviour, DroneInterface
             }
             else
             {
-                if (Vector3.Distance(airDroneEnemy.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
+                if ((Vector3.Distance(airDroneEnemy.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position)) 
+                    && !AuxiliarOperations.EnemyIsAerial(gameObject, other.transform.gameObject))
                 {
                     airDroneEnemy = other.gameObject;
                 }
@@ -97,7 +98,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         }
         else
         {
-            if (gameObject.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO)
+            if (gameObject.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO && !AuxiliarOperations.EnemyIsAerial(gameObject, enemy))
             {
                 MakeAttack(enemy);
             }
@@ -119,9 +120,9 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         {
             currentFireRate = 0;
 
-            Bomb shootMissile = bomb.GetComponent<Bomb>();
-            shootMissile.enemy = enemy;
-            shootMissile.damage = damage;
+            Bomb bombScript = bomb.GetComponentInChildren<Bomb>();
+            bombScript.enemy = enemy;
+            bombScript.damage = damage;
 
             GameObject.Instantiate(bomb, bombLauncher.transform.position, bombLauncher.transform.rotation);
 
@@ -144,7 +145,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
 
     public float GetFiringRange()
     {
-        return gameObject.GetComponent<NavMeshAgent>().radius+1;
+        return gameObject.GetComponent<NavMeshAgent>().radius+3;
     }
 
     // Update is called once per frame
@@ -156,11 +157,12 @@ public class BomberDrone : MonoBehaviour, DroneInterface
             {
                 if (!airDroneEnemy.GetComponent<CommonInterface>().isDestroyed())
                 {
-                    if (Vector3.Distance(airDroneEnemy.transform.position, gameObject.transform.position) > (gameObject.GetComponent<NavMeshAgent>().radius + 1))
+                    if (Vector3.Distance(airDroneEnemy.transform.position, gameObject.transform.position) > (gameObject.GetComponent<NavMeshAgent>().radius+3))
                     {
                         gameObject.GetComponent<NavMeshAgent>().destination = airDroneEnemy.transform.position;
                     } else {
                         Attack(airDroneEnemy);
+                        gameObject.GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
                     }                    
                 }
             }

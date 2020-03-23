@@ -114,7 +114,14 @@ public static class AuxiliarOperations
 
     public static bool EnemyIsAerial(GameObject player, GameObject enemy)
     {
-        return (enemy.transform.position.y - player.transform.position.y) >= GameConstants.SEPARATION_TERRAIN_AERIAL;
+        //correguir no sirve en escenario real
+        //return (enemy.transform.position.y - player.transform.position.y) >= GameConstants.SEPARATION_TERRAIN_AERIAL;
+        return enemy.transform.position.y >= GameConstants.SEPARATION_TERRAIN_AERIAL;
+    }
+
+    public static bool EnemyIsOnTerrain(GameObject player, GameObject enemy)
+    {
+        return (enemy.transform.position.y - player.transform.position.y) <= GameConstants.SEPARATION_TERRAIN_AERIAL;
     }
 
     public static GameObject GetChildObject(Transform parent, string _tag)

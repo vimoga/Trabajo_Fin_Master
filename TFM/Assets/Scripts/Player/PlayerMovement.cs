@@ -122,9 +122,17 @@ public class PlayerMovement : MonoBehaviour
                     isAttacking = true;
                 }
 
-                if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+
+                if (!AuxiliarOperations.IsDestroyed(currentSetection))
                 {
-                    Unselect();
+                    if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+                    {
+                        Unselect();
+                    }
+                }
+                else
+                {
+                    currentSetection = null;
                 }
                 Select(auxiliar);
             }

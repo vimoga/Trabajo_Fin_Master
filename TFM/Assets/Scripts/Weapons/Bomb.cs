@@ -52,8 +52,12 @@ public class Bomb : MonoBehaviour
             if (!affectedObjectives.Contains(other.transform.position)) {
                 if (other.tag.Equals(enemy.tag) || other.tag.Equals(AuxiliarOperations.GetAllies(enemy.tag)))
                 {
-                    other.transform.gameObject.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
-                    affectedObjectives.Add(other.transform.position);
+                    if (!AuxiliarOperations.EnemyIsAerial(gameObject, other.transform.gameObject))
+                    {
+                        other.transform.gameObject.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
+                        affectedObjectives.Add(other.transform.position);
+                    }
+                    
                 }
             }               
         }
@@ -66,10 +70,10 @@ public class Bomb : MonoBehaviour
         {
             if (child.gameObject.name.Equals("Explosion"))
             {
-                isExploted = true;
+                isExploted = true;         
                 child.gameObject.SetActive(true);
                 audioSource.Stop();
-                Object.Destroy(gameObject, 2.0f);
+                Object.Destroy(gameObject, 1f);
             }
             else
             {
