@@ -818,15 +818,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barracs
       objectReference: {fileID: 0}
-    - target: {fileID: 7093076363726532537, guid: e2bbca59f3f092949931dfe13c814cac,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player_Structure
-      objectReference: {fileID: 0}
-    - target: {fileID: 7638422953975180178, guid: e2bbca59f3f092949931dfe13c814cac,
-        type: 3}
-      propertyPath: life
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2bbca59f3f092949931dfe13c814cac, type: 3}

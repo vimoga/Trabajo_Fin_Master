@@ -33989,7 +33989,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6667869153939462107}
-  m_LocalRotation: {x: 0.041159023, y: 0.9152862, z: -0.022076301, w: 0.40008715}
+  m_LocalRotation: {x: 0.04116161, y: 0.9152866, z: -0.022073044, w: 0.40008622}
   m_LocalPosition: {x: 0, y: 3.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -34072,6 +34072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ab727ed15e26c42b7abd879170158a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Main Drone
+  description: Capture enemy drones ands structures
   life: 60
   maxHeath: 60
   captureCost: 1
@@ -50917,6 +50919,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Selection
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834335707648075274, guid: a6ca16894259f274e8f5d627ddb48c46,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ca16894259f274e8f5d627ddb48c46, type: 3}

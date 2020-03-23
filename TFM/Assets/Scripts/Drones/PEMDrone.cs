@@ -95,24 +95,27 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         switch (colStatus) {
             case colliderStatus.enter:
 
-                other.transform.gameObject.SendMessage("StuntIn", SendMessageOptions.RequireReceiver);
+                /*other.transform.gameObject.SendMessage("StuntIn", SendMessageOptions.RequireReceiver);
                 if (!PEMEffect.activeSelf && !PEMWave.activeSelf)
                 {
                     PEMEffect.SetActive(true);
                     PEMWave.SetActive(true);
-                }
-
+                }*/
+                DealDamage(other.transform.gameObject);
                 break;
             case colliderStatus.stay:
 
-                other.transform.gameObject.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
+                //other.transform.gameObject.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
                 if (AuxiliarOperations.IsDestroyed(other.transform.gameObject))
                 {
                     PEMEffect.SetActive(false);
                     PEMWave.SetActive(false);
                 }
-
-                    break;
+                else {
+                    DealDamage(other.transform.gameObject);
+                }
+                
+                break;
             case colliderStatus.exit:
 
                 other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
@@ -124,6 +127,17 @@ public class PEMDrone : MonoBehaviour, DroneInterface
                 }
 
                 break;
+        }
+    }
+
+    private void DealDamage(GameObject other)
+    {       
+        other.SendMessage("StuntIn", SendMessageOptions.RequireReceiver);
+        other.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
+        if (!PEMEffect.activeSelf && !PEMWave.activeSelf)
+        {
+            PEMEffect.SetActive(true);
+            PEMWave.SetActive(true);
         }
     }
 

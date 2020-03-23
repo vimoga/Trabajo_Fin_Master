@@ -86,7 +86,7 @@ public static class AuxiliarOperations
 
     public static bool IsPlayableObject(string tag)
     {
-        return tag == "Enemy" || tag == "Enemy_Structure" || tag == "Player_Drone" || tag == "Player_Structure";
+        return tag == "Enemy" || tag == "Enemy_Structure" || tag == "Player_Drone" || tag == "Player_Structure" || tag == "Player";
     }
 
     public static bool IsCaptured(string tag)
@@ -99,6 +99,9 @@ public static class AuxiliarOperations
                 break;
             case "Enemy_Structure":
                 captured = false;
+                break;
+            case "Player":
+                captured = true;
                 break;
             case "Player_Drone":
                 captured = true;

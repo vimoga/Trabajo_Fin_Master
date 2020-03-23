@@ -9,6 +9,15 @@ using UnityEngine.UI;
 /// </summary>
 public class BasicDrone : MonoBehaviour, CommonInterface
 {
+    /// <summary>
+    /// name of the drone
+    /// </summary>
+    public string name;
+
+    /// <summary>
+    /// description of the drone
+    /// </summary>
+    public string description;
 
     /// <summary>
     /// life of the drone
@@ -98,9 +107,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
             healthBar.UpdateBar(life, maxHeath);
         }
 
-        setAmmoCount();
+        SetAmmoCount();
 
-
+        isCaptured = AuxiliarOperations.IsCaptured(gameObject.tag);
     }
 
     /// <summary>
@@ -141,14 +150,14 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     {
         this.ammo += ammo;
         Debug.Log("Drone get ammo: " + this.ammo);
-        setAmmoCount();
+        SetAmmoCount();
     }
 
     public void AmmoOut()
     {
         this.ammo -= 1;
         Debug.Log("Drone loss ammo: " + this.ammo);
-        setAmmoCount();
+        SetAmmoCount();
     }
 
     public void Capture() {
@@ -164,7 +173,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
 
 
 
-    private void setAmmoCount() {
+    private void SetAmmoCount() {
         if (maxAmmo != -1)
         {
             ammoCount.text = ammo.ToString();

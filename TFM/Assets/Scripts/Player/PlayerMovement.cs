@@ -41,6 +41,11 @@ public class PlayerMovement : MonoBehaviour
         agente = jugador.GetComponent<NavMeshAgent>();
         camera = GameObject.FindObjectOfType<RTS_Camera>();
         camera.SetTarget(jugador.transform);
+
+        if (!currentSetection.activeSelf)
+        {
+            currentSetection.SetActive(true);
+        }
     }
 
 
@@ -216,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
 
                         if (!currentObjective.GetComponent<CommonInterface>().isDestroyed())
                         {
-                            if (jugador.GetComponent<BasicDrone>().maxAmmo != GameConstants.INFINITE_AMMO && jugador.GetComponent<BasicDrone>().ammo > 0) {
+                            if ((jugador.GetComponent<BasicDrone>().maxAmmo != GameConstants.INFINITE_AMMO && jugador.GetComponent<BasicDrone>().ammo > 0) || jugador.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO) {
                                 jugador.GetComponent<DroneInterface>().Attack(currentObjective);
                                 agente.destination = agente.gameObject.transform.position;
                             }

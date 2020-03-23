@@ -15,7 +15,7 @@ public class HealerDrone : MonoBehaviour, DroneInterface
 
     private bool isCaptured = false;
 
-    private enum colliderStatus { enter, stay, exit };
+    private enum ColliderStatus { enter, stay, exit };
 
     private AudioSource audioSource;
 
@@ -99,17 +99,20 @@ public class HealerDrone : MonoBehaviour, DroneInterface
     {
         if (AuxiliarOperations.IsPlayer(other) || AuxiliarOperations.IsEnemy(other))
         {
-            if (healerObjective == null)
+            if (other.gameObject.GetComponent<BasicDrone>().life < other.gameObject.GetComponent<BasicDrone>().maxHeath)
             {
-                healerObjective = other.gameObject;
-            }
-            else
-            {
-                if (Vector3.Distance(healerObjective.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
+                if (healerObjective == null)
                 {
                     healerObjective = other.gameObject;
                 }
-            }
+                else
+                {
+                    if (Vector3.Distance(healerObjective.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
+                    {
+                        healerObjective = other.gameObject;
+                    }
+                }
+            }           
         }
     }
 

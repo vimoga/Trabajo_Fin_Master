@@ -6,37 +6,47 @@ public class BasicStructure : MonoBehaviour,CommonInterface
 {
 
     /// <summary>
-    /// life of the drone
+    /// name of the structure
+    /// </summary>
+    public string name;
+
+    /// <summary>
+    /// description of the structure
+    /// </summary>
+    public string description;
+
+    /// <summary>
+    /// life of the structure
     /// </summary>
     public float life = 100;
 
     /// <summary>
-    /// max life of the drone
+    /// max life of the structure
     /// </summary>
     public float maxHeath;
 
     /// <summary>
-    /// cost of capture the drone
+    /// cost of capture the structure
     /// </summary>
     public float captureCost = 1f;
 
     /// <summary>
-    /// cost of capture the drone
+    /// cost of capture the structure
     /// </summary>
     private float captureStatus = 0f;
 
     /// <summary>
-    /// effect played when the drones are damaged
+    /// effect played when the structures are damaged
     /// </summary>
     public GameObject smallDamage;
 
     /// <summary>
-    /// effect played when the drones are really damaged
+    /// effect played when the structures are really damaged
     /// </summary>
     public GameObject greatDamage;
 
     /// <summary>
-    /// effect played when the drones are destroyed
+    /// effect played when the structures are destroyed
     /// </summary>
     public GameObject explosion;
 
@@ -63,6 +73,8 @@ public class BasicStructure : MonoBehaviour,CommonInterface
         {
             healthBar.UpdateBar(life, maxHeath);
         }
+
+        isCaptured = AuxiliarOperations.IsCaptured(gameObject.tag);
 
         isCaptured = AuxiliarOperations.IsCaptured(gameObject.tag);
     }

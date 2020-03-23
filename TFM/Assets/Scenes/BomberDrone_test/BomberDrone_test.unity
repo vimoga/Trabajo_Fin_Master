@@ -724,31 +724,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bomber_Drone Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 924742421943677644, guid: 9e809e53c1235aa48b4e99f41bc8765c,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2175316041824162826, guid: 9e809e53c1235aa48b4e99f41bc8765c,
-        type: 3}
-      propertyPath: bomb
-      value: 
-      objectReference: {fileID: 8663531991617894462, guid: 0012f793aa2747842aaeff8754cfffd5,
-        type: 3}
-    - target: {fileID: 4874263746362162440, guid: 9e809e53c1235aa48b4e99f41bc8765c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4874263746362162440, guid: 9e809e53c1235aa48b4e99f41bc8765c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4874263746362162440, guid: 9e809e53c1235aa48b4e99f41bc8765c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e809e53c1235aa48b4e99f41bc8765c, type: 3}
