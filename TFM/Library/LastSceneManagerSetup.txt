@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Selection_test/Selection_test.unity
+- path: Assets/Scenes/StartMenu/StartMenu.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
