@@ -75,10 +75,7 @@ public class PlayerMovement : MonoBehaviour
                         Unselect();
                     }
                     Select(auxiliar);
-                }
-                else {
-                    
-                }              
+                }                              
             }
             else
             {
@@ -130,16 +127,17 @@ public class PlayerMovement : MonoBehaviour
 
                 if (!AuxiliarOperations.IsDestroyed(currentSetection))
                 {
-                    if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+                    if (currentSetection.transform.parent != null)
                     {
                         Unselect();
                     }
+                    Select(auxiliar);
                 }
                 else
                 {
                     currentSetection = null;
                 }
-                Select(auxiliar);
+                
             }
         }
     }

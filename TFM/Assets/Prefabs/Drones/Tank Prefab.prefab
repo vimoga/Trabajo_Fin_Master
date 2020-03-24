@@ -63390,11 +63390,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ab727ed15e26c42b7abd879170158a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Tank Drone
+  description: Makes heavy damage to ground units
   life: 250
   maxHeath: 250
   captureCost: 2
-  ammo: -1
-  maxAmmo: -1
+  ammo: 10
+  maxAmmo: 10
   smallDamage: {fileID: 934256481322700955}
   greatDamage: {fileID: 932826135014786386}
   explosion: {fileID: 932826137137600270}
@@ -84179,6 +84181,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Selection
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834335707648075274, guid: a6ca16894259f274e8f5d627ddb48c46,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ca16894259f274e8f5d627ddb48c46, type: 3}

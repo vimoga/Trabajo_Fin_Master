@@ -64,9 +64,8 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
     // Stop firing
     void StructuresInterfaces.OnTriggerExit(Collider other)
     {
-        if (AuxiliarOperations.IsPlayer(other))
-        {
-            
+        if (AuxiliarOperations.IsPlayer(other) && !AuxiliarOperations.EnemyIsAerial(gameObject, other.transform.gameObject))
+        {           
             go_target = null;
             enemy = null;
             CancelAttack();
@@ -79,7 +78,7 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if (AuxiliarOperations.IsPlayer(other))
+        if (AuxiliarOperations.IsPlayer(other) && !AuxiliarOperations.EnemyIsAerial(gameObject,other.transform.gameObject))
         {
             if (go_target == null)
             {

@@ -39,8 +39,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
             {
                 ColliderBehaviour(colliderStatus.enter, other);
             }
-        }
-               
+        }               
     }
 
 
@@ -52,6 +51,13 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
             if (AuxiliarOperations.IsPlayer(other))
             {
                 ColliderBehaviour(colliderStatus.stay, other);
+            }
+        }
+        else
+        {
+            if (AuxiliarOperations.IsPlayer(other))
+            {
+                StopDamage(other.transform.gameObject);
             }
         }
     }
@@ -74,35 +80,49 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
         {
             case colliderStatus.enter:
 
-                other.transform.gameObject.SendMessage("StuntIn", SendMessageOptions.RequireReceiver);
-                if (!PEMEffect.activeSelf && !PEMWave.activeSelf)
-                {
-                    PEMEffect.SetActive(true);
-                    PEMWave.SetActive(true);
-                }
+                DealDamage(other.transform.gameObject);
 
                 break;
             case colliderStatus.stay:
 
-                other.transform.gameObject.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
                 if (AuxiliarOperations.IsDestroyed(other.transform.gameObject))
                 {
+                    other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
                     PEMEffect.SetActive(false);
                     PEMWave.SetActive(false);
+                }
+                else
+                {
+                    DealDamage(other.transform.gameObject);
                 }
 
                 break;
             case colliderStatus.exit:
 
-                other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
-
-                if (PEMEffect.activeSelf && PEMWave.activeSelf)
-                {
-                    PEMEffect.SetActive(false);
-                    PEMWave.SetActive(false);
-                }
-
+                StopDamage(other.transform.gameObject);
                 break;
+        }
+    }
+
+    private void DealDamage(GameObject other)
+    {
+        other.SendMessage("StuntIn", SendMessageOptions.RequireReceiver);
+        other.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
+        if (!PEMEffect.activeSelf && !PEMWave.activeSelf)
+        {
+            PEMEffect.SetActive(true);
+            PEMWave.SetActive(true);
+        }
+    }
+
+    private void StopDamage(GameObject other)
+    {
+        other.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
+
+        if (PEMEffect.activeSelf && PEMWave.activeSelf)
+        {
+            PEMEffect.SetActive(false);
+            PEMWave.SetActive(false);
         }
     }
 

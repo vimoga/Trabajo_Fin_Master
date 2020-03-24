@@ -191,7 +191,7 @@ PrefabInstance:
     - target: {fileID: 4213995510361579859, guid: 9a9256cdb178f2849b90902560493bb6,
         type: 3}
       propertyPath: m_TagString
-      value: Terrain
+      value: Player_Drone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a9256cdb178f2849b90902560493bb6, type: 3}
@@ -279,7 +279,7 @@ PrefabInstance:
     - target: {fileID: 1264409191201164074, guid: 1ddc19741e2d62b4b8470a6efbd77c7b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.66
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 1264409191201164074, guid: 1ddc19741e2d62b4b8470a6efbd77c7b,
         type: 3}
@@ -289,7 +289,7 @@ PrefabInstance:
     - target: {fileID: 1264409191201164074, guid: 1ddc19741e2d62b4b8470a6efbd77c7b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.32
+      value: 9.4
       objectReference: {fileID: 0}
     - target: {fileID: 1264409191201164074, guid: 1ddc19741e2d62b4b8470a6efbd77c7b,
         type: 3}
@@ -339,7 +339,7 @@ PrefabInstance:
     - target: {fileID: 1264409191201164075, guid: 1ddc19741e2d62b4b8470a6efbd77c7b,
         type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1264409191201164085, guid: 1ddc19741e2d62b4b8470a6efbd77c7b,
         type: 3}
@@ -450,7 +450,7 @@ PrefabInstance:
     - target: {fileID: 2262611854120592342, guid: d731a5f9535d5e24dbe1cd5d9e87b997,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.32
+      value: 6.8
       objectReference: {fileID: 0}
     - target: {fileID: 2262611854120592342, guid: d731a5f9535d5e24dbe1cd5d9e87b997,
         type: 3}
@@ -460,7 +460,7 @@ PrefabInstance:
     - target: {fileID: 2262611854120592342, guid: d731a5f9535d5e24dbe1cd5d9e87b997,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.75
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2262611854120592342, guid: d731a5f9535d5e24dbe1cd5d9e87b997,
         type: 3}
@@ -510,7 +510,7 @@ PrefabInstance:
     - target: {fileID: 2262611854120828918, guid: d731a5f9535d5e24dbe1cd5d9e87b997,
         type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Player_Drone
       objectReference: {fileID: 0}
     - target: {fileID: 6476865750536760809, guid: d731a5f9535d5e24dbe1cd5d9e87b997,
         type: 3}
@@ -669,20 +669,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 933875742641700117, guid: a1102a9432a7f9f4c8aef6b6d9753469,
-        type: 3}
-      propertyPath: ammo
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 933875742641700117, guid: a1102a9432a7f9f4c8aef6b6d9753469,
-        type: 3}
-      propertyPath: maxAmmo
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 933875742641700119, guid: a1102a9432a7f9f4c8aef6b6d9753469,
         type: 3}
       propertyPath: m_Name
       value: Tank Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 933875742641700119, guid: a1102a9432a7f9f4c8aef6b6d9753469,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 936332200220605475, guid: a1102a9432a7f9f4c8aef6b6d9753469,
         type: 3}

@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 831092710634624026}
   m_Layer: 0
   m_Name: Radar Variant
-  m_TagString: Untagged
+  m_TagString: Enemy_Structure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,6 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390e2752de51b0b4f9c0ae0e15f47647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Radar
+  description: Increases drone reach limit
   life: 100
   maxHeath: 100
   captureCost: 1
