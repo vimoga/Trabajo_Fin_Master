@@ -174,10 +174,17 @@ public class BasicDrone : MonoBehaviour, CommonInterface
 
 
     private void SetAmmoCount() {
-        if (maxAmmo != -1)
+        if (isCaptured)
         {
-            ammoCount.text = ammo.ToString();
+            if (maxAmmo != -1)
+            {
+                ammoCount.text = ammo.ToString();
+            }
         }
+        else {
+            ammoCount.text = "";
+        }
+        
     }
 
     bool CommonInterface.isDestroyed()

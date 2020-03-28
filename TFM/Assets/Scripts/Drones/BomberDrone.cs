@@ -155,7 +155,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         {
             if (!AuxiliarOperations.IsDestroyed(airDroneEnemy))
             {
-                if (!airDroneEnemy.GetComponent<CommonInterface>().isDestroyed())
+                if (!airDroneEnemy.GetComponent<CommonInterface>().isDestroyed()  && !AuxiliarOperations.EnemyIsAerial(gameObject, airDroneEnemy))
                 {
                     if (Vector3.Distance(airDroneEnemy.transform.position, gameObject.transform.position) > (gameObject.GetComponent<NavMeshAgent>().radius+3))
                     {

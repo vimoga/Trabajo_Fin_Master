@@ -32,21 +32,6 @@ public class ApplicationManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name.Equals("Demo"))
-        {
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                GameObject pauseMenu = GameObject.Find("Canvas");
-                if (pauseMenu) {
-                    if (pauseMenu.activeSelf)
-                    {
-                        pauseMenu.SetActive(false);
-                    }
-                    else {
-                        pauseMenu.SetActive(false);
-                    }
-                }                
-            }
-        } 
+        
     }
 }
