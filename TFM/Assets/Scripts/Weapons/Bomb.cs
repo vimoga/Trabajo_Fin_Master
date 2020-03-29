@@ -6,12 +6,12 @@ public class Bomb : MonoBehaviour
 {
 
     /// <summary>
-    /// objective of the missile
+    /// objective of the bomb
     /// </summary>
     public GameObject enemy;
 
     /// <summary>
-    /// damage of the missile
+    /// damage of the bomb
     /// </summary>
     public float damage = 200f;
 

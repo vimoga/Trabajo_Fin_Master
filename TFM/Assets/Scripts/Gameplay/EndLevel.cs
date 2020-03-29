@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Detects if the player has reaches the end level
@@ -16,7 +17,7 @@ public class EndLevel : MonoBehaviour
     {
         if (col.gameObject.tag.Equals("Player"))
         {
-            //playerManager.EndLevel();
+            SceneManager.LoadScene("EndGameMenu");
         }
     }
 }

@@ -61,9 +61,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            //indicamos al agente que su destino es el punto marcado
-            agente.destination = hit.point;
-            isAttacking = false;
+            if (!AuxiliarOperations.IsDestroyed(jugador))
+            {
+                //indicamos al agente que su destino es el punto marcado
+                agente.destination = hit.point;
+                isAttacking = false;
+            }
 
             GameObject auxiliar = hit.transform.gameObject;
             if (AuxiliarOperations.IsPlayableObject(hit.transform.gameObject.tag))
@@ -111,7 +114,10 @@ public class PlayerMovement : MonoBehaviour
                 //change drone
                 if (auxiliar.tag.Equals("Player_Drone"))
                 {
-                    GameObject.FindGameObjectWithTag("Player").tag = "Player_Drone";
+                    if (!AuxiliarOperations.IsDestroyed(jugador))
+                    {
+                        GameObject.FindGameObjectWithTag("Player").tag = "Player_Drone";
+                    }
                     auxiliar.tag = "Player";
 
                     jugador = auxiliar;
@@ -120,8 +126,11 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (auxiliar.tag.Equals("Enemy") || auxiliar.tag.Equals("Enemy_Structure"))
                 {
-                    currentObjective = auxiliar;
-                    isAttacking = true;
+                    if (!AuxiliarOperations.IsDestroyed(jugador))
+                    {
+                        currentObjective = auxiliar;
+                        isAttacking = true;
+                    }
                 }
 
 
@@ -192,19 +201,23 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        //detección del input del jugador
+        if (Input.GetMouseButtonDown(0))
+        {
+            Clicked();
+        }
+
+        //detección del input del jugador
+        if (Input.GetMouseButtonDown(1))
+        {
+            RightClicked();
+        }
+
         if (!AuxiliarOperations.IsDestroyed(jugador))
         {
-            //detección del input del jugador
-            if (Input.GetMouseButtonDown(0))
-            {
-                Clicked();
-            }
-
-            //detección del input del jugador
-            if (Input.GetMouseButtonDown(1))
-            {
-                RightClicked();
-            }
+            
 
             if (isAttacking)
             {

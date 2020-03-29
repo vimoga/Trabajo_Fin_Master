@@ -49,7 +49,6 @@ public class HealerDrone : MonoBehaviour, DroneInterface
                 OnTriggerBehaviour(other);
             }
         }
-        //OnTriggerBehaviour(other);
     }
 
 
@@ -70,7 +69,6 @@ public class HealerDrone : MonoBehaviour, DroneInterface
                 OnTriggerBehaviour(other);
             }
         }
-        //OnTriggerBehaviour(other);
     }
 
     // Stop firing
@@ -142,7 +140,7 @@ public class HealerDrone : MonoBehaviour, DroneInterface
         gameObject.transform.LookAt(enemy.transform);
         enemy.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
         beam.SetActive(true);
-        beam.GetComponent<VolumetricLines.VolumetricLineBehavior>().EndPos = enemy.transform.position;
+        beam.GetComponent<VolumetricLines.VolumetricLineBehavior>().EndPos = gameObject.transform.InverseTransformPoint(enemy.transform.position);
         audioSource.PlayOneShot(beamSound, 1);
     }
 
@@ -150,23 +148,28 @@ public class HealerDrone : MonoBehaviour, DroneInterface
     // Update is called once per frame
     void Update()
     {
-        if (healerObjective != null)
+        if (!GetComponent<CommonInterface>().isDestroyed())
         {
-            if (!AuxiliarOperations.IsDestroyed(healerObjective) && (healerObjective.GetComponent<BasicDrone>().life < healerObjective.GetComponent<BasicDrone>().maxHeath))
+            if (healerObjective != null)
             {
-                if (!healerObjective.GetComponent<CommonInterface>().isDestroyed())
+                if (!AuxiliarOperations.IsDestroyed(healerObjective) && (healerObjective.GetComponent<BasicDrone>().life < healerObjective.GetComponent<BasicDrone>().maxHeath))
                 {
-                    HealBeam(healerObjective);
+                    if (!healerObjective.GetComponent<CommonInterface>().isDestroyed())
+                    {
+                        HealBeam(healerObjective);
+                    }
+                }
+                else
+                {
+                    healerObjective = null;
                 }
             }
             else
             {
-                healerObjective = null;
+                beam.SetActive(false);
             }
         }
-        else {
-            beam.SetActive(false);
-        }
+        
         
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }

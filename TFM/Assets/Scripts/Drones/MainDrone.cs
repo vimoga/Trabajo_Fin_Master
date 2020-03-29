@@ -81,7 +81,7 @@ public class MainDrone : MonoBehaviour, DroneInterface
             else
             {
                 //beam.GetComponent<VolumetricLines.VolumetricLineBehavior>().StartPos = gameObject.transform.position.normalized;
-                beam.GetComponent<VolumetricLines.VolumetricLineBehavior>().EndPos = main_enemy.transform.position.normalized;
+                beam.GetComponent<VolumetricLines.VolumetricLineBehavior>().EndPos = gameObject.transform.InverseTransformPoint(main_enemy.transform.position);
             }
         }
         

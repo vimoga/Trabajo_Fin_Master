@@ -145,7 +145,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
 
     public float GetFiringRange()
     {
-        return gameObject.GetComponent<NavMeshAgent>().radius+3;
+        return gameObject.GetComponent<NavMeshAgent>().radius+4;
     }
 
     // Update is called once per frame
