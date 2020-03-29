@@ -168,6 +168,16 @@ public class BasicDrone : MonoBehaviour, CommonInterface
             gameObject.tag = "Player_Drone";
             isCaptured = true;
             Debug.Log("Drone captured: " + captureStatus);
+
+            //chage selection if active
+            GameObject selection = AuxiliarOperations.GetChildObject(gameObject.transform, "Selection");
+            if (selection)
+            {
+                if (selection.activeSelf)
+                {
+                    selection.GetComponent<RawImage>().texture = (Texture)Resources.Load("Textures/selection_friend");
+                }
+            }
         }
     }
 
@@ -183,8 +193,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         }
         else {
             ammoCount.text = "";
-        }
-        
+        }        
     }
 
     bool CommonInterface.isDestroyed()
@@ -205,10 +214,8 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         {
             if (life > 0)
             {
-
                 if (life <= (maxHeath / 2))
                 {
-
                     if (life <= (maxHeath / 3))
                     {
                             greatDamage.SetActive(true);
@@ -234,6 +241,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
                 audioSource.Stop();
                 rb.useGravity = true;
                 rb.isKinematic = false;
+                if (GetComponent<NavMeshAgent>()) {
+                    GetComponent<NavMeshAgent>().enabled = false;
+                }
                 Object.Destroy(gameObject, 2.0f);
             }
         }

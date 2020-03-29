@@ -299,6 +299,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 456874135}
+    - target: {fileID: 8666420598240052224, guid: d731a5f9535d5e24dbe1cd5d9e87b997,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8666420598240052225, guid: d731a5f9535d5e24dbe1cd5d9e87b997,
         type: 3}
       propertyPath: isCaptured
@@ -585,6 +590,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 426505026}
+    - target: {fileID: 8666420598240052224, guid: d731a5f9535d5e24dbe1cd5d9e87b997,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8666420598240052225, guid: d731a5f9535d5e24dbe1cd5d9e87b997,
         type: 3}
       propertyPath: life
@@ -770,6 +780,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1500031778548936707, guid: 9e809e53c1235aa48b4e99f41bc8765c,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2175316041824162831, guid: 9e809e53c1235aa48b4e99f41bc8765c,
         type: 3}
@@ -1832,6 +1847,12 @@ Material:
     m_Colors:
     - _Color: {r: 0, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!1 &257676513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3966826310792182456, guid: 2ff3b69bee863dc438cc1b3e3b68c091,
+    type: 3}
+  m_PrefabInstance: {fileID: 288304090}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &288304090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2365,6 +2386,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6667869153939462104, guid: 6463107f7705bc94e99798854e7a55b4,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6667869153939462107, guid: 6463107f7705bc94e99798854e7a55b4,
         type: 3}
@@ -2974,6 +3000,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1409123450277343288, guid: 21544bcb7fc32f84b92b4a1e12832e91,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1409123450277343300, guid: 21544bcb7fc32f84b92b4a1e12832e91,
         type: 3}
       propertyPath: m_Name
@@ -3213,6 +3244,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 933875742641700115, guid: a1102a9432a7f9f4c8aef6b6d9753469,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 933875742641700117, guid: a1102a9432a7f9f4c8aef6b6d9753469,
         type: 3}
@@ -4660,7 +4696,7 @@ PrefabInstance:
     - target: {fileID: 1780625230012939614, guid: 1d8703f47dcce4545bae9e1f020c6b5f,
         type: 3}
       propertyPath: lastTab
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1780625230012939614, guid: 1d8703f47dcce4545bae9e1f020c6b5f,
         type: 3}
@@ -4675,7 +4711,7 @@ PrefabInstance:
     - target: {fileID: 1780625230012939614, guid: 1d8703f47dcce4545bae9e1f020c6b5f,
         type: 3}
       propertyPath: screenEdgeMovementSpeed
-      value: 6
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1780625230012939614, guid: 1d8703f47dcce4545bae9e1f020c6b5f,
         type: 3}
@@ -4685,7 +4721,7 @@ PrefabInstance:
     - target: {fileID: 1780625230012939614, guid: 1d8703f47dcce4545bae9e1f020c6b5f,
         type: 3}
       propertyPath: keyboardMovementSpeed
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1780625230012939614, guid: 1d8703f47dcce4545bae9e1f020c6b5f,
         type: 3}
@@ -4701,6 +4737,16 @@ PrefabInstance:
         type: 3}
       propertyPath: limitY
       value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1780625230012939614, guid: 1d8703f47dcce4545bae9e1f020c6b5f,
+        type: 3}
+      propertyPath: followingSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1780625230012939614, guid: 1d8703f47dcce4545bae9e1f020c6b5f,
+        type: 3}
+      propertyPath: mouseRotationSpeed
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1780625230012939615, guid: 1d8703f47dcce4545bae9e1f020c6b5f,
         type: 3}
@@ -5280,6 +5326,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1929725502}
     m_Modifications:
+    - target: {fileID: 3731246552427715817, guid: 2180b69fd0d77e546ad5edb02d9ed897,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7502883465192678912, guid: 2180b69fd0d77e546ad5edb02d9ed897,
         type: 3}
       propertyPath: m_IsActive
@@ -5594,6 +5645,11 @@ PrefabInstance:
         type: 3}
       propertyPath: attackAerialEnemies
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264409191201164073, guid: 1ddc19741e2d62b4b8470a6efbd77c7b,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1264409191201164074, guid: 1ddc19741e2d62b4b8470a6efbd77c7b,
         type: 3}
@@ -7878,6 +7934,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1409123450277343288, guid: 21544bcb7fc32f84b92b4a1e12832e91,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1409123450277343300, guid: 21544bcb7fc32f84b92b4a1e12832e91,
         type: 3}
       propertyPath: m_Name
@@ -8249,6 +8310,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1427046078}
     m_Modifications:
+    - target: {fileID: 2495892240625031446, guid: 94f9cf4a3239a994bbf3aa3241e2cd73,
+        type: 3}
+      propertyPath: energyGenerator
+      value: 
+      objectReference: {fileID: 257676513}
     - target: {fileID: 5575989820005802658, guid: 94f9cf4a3239a994bbf3aa3241e2cd73,
         type: 3}
       propertyPath: m_Name
@@ -8985,6 +9051,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 933875742641700115, guid: a1102a9432a7f9f4c8aef6b6d9753469,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 933875742641700117, guid: a1102a9432a7f9f4c8aef6b6d9753469,
         type: 3}
       propertyPath: isCaptured
@@ -9216,6 +9287,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151144141}
     m_Modifications:
+    - target: {fileID: 3731246552427715817, guid: 2180b69fd0d77e546ad5edb02d9ed897,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7502883465192678912, guid: 2180b69fd0d77e546ad5edb02d9ed897,
         type: 3}
       propertyPath: m_IsActive
@@ -9398,6 +9474,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1929725502}
     m_Modifications:
+    - target: {fileID: 1264409191201164073, guid: 1ddc19741e2d62b4b8470a6efbd77c7b,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1264409191201164074, guid: 1ddc19741e2d62b4b8470a6efbd77c7b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9660,6 +9741,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 1500031778548936707, guid: 9e809e53c1235aa48b4e99f41bc8765c,
+        type: 3}
+      propertyPath: m_Speed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2175316041824162831, guid: 9e809e53c1235aa48b4e99f41bc8765c,
         type: 3}

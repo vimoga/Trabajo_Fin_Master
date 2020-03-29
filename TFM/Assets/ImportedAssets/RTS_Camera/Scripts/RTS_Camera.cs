@@ -84,7 +84,7 @@ namespace RTS_Cam
         #region Input
 
         public bool useScreenEdgeInput = true;
-        public float screenEdgeBorder = 25f;
+        public float screenEdgeBorder = 50f;
 
         public bool useKeyboardInput = true;
         public string horizontalAxis = "Horizontal";

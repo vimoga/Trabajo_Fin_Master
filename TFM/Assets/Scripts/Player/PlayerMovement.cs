@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
 
     private GameObject currentSetection;
 
+    private GameObject currentPlayerSetection;
+
     private RTS_Camera camera;
 
     private Ray raytest;
@@ -38,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     {
         jugador = GameObject.FindGameObjectWithTag("Player");
         currentSetection = AuxiliarOperations.GetChildObject(jugador.transform, "Selection");
+        currentPlayerSetection = currentSetection;
         agente = jugador.GetComponent<NavMeshAgent>();
         camera = GameObject.FindObjectOfType<RTS_Camera>();
         camera.SetTarget(jugador.transform);
@@ -51,23 +54,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Clicked()
     {
-
         //Obtencion del punto donde a clickado el jugador
         RaycastHit hit = new RaycastHit();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         raytest = ray;
         
-
         if (Physics.Raycast(ray, out hit))
         {
-            if (!AuxiliarOperations.IsDestroyed(jugador))
-            {
-                //indicamos al agente que su destino es el punto marcado
-                agente.destination = hit.point;
-                isAttacking = false;
-            }
-
+          
             GameObject auxiliar = hit.transform.gameObject;
             if (AuxiliarOperations.IsPlayableObject(hit.transform.gameObject.tag))
             {
@@ -82,17 +77,23 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
+                if (!AuxiliarOperations.IsDestroyed(jugador))
+                {
+                    //indicamos al agente que su destino es el punto marcado
+                    agente.destination = hit.point;
+                    isAttacking = false;
+                }
+
                 if (!AuxiliarOperations.IsDestroyed(currentSetection))
                 {
                     if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
                     {
                         Unselect();
-                    }
+                    }                    
                 }
                 else {
                     currentSetection = null;
-                }
-                
+                }                
             }
         }
       
@@ -118,11 +119,13 @@ public class PlayerMovement : MonoBehaviour
                     {
                         GameObject.FindGameObjectWithTag("Player").tag = "Player_Drone";
                     }
-                    auxiliar.tag = "Player";
 
+                    UnselectPlayer();
+                    auxiliar.tag = "Player";                   
                     jugador = auxiliar;
                     agente = auxiliar.GetComponent<NavMeshAgent>();
                     camera.SetTarget(jugador.transform);
+                    SelectPlayerSelection(jugador);
                 }
                 else if (auxiliar.tag.Equals("Enemy") || auxiliar.tag.Equals("Enemy_Structure"))
                 {
@@ -133,20 +136,18 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
 
-
                 if (!AuxiliarOperations.IsDestroyed(currentSetection))
                 {
                     if (currentSetection.transform.parent != null)
                     {
                         Unselect();
                     }
-                    Select(auxiliar);
+                    Select(auxiliar);                
                 }
                 else
                 {
-                    currentSetection = null;
-                }
-                
+                    Select(auxiliar);                  
+                }                
             }
         }
     }
@@ -184,10 +185,13 @@ public class PlayerMovement : MonoBehaviour
                     rawImage.texture = (Texture)Resources.Load("Textures/selection");
                     break;
             }
-
             currentSetection = selection;
-        }
-            
+        }            
+    }
+
+    private void SelectPlayerSelection(GameObject toSelect)
+    {
+        currentPlayerSetection = AuxiliarOperations.GetChildObject(toSelect.transform, "Selection");
     }
 
     private void Unselect()
@@ -195,14 +199,20 @@ public class PlayerMovement : MonoBehaviour
         currentSetection.SetActive(false);
     }
 
-
-
+    private void UnselectPlayer()
+    {
+        if (currentPlayerSetection)
+        {
+            if (currentPlayerSetection.activeSelf)
+            {
+                currentPlayerSetection.SetActive(false);
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
-
-
         //detección del input del jugador
         if (Input.GetMouseButtonDown(0))
         {
@@ -216,9 +226,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (!AuxiliarOperations.IsDestroyed(jugador))
-        {
-            
-
+        {         
             if (isAttacking)
             {
                 if (!AuxiliarOperations.IsDestroyed(currentObjective) && !AuxiliarOperations.IsCaptured(currentObjective))
@@ -229,7 +237,6 @@ public class PlayerMovement : MonoBehaviour
                     }
                     else
                     {
-
                         if (!currentObjective.GetComponent<CommonInterface>().isDestroyed())
                         {
                             if ((jugador.GetComponent<BasicDrone>().maxAmmo != GameConstants.INFINITE_AMMO && jugador.GetComponent<BasicDrone>().ammo > 0) || jugador.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO) {
@@ -238,7 +245,6 @@ public class PlayerMovement : MonoBehaviour
                             }
                             
                         }
-
                     }
                 }
                 else
@@ -248,10 +254,5 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-
-        /*Debug.DrawLine(raytest.origin, raytest.origin + raytest.direction * 100, Color.red);
-        Debug.DrawRay(raytest.origin, raytest.direction * 100, Color.red);*/
-        
-
     }
 }
