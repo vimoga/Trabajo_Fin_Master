@@ -68,7 +68,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1.58
-  m_Speed: 3.5
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -138,7 +138,6 @@ MonoBehaviour:
   firerate: 0.5
   firingRange: 7
   muzzelFlash: {fileID: 6692834840061915584}
-  attackAerialEnemies: 0
 --- !u!82 &1167628534
 AudioSource:
   m_ObjectHideFlags: 0
@@ -160,7 +159,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -195,7 +194,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

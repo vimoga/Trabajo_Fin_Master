@@ -7,10 +7,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 185501087288627284, guid: 3bd6637ef6efedd4792f1be966bbab59,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1973576871819791195, guid: 3bd6637ef6efedd4792f1be966bbab59,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 4277102766993258619, guid: 3bd6637ef6efedd4792f1be966bbab59,
         type: 3}
       propertyPath: m_Name
-      value: Main_Drone_1
+      value: Main_Drone_1 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6666647001093093517, guid: 3bd6637ef6efedd4792f1be966bbab59,
         type: 3}
@@ -66,6 +76,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7917525624129927196, guid: 3bd6637ef6efedd4792f1be966bbab59,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974932678018756855, guid: 3bd6637ef6efedd4792f1be966bbab59,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bd6637ef6efedd4792f1be966bbab59, type: 3}
