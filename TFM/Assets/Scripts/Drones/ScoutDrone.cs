@@ -2,19 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the Scout Drone
+/// </summary>
 public class ScoutDrone : MonoBehaviour, DroneInterface
 {
-
+    /// <summary>
+    /// Sound of the shoots
+    /// </summary>
     public AudioClip shootSound;
 
+    /// <summary>
+    /// Damage of the shoots
+    /// </summary>
     public float damage = 2f;
 
+    /// <summary>
+    /// Time between the shoots
+    /// </summary>
     public float firerate = 10f;
 
-    // Distance the turret can aim and fire from
+    /// <summary>
+    /// Distance the drone can fire from
+    /// </summary> 
     public float firingRange = 7;
 
-    // Particle system for the muzzel flash
+    /// <summary>
+    /// effect of shooting
+    /// </summary>
     public ParticleSystem muzzelFlash;
 
     private GameObject scout_enemy;
@@ -24,8 +39,6 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
     private float currentFireRate = 0;
 
     private bool isCaptured = false;
-
-    public bool attackAerialEnemies = false; 
 
     // Start is called before the first frame update
     void Start()
@@ -38,8 +51,6 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
-
-    // Detect an Enemy, aim and fire
     void DroneInterface.OnTriggerEnter(Collider other)
     {
         if (!isCaptured)
@@ -48,8 +59,6 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
         }
     }
 
-
-    // keep firing
     void DroneInterface.OnTriggerStay(Collider other)
     {
         if (!isCaptured)
@@ -59,7 +68,6 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
 
     }
 
-    // Stop firing
     void DroneInterface.OnTriggerExit(Collider other)
     {
         if (!isCaptured)
@@ -93,6 +101,10 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
         }
     }
 
+    /// <summary>
+    /// Custom Attack function of the scout drone
+    /// </summary>
+    /// <param name="enemy">objective of the attack</param>
     public void Attack(GameObject enemy)
     {
         if (!isCaptured)
@@ -101,6 +113,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
         }
         else
         {
+            //only attack if there is ammo remaining
             if (gameObject.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO)
             {
                 MakeAttack(enemy);
@@ -115,13 +128,15 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
         }      
     }
 
+    /// <summary>
+    /// Generate the effects, animation and behaviour of the drone attack
+    /// </summary>
+    /// <param name="enemy">objective of the attack</param>
     private void MakeAttack(GameObject enemy)
     {
         Vector3 targetPostition = new Vector3(enemy.transform.position.x, gameObject.transform.position.y, enemy.transform.position.z);
-        //gameObject.transform.LookAt(enemy.transform);
         gameObject.transform.LookAt(targetPostition);
         muzzelFlash.gameObject.transform.LookAt(enemy.transform);
-
 
         if ((currentFireRate > firerate))
         {
@@ -164,6 +179,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
     // Update is called once per frame
     void Update()
     {
+        //attack player drones when is not captured
         if (!isCaptured && scout_enemy != null)
         {
             if (!AuxiliarOperations.IsDestroyed(scout_enemy))

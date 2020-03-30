@@ -5,76 +5,88 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 /// <summary>
-/// Basic behaviour of the drones
+/// Basic and shared behaviour of the drones
 /// </summary>
 public class BasicDrone : MonoBehaviour, CommonInterface
 {
     /// <summary>
-    /// name of the drone
+    /// Name of the drone
     /// </summary>
     public string name;
 
     /// <summary>
-    /// description of the drone
+    /// Description of the drone
     /// </summary>
     public string description;
 
     /// <summary>
-    /// life of the drone
+    /// Life of the drone
     /// </summary>
     public float life = 100;
 
     /// <summary>
-    /// max life of the drone
+    /// Max life of the drone
     /// </summary>
     public float maxHeath;
 
     /// <summary>
-    /// cost of capture the drone
+    /// Cost of capture the drone
     /// </summary>
     public float captureCost = 1f;
 
     /// <summary>
-    /// current ammo of the drone
+    /// Current ammo of the drone
     /// </summary>
     public int ammo = -1;
 
     /// <summary>
-    /// max ammo of the drone
+    /// Max ammo of the drone
     /// </summary>
     public int maxAmmo = -1;
 
     /// <summary>
-    /// cost of capture the drone
+    /// Cost of capture the drone
     /// </summary>
     private float captureStatus = 0f;
 
     /// <summary>
-    /// effect played when the drones are damaged
+    /// Effect played when the drones are damaged
     /// </summary>
     public GameObject smallDamage;
 
     /// <summary>
-    /// effect played when the drones are really damaged
+    /// Effect played when the drones are really damaged
     /// </summary>
     public GameObject greatDamage;
 
     /// <summary>
-    /// effect played when the drones are destroyed
+    /// Effect played when the drones are destroyed
     /// </summary>
     public GameObject explosion;
 
     /// <summary>
-    /// effect played when the drones are stuned
+    /// Effect played when the drones are stuned
     /// </summary>
     public GameObject stuntDamage;
 
+    /// <summary>
+    /// Health bar of the drone, shows current healt
+    /// </summary>
     public SimpleHealthBar healthBar;
 
+    /// <summary>
+    /// Capture status bar of the drone, shows current capture status
+    /// </summary>
     public SimpleHealthBar captureBar;
 
+    /// <summary>
+    /// Shows current ammo of the drone
+    /// </summary>
     public Text ammoCount;
 
+    /// <summary>
+    /// Contains the health, capture status and ammo UI indicators
+    /// </summary>
     public Canvas uiInfo;
 
     private Rigidbody rb;
@@ -113,7 +125,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     }
 
     /// <summary>
-    /// Obtenemos el disparo y restamos vida
+    /// The drone recieves an impact and rest the damage to the health
     /// </summary>
     public void Impact(float damage)
     {
@@ -123,7 +135,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     }
 
     /// <summary>
-    /// Obtenemos curacion y sumamos vida
+    /// The drone recieves health
     /// </summary>
     public void Heal(float heal)
     {
@@ -132,6 +144,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         healthBar.UpdateBar(life, maxHeath);
     }
 
+    /// <summary>
+    /// The drone recieves stunt damage
+    /// </summary>
     public void StuntIn()
     {
         isStuned = true;
@@ -139,6 +154,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         GetComponent<NavMeshAgent>().speed = 1;
     }
 
+    /// <summary>
+    /// The drone is no longer recives stunt damage
+    /// </summary>
     public void StuntOut()
     {
         isStuned = false;
@@ -146,6 +164,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         GetComponent<NavMeshAgent>().speed = droneSpeed;
     }
 
+    /// <summary>
+    /// The drone recieves more ammo and is added to the current value
+    /// </summary>
     public void AmmoIn(int ammo)
     {
         this.ammo += ammo;
@@ -153,6 +174,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         SetAmmoCount();
     }
 
+    /// <summary>
+    /// The drone shots is guns and is rested from the current ammo level
+    /// </summary>
     public void AmmoOut()
     {
         this.ammo -= 1;
@@ -160,6 +184,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         SetAmmoCount();
     }
 
+    /// <summary>
+    /// The drone is captured from the player to take control
+    /// </summary>
     public void Capture() {
         captureStatus +=  (captureCost)*0.5f;
         captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
@@ -182,7 +209,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     }
 
 
-
+    /// <summary>
+    /// The current ammo level is updated on the UI
+    /// </summary>
     private void SetAmmoCount() {
         if (isCaptured)
         {
@@ -250,6 +279,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
 
     }
 
+    /// <summary>
+    /// Updates the user interface position to face it to the main camera 
+    /// </summary>
     void LateUpdate()
     {
         uiInfo.transform.LookAt(Camera.main.transform);

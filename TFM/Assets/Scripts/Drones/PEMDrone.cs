@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the PEM Drone
+/// </summary>
 public class PEMDrone : MonoBehaviour, DroneInterface
 {
+    /// <summary>
+    /// Damage of the pem damage
+    /// </summary>
     public float damage = 0.10f;
 
-    // Distance the drone can aim and fire from
+    /// <summary>
+    /// Distance the drone can deal damage
+    /// </summary>
     public float firingRange = 25f;
 
     /// <summary>
@@ -32,8 +40,6 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
-
-    // Detect an Enemy, aim and fire
     void DroneInterface.OnTriggerEnter(Collider other)
     {
         if (!isCaptured)
@@ -51,8 +57,6 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         }
     }
 
-
-    // keep firing
     void DroneInterface.OnTriggerStay(Collider other)
     {
         if (!isCaptured)
@@ -71,7 +75,6 @@ public class PEMDrone : MonoBehaviour, DroneInterface
 
     }
 
-    // Stop firing
     void DroneInterface.OnTriggerExit(Collider other)
     {
         if (!isCaptured)
@@ -90,22 +93,18 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         }     
     }
 
+    /// <summary>
+    /// custom function to avoid code duplicity on colliders
+    /// </summary>
+    /// <param name="colStatus">type of collider</param>
+    /// <param name="other">object collided</param>
     private void ColliderBehaviour(colliderStatus colStatus, Collider other)
     {
         switch (colStatus) {
             case colliderStatus.enter:
-
-                /*other.transform.gameObject.SendMessage("StuntIn", SendMessageOptions.RequireReceiver);
-                if (!PEMEffect.activeSelf && !PEMWave.activeSelf)
-                {
-                    PEMEffect.SetActive(true);
-                    PEMWave.SetActive(true);
-                }*/
                 DealDamage(other.transform.gameObject);
                 break;
             case colliderStatus.stay:
-
-                //other.transform.gameObject.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
                 if (AuxiliarOperations.IsDestroyed(other.transform.gameObject))
                 {
                     PEMEffect.SetActive(false);
@@ -113,23 +112,23 @@ public class PEMDrone : MonoBehaviour, DroneInterface
                 }
                 else {
                     DealDamage(other.transform.gameObject);
-                }
-                
+                }              
                 break;
             case colliderStatus.exit:
-
                 other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
-
                 if (PEMEffect.activeSelf && PEMWave.activeSelf)
                 {
                     PEMEffect.SetActive(false);
                     PEMWave.SetActive(false);
                 }
-
                 break;
         }
     }
 
+    /// <summary>
+    /// Deal damage to the affected drones
+    /// </summary>
+    /// <param name="other">enemy of the drone</param>
     private void DealDamage(GameObject other)
     {       
         other.SendMessage("StuntIn", SendMessageOptions.RequireReceiver);
@@ -156,8 +155,13 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         return firingRange;
     }
 
+    /// <summary>
+    /// Custom Attack function of the pem drone
+    /// </summary>
+    /// <param name="enemy">objective of the attack</param>
     public void Attack(GameObject enemy)
     {
+        //because the drone deals attacks from a close area, the drone closes to their objective
         gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().destination = enemy.transform.position;
     }
 

@@ -2,15 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the main Drone
+/// </summary>
 public class MainDrone : MonoBehaviour, DroneInterface
 {
-
+    /// <summary>
+    /// Sound of the beam
+    /// </summary>
     public AudioClip shootSound;
 
-
-    // Distance the turret can aim and fire from
+    /// <summary>
+    /// Distance the drone can capture other drones
+    /// </summary>
     public float firingRange = 7;
 
+    /// <summary>
+    /// Beam generated from the drone
+    /// </summary>
     public GameObject beam;
 
     private GameObject main_enemy;
@@ -18,7 +27,6 @@ public class MainDrone : MonoBehaviour, DroneInterface
     private AudioSource audioSource;
 
     private bool isCaptured = false;
-
 
     // Start is called before the first frame update
     void Start()
@@ -31,13 +39,16 @@ public class MainDrone : MonoBehaviour, DroneInterface
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
+    /// <summary>
+    /// Custom Attack function of the main drone
+    /// </summary>
+    /// <param name="enemy">objective of the capture</param>
     public void Attack(GameObject enemy)
     {
         main_enemy = enemy;
         gameObject.transform.LookAt(enemy.transform);
         enemy.SendMessage("Capture", SendMessageOptions.RequireReceiver);
         beam.SetActive(true);
-        //beam.GetComponent<VolumetricLines.VolumetricLineBehavior>().EndPos=enemy.transform.position.normalized;
         audioSource.PlayOneShot(shootSound, 1);
     }
 
@@ -70,9 +81,11 @@ public class MainDrone : MonoBehaviour, DroneInterface
     {
 
     }
+
     // Update is called once per frame
     void Update()
     {
+        //cease beam when the capture is completed
         if (main_enemy) {
             if (AuxiliarOperations.IsCaptured(main_enemy))
             {
@@ -80,7 +93,6 @@ public class MainDrone : MonoBehaviour, DroneInterface
             }
             else
             {
-                //beam.GetComponent<VolumetricLines.VolumetricLineBehavior>().StartPos = gameObject.transform.position.normalized;
                 beam.GetComponent<VolumetricLines.VolumetricLineBehavior>().EndPos = gameObject.transform.InverseTransformPoint(main_enemy.transform.position);
             }
         }

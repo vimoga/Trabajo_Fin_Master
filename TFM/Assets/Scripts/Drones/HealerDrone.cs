@@ -2,15 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the Healer Drone
+/// </summary>
 public class HealerDrone : MonoBehaviour, DroneInterface
 {
+    /// <summary>
+    /// heal quantity
+    /// </summary>
     public float heal = 0.10f;
 
-    // Distance the drone can aim and fire from
+    /// <summary>
+    /// Distance the drone can heal from
+    /// </summary>
     public float firingRange = 35f;
 
+    /// <summary>
+    /// Beam generated from the drone
+    /// </summary>
     public GameObject beam;
 
+    /// <summary>
+    /// Sound of the beam
+    /// </summary>
     public AudioClip beamSound;
 
     private bool isCaptured = false;
@@ -32,7 +46,6 @@ public class HealerDrone : MonoBehaviour, DroneInterface
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
-    // Detect an Enemy, aim and fire
     void DroneInterface.OnTriggerEnter(Collider other)
     {
         if (!isCaptured)
@@ -51,8 +64,6 @@ public class HealerDrone : MonoBehaviour, DroneInterface
         }
     }
 
-
-    // keep firing
     void DroneInterface.OnTriggerStay(Collider other)
     {
         if (!isCaptured)
@@ -71,7 +82,6 @@ public class HealerDrone : MonoBehaviour, DroneInterface
         }
     }
 
-    // Stop firing
     void DroneInterface.OnTriggerExit(Collider other)
     {
         if (!isCaptured)
@@ -129,11 +139,20 @@ public class HealerDrone : MonoBehaviour, DroneInterface
         return firingRange;
     }
 
+    /// <summary>
+    /// Custom Attack function of the healer drone
+    /// </summary>
+    /// <param name="enemy">objective of the attack</param>
     public void Attack(GameObject enemy)
     {
+        //because the drone heals from a close area, the drone closes to their objective
         gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().destination = enemy.transform.position;
     }
 
+    /// <summary>
+    /// Generate the beam
+    /// </summary>
+    /// <param name="enemy">objective of the beam</param>
     private void HealBeam(GameObject enemy)
     {
         healerObjective = enemy;
@@ -148,6 +167,7 @@ public class HealerDrone : MonoBehaviour, DroneInterface
     // Update is called once per frame
     void Update()
     {
+        //Keeps healing the objectives if their healt is not at maximum
         if (!GetComponent<CommonInterface>().isDestroyed())
         {
             if (healerObjective != null)
@@ -169,8 +189,7 @@ public class HealerDrone : MonoBehaviour, DroneInterface
                 beam.SetActive(false);
             }
         }
-        
-        
+              
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 

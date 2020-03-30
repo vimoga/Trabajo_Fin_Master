@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Implements the basic funtions of the drones
+/// </summary>
 public interface DroneInterface
 {
     void Attack(GameObject enemy);

@@ -3,20 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Behaviour for the Bomber Drone
+/// </summary>
 public class BomberDrone : MonoBehaviour, DroneInterface
 {
+    /// <summary>
+    /// Damage of the bombs
+    /// </summary>
     public float damage = 200f;
 
+    /// <summary>
+    /// Time between the shoots
+    /// </summary>
     public float firerate = 6.0f;
 
-    // Distance the drone can aim and fire from
+    /// <summary>
+    /// Distance the drone can fire from
+    /// </summary> 
     public float firingRange = 120f;
 
     /// <summary>
-    /// bomb to shoot
+    /// Bomb to drop
     /// </summary>
     public GameObject bomb;
 
+    /// <summary>
+    /// Gameobject from the bombs are drop
+    /// </summary>
     public GameObject bombLauncher;
 
     private GameObject airDroneEnemy;
@@ -34,8 +48,6 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
-
-    // Detect an Enemy, aim and fire
     void DroneInterface.OnTriggerEnter(Collider other)
     {
         if (!isCaptured)
@@ -44,8 +56,6 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         }
     }
 
-
-    // keep firing
     void DroneInterface.OnTriggerStay(Collider other)
     {
         if (!isCaptured)
@@ -55,7 +65,6 @@ public class BomberDrone : MonoBehaviour, DroneInterface
 
     }
 
-    // Stop firing
     void DroneInterface.OnTriggerExit(Collider other)
     {
         if (!isCaptured)
@@ -90,6 +99,10 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         }
     }
 
+    /// <summary>
+    /// Custom Attack function of the bomber drone
+    /// </summary>
+    /// <param name="enemy">objective of the attack</param>
     public void Attack(GameObject enemy)
     {
         if (!isCaptured)
@@ -98,6 +111,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         }
         else
         {
+            //only attack if there is ammo remaining
             if (gameObject.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO && !AuxiliarOperations.EnemyIsAerial(gameObject, enemy))
             {
                 MakeAttack(enemy);
@@ -112,6 +126,10 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         }
     }
 
+    /// <summary>
+    /// Generate the effects, animation and behaviour of the drone attack
+    /// </summary>
+    /// <param name="enemy">objective of the attack</param>
     private void MakeAttack(GameObject enemy)
     {
         //gameObject.transform.LookAt(enemy.transform);
@@ -120,6 +138,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         {
             currentFireRate = 0;
 
+            //generate new bomb instance
             Bomb bombScript = bomb.GetComponentInChildren<Bomb>();
             bombScript.enemy = enemy;
             bombScript.damage = damage;
@@ -151,6 +170,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
     // Update is called once per frame
     void Update()
     {
+        //attack player drones when is not captured
         if (!isCaptured && airDroneEnemy != null)
         {
             if (!AuxiliarOperations.IsDestroyed(airDroneEnemy))

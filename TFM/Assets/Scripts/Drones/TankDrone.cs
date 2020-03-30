@@ -2,22 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the Tank Drone
+/// </summary>
 public class TankDrone : MonoBehaviour,DroneInterface
 {
-
+    /// <summary>
+    /// Sound of the shoots
+    /// </summary>
     public AudioClip shootSound;
 
+    /// <summary>
+    /// Damage of the shoots
+    /// </summary>
     public float damage = 75f;
 
+    /// <summary>
+    /// Time between the shoots
+    /// </summary>
     public float firerate = 5f;
 
-    // Distance the turret can aim and fire from
+    /// <summary>
+    /// Distance the drone can fire from
+    /// </summary>
     public float firingRange = 30;
 
-    // Gameobjects need to control rotation and aiming
+    /// <summary>
+    /// Turret of the tank
+    /// </summary>
     public GameObject tnk_turret;
 
-    // Particle system for the muzzel flash
+    /// <summary>
+    /// effect of shooting
+    /// </summary>
     public ParticleSystem muzzelFlash;
 
     private GameObject tnk_enemy;
@@ -39,8 +56,6 @@ public class TankDrone : MonoBehaviour,DroneInterface
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
-
-    // Detect an Enemy, aim and fire
     void DroneInterface.OnTriggerEnter(Collider other)
     {
         if (!isCaptured)
@@ -49,20 +64,15 @@ public class TankDrone : MonoBehaviour,DroneInterface
         }
     }
 
-
-    // keep firing
     void DroneInterface.OnTriggerStay(Collider other)
     {
         if (!isCaptured) {
             OnTriggerBehaviour(other);
-        }
-        
+        }      
     }
 
-    // Stop firing
     void DroneInterface.OnTriggerExit(Collider other)
     {
-
         if (!isCaptured)
         {
             if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
@@ -73,7 +83,6 @@ public class TankDrone : MonoBehaviour,DroneInterface
 
         //fix
         //tnk_turret.transform.rotation = gameObject.transform.rotation;
-
     }
 
     /// <summary>
@@ -98,6 +107,10 @@ public class TankDrone : MonoBehaviour,DroneInterface
         }
     }
 
+    /// <summary>
+    /// Custom Attack function of the tank drone
+    /// </summary>
+    /// <param name="enemy">objective of the attack</param>
     public void Attack(GameObject enemy)
     {
 
@@ -107,6 +120,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
         }
         else
         {
+            //only attack if there is ammo remaining
             if (gameObject.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO)
             {
                 MakeAttack(enemy);
@@ -168,6 +182,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
     // Update is called once per frame
     void Update()
     {
+        //attack player drones when is not capture
         if (!isCaptured && tnk_enemy != null) {
             if (!AuxiliarOperations.IsDestroyed(tnk_enemy) && !AuxiliarOperations.EnemyIsAerial(gameObject, tnk_enemy))
             {

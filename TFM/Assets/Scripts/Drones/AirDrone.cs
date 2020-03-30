@@ -2,22 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the Air Drone
+/// </summary>
 public class AirDrone : MonoBehaviour, DroneInterface
 {
+    /// <summary>
+    /// Damage of the missiles
+    /// </summary>
     public float damage = 25f;
 
+    /// <summary>
+    /// Time between the missiles
+    /// </summary>
     public float firerate = 1.0f;
 
-    // Distance the drone can aim and fire from
+    /// <summary>
+    /// Distance the drone can fire from
+    /// </summary> 
     public float firingRange = 1.5f;
 
     /// <summary>
-    /// missile to shoot
+    /// Missile to shoot
     /// </summary>
     public GameObject missile;
 
+    /// <summary>
+    /// Speed of the missiles
+    /// </summary>
     public float missileSpeed = 10f;
 
+    /// <summary>
+    /// Gameobject from the missile is shoot
+    /// </summary>
     public GameObject missileLauncher;
 
     private GameObject airDroneEnemy;
@@ -35,8 +52,6 @@ public class AirDrone : MonoBehaviour, DroneInterface
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
-
-    // Detect an Enemy, aim and fire
     void DroneInterface.OnTriggerEnter(Collider other)
     {
         if (!isCaptured)
@@ -45,8 +60,6 @@ public class AirDrone : MonoBehaviour, DroneInterface
         }
     }
 
-
-    // keep firing
     void DroneInterface.OnTriggerStay(Collider other)
     {
         if (!isCaptured)
@@ -56,7 +69,6 @@ public class AirDrone : MonoBehaviour, DroneInterface
 
     }
 
-    // Stop firing
     void DroneInterface.OnTriggerExit(Collider other)
     {
         if (!isCaptured)
@@ -90,6 +102,10 @@ public class AirDrone : MonoBehaviour, DroneInterface
         }
     }
 
+    /// <summary>
+    /// Custom Attack function of the air drone
+    /// </summary>
+    /// <param name="enemy">objective of the attack</param>
     public void Attack(GameObject enemy)
     {
         if (!isCaptured)
@@ -98,6 +114,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
         }
         else
         {
+            //only attack if there is ammo remaining
             if (gameObject.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO)
             {
                 MakeAttack(enemy);
@@ -110,12 +127,17 @@ public class AirDrone : MonoBehaviour, DroneInterface
         }    
     }
 
+    /// <summary>
+    /// Generate the effects, animation and behaviour of the drone attack
+    /// </summary>
+    /// <param name="enemy">objective of the attack</param>
     private void MakeAttack(GameObject enemy)
     {
         if ((currentFireRate > firerate))
         {
             currentFireRate = 0;
 
+            //generate new missile instance
             Missile shootMissile = missile.GetComponent<Missile>();
             shootMissile.enemy = enemy;
             shootMissile.speed = missileSpeed;
@@ -148,6 +170,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
     // Update is called once per frame
     void Update()
     {
+        //attack player drones when is not captured
         if (!isCaptured && airDroneEnemy != null)
         {
             if (!AuxiliarOperations.IsDestroyed(airDroneEnemy))
@@ -156,7 +179,6 @@ public class AirDrone : MonoBehaviour, DroneInterface
                 {
                     Attack(airDroneEnemy);
                 }
-
             }
             else
             {
