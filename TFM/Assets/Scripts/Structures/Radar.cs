@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the Radar Tower Structure
+/// </summary>
 public class Radar : MonoBehaviour, StructuresInterfaces
 {
     // Start is called before the first frame update
@@ -44,6 +47,5 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     {
         
     }
-
     
 }

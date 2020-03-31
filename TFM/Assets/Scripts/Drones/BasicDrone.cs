@@ -89,13 +89,16 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     /// </summary>
     public Canvas uiInfo;
 
+    /// <summary>
+    /// Indicathes if the dron is currently captured from the player
+    /// </summary>
+    public bool isCaptured = false;
+
     private Rigidbody rb;
 
     private AudioSource audioSource;
 
-    private bool isDestroyed = false;
-
-    public bool isCaptured = false;
+    private bool isDestroyed = false;  
 
     private bool isStuned = false;
 

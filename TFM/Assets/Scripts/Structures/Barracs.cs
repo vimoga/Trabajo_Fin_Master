@@ -2,20 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the Barracs Structure
+/// </summary>
 public class Barracs : MonoBehaviour, StructuresInterfaces
 {
+    /// <summary>
+    /// Health recovery quantity
+    /// </summary>
     public float heal = 0.10f;
 
-    // Distance the drone can aim and fire from
+    /// <summary>
+    /// Distance the structure can provide health
+    /// </summary>
     public float firingRange = 25f;
 
     /// <summary>
-    /// PEM effect
+    /// Health recovery effect
     /// </summary>
     public GameObject healEffect;
 
     /// <summary>
-    /// PEM effect
+    /// Health recovery ground wave effect
     /// </summary>
     public GameObject HealWave;
 
@@ -32,8 +40,6 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
         isCaptured = GetComponent<BasicStructure>().isCaptured;
     }
 
-
-    // Detect an Enemy, aim and fire
     void StructuresInterfaces.OnTriggerEnter(Collider other)
     {
         if (isCaptured)
@@ -52,8 +58,6 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
         }
     }
 
-
-    // keep firing
     void StructuresInterfaces.OnTriggerStay(Collider other)
     {
         if (isCaptured)
@@ -73,7 +77,6 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
 
     }
 
-    // Stop firing
     void StructuresInterfaces.OnTriggerExit(Collider other)
     {
         if (isCaptured)
@@ -92,12 +95,18 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
         }
     }
 
+    /// <summary>
+    /// custom function to avoid code duplicity on colliders
+    /// </summary>
+    /// <param name="colStatus">type of collider</param>
+    /// <param name="other">object collided</param>
     private void ColliderBehaviour(colliderStatus colStatus, Collider other)
     {
         switch (colStatus)
         {
             case colliderStatus.enter:
 
+                // provide health recovery
                 other.transform.gameObject.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
                 if (!AuxiliarOperations.IsDestroyed(other.transform.gameObject) && (other.transform.gameObject.GetComponent<BasicDrone>().life < other.transform.gameObject.GetComponent<BasicDrone>().maxHeath))
                 {
@@ -111,6 +120,7 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
                 break;
             case colliderStatus.stay:
 
+                // provide health recovery until the drone reaches maximun ammo
                 other.transform.gameObject.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
                 if (AuxiliarOperations.IsDestroyed(other.transform.gameObject) || (other.transform.gameObject.GetComponent<BasicDrone>().life >= other.transform.gameObject.GetComponent<BasicDrone>().maxHeath))
                 {
@@ -132,6 +142,7 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
                 break;
             case colliderStatus.exit:
 
+                //cease health recovery effect
                 if (healEffect.activeSelf && HealWave.activeSelf)
                 {
                     healEffect.SetActive(false);
@@ -162,6 +173,5 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
     {
         isCaptured = GetComponent<BasicStructure>().isCaptured;
     }
-
     
 }

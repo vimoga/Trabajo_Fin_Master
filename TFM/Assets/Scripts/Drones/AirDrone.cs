@@ -13,7 +13,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
     public float damage = 25f;
 
     /// <summary>
-    /// Time between the missiles
+    /// Time between missiles are shoot
     /// </summary>
     public float firerate = 1.0f;
 

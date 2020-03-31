@@ -2,24 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the Armory Structure
+/// </summary>
 public class Armory : MonoBehaviour, StructuresInterfaces
 {
+    /// <summary>
+    /// Ammo recovery quantity
+    /// </summary>
     public int ammoRecovery = 1;
 
+    /// <summary>
+    /// Ammo recovery rate
+    /// </summary>
     public int ammoRecoveryRate = 5;
 
-    // Distance the drone can aim and fire from
+    /// <summary>
+    /// Distance the structure can provide ammo
+    /// </summary>
     public float firingRange = 25f;
 
+    /// <summary>
+    /// damage dealed when the structure is destroyed
+    /// </summary>
     public float explosionDamage = 200;
 
     /// <summary>
-    /// PEM effect
+    /// Ammo recovery effect
     /// </summary>
     public GameObject ammoEffect;
 
     /// <summary>
-    /// PEM effect
+    /// Ammo recovery ground wave effect
     /// </summary>
     public GameObject ammoWave;
 
@@ -40,8 +54,6 @@ public class Armory : MonoBehaviour, StructuresInterfaces
         isCaptured = GetComponent<BasicStructure>().isCaptured;
     }
 
-
-    // Detect an player
     void StructuresInterfaces.OnTriggerEnter(Collider other)
     {
         if (isCaptured)
@@ -57,7 +69,6 @@ public class Armory : MonoBehaviour, StructuresInterfaces
     }
 
 
-    // keep player recovery
     void StructuresInterfaces.OnTriggerStay(Collider other)
     {
         if (isCaptured)
@@ -74,7 +85,6 @@ public class Armory : MonoBehaviour, StructuresInterfaces
         }
     }
 
-    // Stop recovery
     void StructuresInterfaces.OnTriggerExit(Collider other)
     {
         if (isCaptured)
@@ -86,14 +96,21 @@ public class Armory : MonoBehaviour, StructuresInterfaces
         }       
     }
 
+    /// <summary>
+    /// custom function to avoid code duplicity on colliders
+    /// </summary>
+    /// <param name="colStatus">type of collider</param>
+    /// <param name="other">object collided</param>
     private void ColliderBehaviour(colliderStatus colStatus, Collider other)
     {
         switch (colStatus)
         {
             case colliderStatus.enter:
 
+                // provide ammo recovery
                 if ((currentRecoveryRate > ammoRecoveryRate))
                 {
+                    
                     other.transform.gameObject.SendMessage("AmmoIn", ammoRecovery, SendMessageOptions.RequireReceiver);
                     if (!AuxiliarOperations.IsDestroyed(other.transform.gameObject) && (other.transform.gameObject.GetComponent<BasicDrone>().ammo !=-1) && (other.transform.gameObject.GetComponent<BasicDrone>().ammo < other.transform.gameObject.GetComponent<BasicDrone>().maxAmmo))
                     {
@@ -107,7 +124,7 @@ public class Armory : MonoBehaviour, StructuresInterfaces
                 break;
             case colliderStatus.stay:
 
-                
+                // provide ammo recovery until the drone reaches maximun ammo
                 if (AuxiliarOperations.IsDestroyed(other.transform.gameObject) || (other.transform.gameObject.GetComponent<BasicDrone>().ammo >= other.transform.gameObject.GetComponent<BasicDrone>().maxAmmo))
                 {
                     ammoEffect.SetActive(false);
@@ -133,6 +150,7 @@ public class Armory : MonoBehaviour, StructuresInterfaces
                 break;
             case colliderStatus.exit:
 
+                //cease ammo recovery effect
                 if (ammoEffect.activeSelf && ammoWave.activeSelf)
                 {
                     ammoEffect.SetActive(false);
@@ -143,6 +161,7 @@ public class Armory : MonoBehaviour, StructuresInterfaces
 
             case colliderStatus.destroyed:
 
+                // if the estructure is damaged deals explosion damage
                 if (!AuxiliarOperations.IsDestroyed(other.transform.gameObject) && !other.isTrigger)
                 {
                     other.transform.gameObject.SendMessage("Impact", explosionDamage, SendMessageOptions.RequireReceiver);

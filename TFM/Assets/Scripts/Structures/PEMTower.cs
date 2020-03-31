@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the PEM tower Structure
+/// </summary>
 public class PEMTower : MonoBehaviour, StructuresInterfaces
 {
+    /// <summary>
+    /// Damage of the PEM effect
+    /// </summary>
     public float damage = 0.10f;
 
-    // Distance the drone can aim and fire from
+    /// <summary>
+    /// Distance the structure can provide damage
+    /// </summary>
     public float firingRange = 85f;
 
     /// <summary>
@@ -15,10 +23,13 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
     public GameObject PEMEffect;
 
     /// <summary>
-    /// PEM effect
+    /// PEM ground wave effect
     /// </summary>
     public GameObject PEMWave;
 
+    /// <summary>
+    /// Energy generator of the PEM Tower
+    /// </summary>
     public GameObject energyGenerator;
 
     private enum colliderStatus { enter, stay, exit };
@@ -30,8 +41,6 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
         this.GetComponentInChildren<SphereCollider>().radius = firingRange;
     }
 
-
-    // Detect an Enemy, aim and fire
     void StructuresInterfaces.OnTriggerEnter(Collider other)
     {
         if (!AuxiliarOperations.IsDestroyed(energyGenerator)) {
@@ -42,8 +51,6 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
         }               
     }
 
-
-    // keep firing
     void StructuresInterfaces.OnTriggerStay(Collider other)
     {
         if (!AuxiliarOperations.IsDestroyed(energyGenerator))
@@ -62,7 +69,6 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
         }
     }
 
-    // Stop firing
     void StructuresInterfaces.OnTriggerExit(Collider other)
     {
         if (!AuxiliarOperations.IsDestroyed(energyGenerator))
@@ -74,6 +80,11 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
         }
     }
 
+    /// <summary>
+    /// custom function to avoid code duplicity on colliders
+    /// </summary>
+    /// <param name="colStatus">type of collider</param>
+    /// <param name="other">object collided</param>
     private void ColliderBehaviour(colliderStatus colStatus, Collider other)
     {
         switch (colStatus)
@@ -85,6 +96,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
                 break;
             case colliderStatus.stay:
 
+                // provide PEM recovery until the enemy drone is destroyed
                 if (AuxiliarOperations.IsDestroyed(other.transform.gameObject))
                 {
                     other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
@@ -104,6 +116,10 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
         }
     }
 
+    /// <summary>
+    /// Custom Attack function of the AA Gun
+    /// </summary>
+    /// <param name="other">enemy of the PEM Tower</param>
     private void DealDamage(GameObject other)
     {
         other.SendMessage("StuntIn", SendMessageOptions.RequireReceiver);
@@ -115,6 +131,9 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
         }
     }
 
+    /// <summary>
+    /// Cancel attack effects when the enemy on no longer reachable
+    /// </summary>
     private void StopDamage(GameObject other)
     {
         other.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);

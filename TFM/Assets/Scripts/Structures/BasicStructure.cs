@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Basic and shared behaviour of the structures
+/// </summary>
 public class BasicStructure : MonoBehaviour,CommonInterface
 {
 
@@ -50,14 +53,29 @@ public class BasicStructure : MonoBehaviour,CommonInterface
     /// </summary>
     public GameObject explosion;
 
+    /// <summary>
+    /// Health bar of the structures, shows current healt
+    /// </summary>
     public SimpleHealthBar healthBar;
 
+    /// <summary>
+    /// Capture status bar of the structures, shows current capture status
+    /// </summary>
     public SimpleHealthBar captureBar;
 
+    /// <summary>
+    /// Contains the health, capture status and ammo UI indicators
+    /// </summary>
     public Canvas uiInfo;
 
+    /// <summary>
+    /// Enables the possibility of cature the structure from the player
+    /// </summary>
     public bool isCapturable = false;
 
+    /// <summary>
+    /// Indicathes if the structures is currently captured from the player
+    /// </summary
     public bool isCaptured = false;
 
     private bool isDestroyed = false;
@@ -80,7 +98,7 @@ public class BasicStructure : MonoBehaviour,CommonInterface
     }
 
     /// <summary>
-    /// Obtenemos el disparo y restamos vida
+    /// The structure recieves an impact and rest the damage to the health
     /// </summary>
     public void Impact(float damage)
     {
@@ -90,7 +108,7 @@ public class BasicStructure : MonoBehaviour,CommonInterface
     }
 
     /// <summary>
-    /// Obtenemos curacion y sumamos vida
+    /// The structure recieves health
     /// </summary>
     public void Heal(float heal)
     {
@@ -99,6 +117,9 @@ public class BasicStructure : MonoBehaviour,CommonInterface
         healthBar.UpdateBar(life, maxHeath);
     }
 
+    /// <summary>
+    /// The structure is captured from the player to take control
+    /// </summary>
     public void Capture()
     {
         if (isCapturable)
@@ -162,6 +183,9 @@ public class BasicStructure : MonoBehaviour,CommonInterface
 
     }
 
+    /// <summary>
+    /// Updates the user interface position to face it to the main camera 
+    /// </summary>
     void LateUpdate()
     {
         uiInfo.transform.LookAt(Camera.main.transform);

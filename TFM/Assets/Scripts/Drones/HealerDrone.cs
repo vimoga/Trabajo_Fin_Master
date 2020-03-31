@@ -8,7 +8,7 @@ using UnityEngine;
 public class HealerDrone : MonoBehaviour, DroneInterface
 {
     /// <summary>
-    /// heal quantity
+    /// Heal quantity
     /// </summary>
     public float heal = 0.10f;
 

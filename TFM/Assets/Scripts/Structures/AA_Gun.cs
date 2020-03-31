@@ -3,20 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 
+/// Behaviour for the AA Gun
 /// </summary>
 public class AA_Gun : MonoBehaviour, StructuresInterfaces
 {
 
     /// <summary>
-    /// time between shoots
+    /// Time between missiles are shoot
     /// </summary>
     public float timeBetweenShoots = 2.0f;
-
-    /// <summary>
-    /// current fire rate
-    /// </summary>
-    private float currentFireRate = 0;
 
     /// <summary>
     /// Misile spawn point
@@ -28,9 +23,17 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
     /// </summary>
     public GameObject missile;
 
+    /// <summary>
+    /// Speed of the missiles
+    /// </summary>
     public float missileSpeed = 5f;
 
+    /// <summary>
+    /// Damage of the missiles
+    /// </summary>
     public float missileDamage = 25f;
+
+    private float currentFireRate = 0;
 
     private GameObject aa_Enemy;
 
@@ -45,7 +48,7 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
 
 
     /// <summary>
-    /// gestiona el comportamiento de un disparo del arma
+    /// Custom Attack function of the AA Gun
     /// </summary>
     public void Attack()
     {
@@ -59,20 +62,16 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
         GameObject.Instantiate(missile, barrel.transform.position, barrel.transform.rotation);
     }
 
-    // Detect an Enemy, aim and fire
     void StructuresInterfaces.OnTriggerEnter(Collider other)
     {
         OnTriggerBehaviour(other);
     }
 
-    // keep firing
     void StructuresInterfaces.OnTriggerStay(Collider other)
     {
         OnTriggerBehaviour(other);
     }
 
-
-    // Stop firing
     void StructuresInterfaces.OnTriggerExit(Collider other)
     {
         if (AuxiliarOperations.IsPlayer(other))
@@ -104,30 +103,6 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
         }
     }
 
-
-
-    // Update is called once per frame
-    void Update()
-    {   
-        
-        if (aa_Enemy != null)
-        {
-            
-            if (!AuxiliarOperations.IsDestroyed(aa_Enemy) && AuxiliarOperations.EnemyIsAerial(gameObject,aa_Enemy))
-            {
-                if ((currentFireRate > timeBetweenShoots))
-                {
-                    Attack();
-                }
-            } else {
-                aa_Enemy = null;
-            }
-            
-        }
-
-        currentFireRate += Time.deltaTime;
-    }
-
     public void SetCaptured(bool isCaptured)
     {
     }
@@ -141,4 +116,25 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
     {
         return false;
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //attack player drones if are in the attack area
+        if (aa_Enemy != null)
+        {           
+            if (!AuxiliarOperations.IsDestroyed(aa_Enemy) && AuxiliarOperations.EnemyIsAerial(gameObject,aa_Enemy))
+            {
+                if ((currentFireRate > timeBetweenShoots))
+                {
+                    Attack();
+                }
+            } else {
+                aa_Enemy = null;
+            }
+            
+        }
+        currentFireRate += Time.deltaTime;
+    }
+    
 }

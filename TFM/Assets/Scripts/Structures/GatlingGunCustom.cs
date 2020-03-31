@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the GunTurret (modified from Free Sci Fi Gatling Gun - Tower Defense Asset)
+/// </summary>
 public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
 {
     // target the gun will aim at
@@ -36,7 +39,6 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
     {
         // Set the firing range distance
         this.GetComponentInChildren<SphereCollider>().radius = firingRange;
-
         audioSource = GetComponent<AudioSource>();
         audioSource.Stop();
     }
@@ -96,6 +98,9 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
         }
     }
 
+    /// <summary>
+    /// Custom Attack function of the AA Gun
+    /// </summary>
     public void Attack()
     {
         // Gun barrel rotation
@@ -129,6 +134,9 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
         }                
     }
 
+    /// <summary>
+    /// Cancel attack effects when the enemy on no longer reachable
+    /// </summary>
     private void CancelAttack()
     {
         // slow down barrel rotation and stop
@@ -140,6 +148,20 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
             muzzelFlash.SetActive(false);
             audioSource.Stop();
         }
+    }
+
+    public void SetCaptured(bool isCaptured)
+    {
+    }
+
+    public bool GetCaptured()
+    {
+        return false;
+    }
+
+    public bool isCaptured()
+    {
+        return false;
     }
 
     void Update()
@@ -159,19 +181,5 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
 
         currentFireRate += Time.deltaTime;
     }
-
-    public void SetCaptured(bool isCaptured)
-    {
-       
-    }
-
-    public bool GetCaptured()
-    {
-        return false;
-    }
-
-    public bool isCaptured()
-    {
-        return false;
-    }
+   
 }

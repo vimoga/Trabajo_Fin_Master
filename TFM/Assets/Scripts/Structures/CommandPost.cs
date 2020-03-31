@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour for the Command Post Structure
+/// </summary>
 public class CommandPost : MonoBehaviour, StructuresInterfaces
 {
-    
-
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +45,5 @@ public class CommandPost : MonoBehaviour, StructuresInterfaces
     {
         
     }
-
    
 }
