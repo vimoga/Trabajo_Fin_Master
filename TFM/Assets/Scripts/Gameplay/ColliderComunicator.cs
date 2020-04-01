@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Captures the trigger colliders and sends the info to their parent objects
+/// </summary>
 public class ColliderComunicator : MonoBehaviour
 {
     // Start is called before the first frame update

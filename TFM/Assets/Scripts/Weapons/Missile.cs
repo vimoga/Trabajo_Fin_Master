@@ -49,8 +49,7 @@ public class Missile : MonoBehaviour
     }
 
     public void CollisionDetected(GameObject childInpact)
-    {
-        //si colisiona con un enemigo se le resta a la vida la fuerza del inpacto
+    {        
         /*if (childInpact.tag == "Player" || childInpact.tag == "Player_Drone" )
         {
             childInpact.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);

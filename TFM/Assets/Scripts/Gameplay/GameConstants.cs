@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Constants used in the game
+/// </summary>
 static class GameConstants
 {
    public static float SEPARATION_TERRAIN_AERIAL = 3;

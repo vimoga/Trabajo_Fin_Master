@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Implements the behaviour of the bombs droped by drones
+/// </summary>
 public class Bomb : MonoBehaviour
 {
 
@@ -37,16 +40,16 @@ public class Bomb : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        //si colisiona con un enemigo se le resta a la vida la fuerza del inpacto
+        //if collides with terrain or enemy explotes
         if (collision.gameObject.tag.Equals(enemy.tag) || collision.gameObject.tag.Equals("Terrain"))
         {
             Explode();
         }
     }
 
-    // keep firing
     void OnTriggerStay(Collider other)
     {
+        //if enemy if on the damage zone recieves damage (but only one time)
         if (isExploted)
         {
             if (!affectedObjectives.Contains(other.transform.position)) {
@@ -63,6 +66,9 @@ public class Bomb : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Generate the effects of the bomb explosion
+    /// </summary>
     private void Explode()
     {
 

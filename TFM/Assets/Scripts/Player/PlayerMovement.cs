@@ -7,19 +7,18 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 /// <summary>
-/// Clase encargada de implementar el movimento del jugador 
-/// mediante los elementos A* inplementados en Unity (NavMesh y NavMeshAgent).
-/// El personaje del jugador se movera donde este haya clicado del escenario.
+/// Implements the player movement via  the A* implmented in Unity (NavMesh y NavMeshAgent).
+/// Also manage the selection of playable elements.
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     /// <summary>
-    /// GameObject del avatar del jugador
+    /// GameObject of the player
     /// </summary>
     private GameObject jugador;
 
     /// <summary>
-    /// Agente del NavMesh del jugador
+    /// Players NavMesh Agent
     /// </summary>
     private NavMeshAgent agente;
 
@@ -38,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Capture the elements needed
         jugador = GameObject.FindGameObjectWithTag("Player");
         currentSetection = AuxiliarOperations.GetChildObject(jugador.transform, "Selection");
         currentPlayerSetection = currentSetection;
@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Clicked()
     {
-        //Obtencion del punto donde a clickado el jugador
+        //Get clicked point
         RaycastHit hit = new RaycastHit();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -66,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
             GameObject auxiliar = hit.transform.gameObject;
             if (AuxiliarOperations.IsPlayableObject(hit.transform.gameObject.tag))
             {
+                //select element clicked
                 if (!AuxiliarOperations.IsDestroyed(currentSetection))
                 {
                     if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
@@ -79,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!AuxiliarOperations.IsDestroyed(jugador))
                 {
-                    //indicamos al agente que su destino es el punto marcado
+                    //Move the player to the selected point
                     agente.destination = hit.point;
                     isAttacking = false;
                 }
@@ -95,19 +96,16 @@ public class PlayerMovement : MonoBehaviour
                     currentSetection = null;
                 }                
             }
-        }
-      
-        
+        }       
     }
 
     void RightClicked() {
-        //Obtencion del punto donde a clickado el jugador
+        //Get clicked point
         RaycastHit hit = new RaycastHit();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit))
         {
-
             GameObject auxiliar = hit.transform.gameObject;
 
             if (AuxiliarOperations.IsPlayableObject(hit.transform.gameObject.tag))
@@ -129,15 +127,16 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (auxiliar.tag.Equals("Enemy") || auxiliar.tag.Equals("Enemy_Structure"))
                 {
+                    //atack clicked element
                     if (!AuxiliarOperations.IsDestroyed(jugador))
                     {
                         currentObjective = auxiliar;
                         isAttacking = true;
                     }
                 }
-
+                               
                 if (!AuxiliarOperations.IsDestroyed(currentSetection))
-                {
+                {                   
                     if (currentSetection.transform.parent != null)
                     {
                         Unselect();
@@ -160,6 +159,10 @@ public class PlayerMovement : MonoBehaviour
         return Camera.main.ScreenPointToRay(Input.mousePosition);
     }
 
+    /// <summary>
+    /// selects the element on the gameplay screen
+    /// </summary>
+    /// <param name="toSelect">ellemt to select</param>
     private void Select(GameObject toSelect)
     {
         GameObject selection=AuxiliarOperations.GetChildObject(toSelect.transform, "Selection");
@@ -189,16 +192,26 @@ public class PlayerMovement : MonoBehaviour
         }            
     }
 
+    /// <summary>
+    /// Defines the current player drone selection UIs
+    /// </summary>
+    /// <param name="toSelect">player drone</param>
     private void SelectPlayerSelection(GameObject toSelect)
     {
         currentPlayerSetection = AuxiliarOperations.GetChildObject(toSelect.transform, "Selection");
     }
 
+    /// <summary>
+    /// Unselect the current selection
+    /// </summary>
     private void Unselect()
     {
         currentSetection.SetActive(false);
     }
 
+    /// <summary>
+    /// Unselect the current player selection
+    /// </summary>
     private void UnselectPlayer()
     {
         if (currentPlayerSetection)
@@ -213,18 +226,19 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //detección del input del jugador
+        //Detects player left click
         if (Input.GetMouseButtonDown(0))
         {
             Clicked();
         }
 
-        //detección del input del jugador
+        //Detects player right click
         if (Input.GetMouseButtonDown(1))
         {
             RightClicked();
         }
 
+        //Move to the enemy if plater is out attack reach or attack if is in the range
         if (!AuxiliarOperations.IsDestroyed(jugador))
         {         
             if (isAttacking)
