@@ -112,7 +112,11 @@ public class PEMDrone : MonoBehaviour, DroneInterface
                 }
                 else {
                     DealDamage(other.transform.gameObject);
-                }              
+                } 
+                if (gameObject.IsDestroyed())
+                {
+                    other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
+                }
                 break;
             case colliderStatus.exit:
                 other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);

@@ -108,6 +108,11 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
                     DealDamage(other.transform.gameObject);
                 }
 
+                if (gameObject.IsDestroyed())
+                {
+                    StopDamage(other.transform.gameObject);
+                }
+
                 break;
             case colliderStatus.exit:
 
