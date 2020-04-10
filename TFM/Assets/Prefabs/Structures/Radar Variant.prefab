@@ -159,6 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b847ad7b3cb4c148ad3af91228e0cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fogOfWarPlane: {fileID: 0}
+  coverRange: 50
+  fogOfWarCover: 0.75
 --- !u!82 &831092710634624026
 AudioSource:
   m_ObjectHideFlags: 0

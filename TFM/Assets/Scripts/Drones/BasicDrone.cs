@@ -94,6 +94,11 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     /// </summary>
     public bool isCaptured = false;
 
+    /// <summary>
+    /// Drone is on cover of a radio tower
+    /// </summary>
+    public bool isOnCover = false;
+
     private Rigidbody rb;
 
     private AudioSource audioSource;
@@ -103,7 +108,6 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     private bool isStuned = false;
 
     private float droneSpeed;
-
 
     // Start is called before the first frame update
     void Start()
@@ -165,6 +169,30 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         isStuned = false;
         stuntDamage.SetActive(false);
         GetComponent<NavMeshAgent>().speed = droneSpeed;
+    }
+
+    /// <summary>
+    /// The drone recieves stunt damage
+    /// </summary>
+    public void InCover()
+    {        
+        if (!isOnCover)
+        {
+            OutCover();
+        }
+        isOnCover = true;
+        stuntDamage.SetActive(false);
+        GetComponent<NavMeshAgent>().speed = droneSpeed;
+    }
+
+    /// <summary>
+    /// The drone is no longer recives stunt damage
+    /// </summary>
+    public void OutCover()
+    {
+        isOnCover = false;
+        stuntDamage.SetActive(true);
+        GetComponent<NavMeshAgent>().speed = 0.5f;
     }
 
     /// <summary>
@@ -264,6 +292,12 @@ public class BasicDrone : MonoBehaviour, CommonInterface
                     smallDamage.SetActive(false);
                     greatDamage.SetActive(false);
                 }
+
+                //is out cover                
+                if (!isOnCover)
+                {
+                    Impact(0.1f);
+                }               
             }
             else
             {
