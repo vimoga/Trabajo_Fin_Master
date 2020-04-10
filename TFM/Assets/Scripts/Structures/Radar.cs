@@ -32,6 +32,8 @@ public class Radar : MonoBehaviour, StructuresInterfaces
 
     private bool isDestroyed = false;
 
+    private bool isDrawed = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +51,9 @@ public class Radar : MonoBehaviour, StructuresInterfaces
             colors[i].a = 255;
         }
         UpdateColor();
+        if (isCaptured) {
+            isDrawed = true;
+        }
     }
 
     public void Attack()
@@ -119,15 +124,29 @@ public class Radar : MonoBehaviour, StructuresInterfaces
 
     void UpdateColor()
     {
+
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            Vector3 v = fogOfWarPlane.transform.TransformPoint(vertices[i]);
+            float dist = Vector3.SqrMagnitude(v - transform.position);
+            dist /= coverRangeSqr;
+            if (dist < fogOfWarCover)
+            {
+                float alpha = Mathf.Min(colors[i].a, dist / fogOfWarCover);
+                colors[i].a = alpha;
+            }
+        }
+
         m_Mesh.colors = colors;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isCaptured)
+        if (isCaptured && !isDrawed )
         {
-            for (int i = 0; i < vertices.Length; i++)
+            /*for (int i = 0; i < vertices.Length; i++)
             {
                 Vector3 v = fogOfWarPlane.transform.TransformPoint(vertices[i]);
                 float dist = Vector3.SqrMagnitude(v - transform.position);
@@ -137,8 +156,11 @@ public class Radar : MonoBehaviour, StructuresInterfaces
                     float alpha = Mathf.Min(colors[i].a, dist / fogOfWarCover);
                     colors[i].a = alpha;
                 }
-            }
+            }*/
+            m_Mesh = fogOfWarPlane.GetComponent<MeshFilter>().mesh;
+            colors = m_Mesh.colors;
             UpdateColor();
+            isDrawed = true;
         }
         
 
