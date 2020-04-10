@@ -19247,6 +19247,7 @@ MonoBehaviour:
   ammoCount: {fileID: 667679510636824661}
   uiInfo: {fileID: 6133657985873237211}
   isCaptured: 1
+  isOnCover: 0
 --- !u!82 &8666420598240052238
 AudioSource:
   m_ObjectHideFlags: 0
