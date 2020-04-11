@@ -109,6 +109,8 @@ public class BasicDrone : MonoBehaviour, CommonInterface
 
     private float droneSpeed;
 
+    private GameplayManager gameplayManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -129,6 +131,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         SetAmmoCount();
 
         isCaptured = AuxiliarOperations.IsCaptured(gameObject.tag);
+        gameplayManager = GameObject.FindGameObjectWithTag("GameplayManager").GetComponent<GameplayManager>();
     }
 
     /// <summary>
@@ -219,24 +222,32 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     /// The drone is captured from the player to take control
     /// </summary>
     public void Capture() {
-        captureStatus +=  (captureCost)*0.5f;
-        captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
-        if (captureStatus >= GameConstants.CAPTURE_LIMIT)
+        if (gameplayManager.currentCPUPower>= captureCost)
         {
-            gameObject.tag = "Player_Drone";
-            isCaptured = true;
-            Debug.Log("Drone captured: " + captureStatus);
-
-            //chage selection if active
-            GameObject selection = AuxiliarOperations.GetChildObject(gameObject.transform, "Selection");
-            if (selection)
+            captureStatus += (captureCost) * 0.5f;
+            captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
+            if (captureStatus >= GameConstants.CAPTURE_LIMIT)
             {
-                if (selection.activeSelf)
+                gameObject.tag = "Player_Drone";
+                isCaptured = true;
+                Debug.Log("Drone captured: " + captureStatus);
+
+                //add to the hud
+                gameplayManager.RemoveCPUPower(captureCost);
+                gameplayManager.AddPlayerDrone(this);
+
+                //chage selection if active
+                GameObject selection = AuxiliarOperations.GetChildObject(gameObject.transform, "Selection");
+                if (selection)
                 {
-                    selection.GetComponent<RawImage>().texture = (Texture)Resources.Load("Textures/selection_friend");
+                    if (selection.activeSelf)
+                    {
+                        selection.GetComponent<RawImage>().texture = (Texture)Resources.Load("Textures/selection_friend");
+                    }
                 }
             }
         }
+        
     }
 
 
@@ -310,6 +321,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
                 if (GetComponent<NavMeshAgent>()) {
                     GetComponent<NavMeshAgent>().enabled = false;
                 }
+                //removes from the hud
+                gameplayManager.AddCPUPower(captureCost);
+                gameplayManager.RemovePlayerDrone(this);
                 Object.Destroy(gameObject, 2.0f);
             }
         }

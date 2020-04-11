@@ -16,6 +16,7 @@ TagManager:
   - Selection
   - Pause
   - HUD
+  - GameplayManager
   layers:
   - Default
   - TransparentFX

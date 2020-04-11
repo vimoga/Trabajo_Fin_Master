@@ -8,6 +8,7 @@ public class HUDPlayerDrone : MonoBehaviour
     /// <summary>
     /// Drone data
     /// </summary>
+    [HideInInspector]
     public BasicDrone drone;
 
     /// <summary>

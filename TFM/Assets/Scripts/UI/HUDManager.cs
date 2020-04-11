@@ -24,11 +24,18 @@ public class HUDManager : MonoBehaviour
     public Camera mainCamera;
 
     private int currentDroneIndex = 0;
-    private float currentCPUIndex = 0;
+    private float currentCPUIndex = GameConstants.MAX_CPU_POWER-1;
 
     // Start is called before the first frame update
     void Start()
     {
+
+    }
+
+    /// <summary>
+    /// Clear every element form the HUD to start drawing
+    /// </summary>
+    public void Initialize() {
         foreach (GameObject playerDrone in drones)
         {
             playerDrone.SetActive(false);
@@ -38,23 +45,24 @@ public class HUDManager : MonoBehaviour
         {
             power.SetActive(false);
         }
+
     }
 
     /// <summary>
     /// add new drone in the HUD
     /// </summary>
     /// <param name="drone">player drone to add in the HUD</param>
-    public void addPlayerDrone(BasicDrone drone) {
-        currentDroneIndex += 1;
+    public void AddPlayerDrone(BasicDrone drone) {      
         drones[currentDroneIndex].GetComponent<HUDPlayerDrone>().drone = drone;
         drawPlayerDrones(drone, currentDroneIndex);
+        currentDroneIndex += 1;
     }
 
     /// <summary>
     /// remove drone from the HUD
     /// </summary>
     /// <param name="drone">player drone to remove from the HUD</param>
-    public void removePlayerDrone(BasicDrone drone) {
+    public void RemovePlayerDrone(BasicDrone drone) {
         for (int i = 0; i < drones.Length; i++) {
             if (drones[i].GetComponent<HUDPlayerDrone>().drone.Equals(drone)) {
                 drones[i].SetActive(false);
@@ -68,7 +76,7 @@ public class HUDManager : MonoBehaviour
     /// Add CPU power in the HUD
     /// </summary>
     /// <param name="drone">Quantity of CPU power to add in the HUD</param>
-    public void addCPUPower(float power) {
+    public void AddCPUPower(float power) {
         currentCPUIndex += power;
         drawCPUPower();
     }
@@ -77,7 +85,7 @@ public class HUDManager : MonoBehaviour
     /// remove CPU power from the HUD
     /// </summary>
     /// <param name="drone">Quantity of CPU power to remove from the HUD</param>
-    public void removeCPUPower(float power) {
+    public void RemoveCPUPower(float power) {
         currentCPUIndex -= power;
         drawCPUPower();
     }
@@ -120,7 +128,7 @@ public class HUDManager : MonoBehaviour
 
     private void drawPlayerDrones(BasicDrone drone, int index)
     {
-        RawImage rawImage = drones[index].GetComponent<RawImage>();
+        RawImage rawImage = drones[index].GetComponentInChildren<RawImage>();
         switch (drone.name)
         {
             case "Bomber Drone":
@@ -148,14 +156,14 @@ public class HUDManager : MonoBehaviour
 
         if (drone.maxAmmo != -1)
         {
-            drones[index].GetComponent<Text>().text = "Ammo: " + drone.ammo;
+            drones[index].GetComponentInChildren<Text>().text = "Ammo: " + drone.ammo;
         }
         else
         {
-            drones[index].GetComponent<Text>().text = "";
+            drones[index].GetComponentInChildren<Text>().text = "";
         }
 
-        drones[index].GetComponent<SimpleHealthBar>().UpdateBar(drone.life, drone.maxHeath);
+        drones[index].GetComponentInChildren<SimpleHealthBar>().UpdateBar(drone.life, drone.maxHeath);
 
         drones[index].SetActive(true);
     }

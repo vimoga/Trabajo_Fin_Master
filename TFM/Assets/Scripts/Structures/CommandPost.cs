@@ -7,10 +7,16 @@ using UnityEngine;
 /// </summary>
 public class CommandPost : MonoBehaviour, StructuresInterfaces
 {
+    private bool isCaptured = false;
+
+    private bool isAddedToHUD = false;
+
+    private GameplayManager gameplayManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameplayManager = GameObject.FindGameObjectWithTag("GameplayManager").GetComponent<GameplayManager>();
     }
 
     public void Attack()
@@ -43,7 +49,11 @@ public class CommandPost : MonoBehaviour, StructuresInterfaces
     // Update is called once per frame
     void Update()
     {
-        
+        isCaptured = GetComponent<BasicStructure>().isCaptured;
+        if (isCaptured && !isAddedToHUD) {
+            gameplayManager.AddCPUPower(1);
+            isAddedToHUD = true;
+        }
     }
    
 }
