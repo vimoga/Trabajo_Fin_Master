@@ -190,4 +190,24 @@ public class AirDrone : MonoBehaviour, DroneInterface
 
         currentFireRate += Time.deltaTime;
     }
+
+    public void GoToAttackState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void GoToAlertState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void GoToPatrolState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void GoToCapturedState()
+    {
+        throw new System.NotImplementedException();
+    }
 }

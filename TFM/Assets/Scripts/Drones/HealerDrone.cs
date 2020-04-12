@@ -193,5 +193,23 @@ public class HealerDrone : MonoBehaviour, DroneInterface
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
+    public void GoToAttackState()
+    {
+        throw new System.NotImplementedException();
+    }
 
+    public void GoToAlertState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void GoToPatrolState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void GoToCapturedState()
+    {
+        throw new System.NotImplementedException();
+    }
 }

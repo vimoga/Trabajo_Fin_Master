@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Selection_test/Selection_test.unity
+- path: Assets/Scenes/IA_test/IA_test.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

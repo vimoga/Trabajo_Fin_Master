@@ -195,5 +195,25 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         currentFireRate += Time.deltaTime;
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
+
+    public void GoToAttackState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void GoToAlertState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void GoToPatrolState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void GoToCapturedState()
+    {
+        throw new System.NotImplementedException();
+    }
 }
 
