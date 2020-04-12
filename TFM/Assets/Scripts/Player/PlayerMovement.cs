@@ -223,6 +223,39 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Allows to select a player from other script
+    /// </summary>
+    /// <param name="toSelect">drone to select</param>
+    public void ExternalSelect(GameObject toSelect) {
+        if (toSelect.tag!="Player") {
+            if (!AuxiliarOperations.IsDestroyed(jugador))
+            {
+                GameObject.FindGameObjectWithTag("Player").tag = "Player_Drone";
+            }
+
+            UnselectPlayer();
+            toSelect.tag = "Player";
+            jugador = toSelect;
+            agente = toSelect.GetComponent<NavMeshAgent>();
+            camera.SetTarget(jugador.transform);
+            SelectPlayerSelection(jugador);
+
+            if (!AuxiliarOperations.IsDestroyed(currentSetection))
+            {
+                if (currentSetection.transform.parent != null)
+                {
+                    Unselect();
+                }
+                Select(toSelect);
+            }
+            else
+            {
+                Select(toSelect);
+            }
+        }        
+    }
+
     // Update is called once per frame
     void Update()
     {

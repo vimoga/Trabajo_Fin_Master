@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RTS_Cam;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,9 +20,9 @@ public class HUDManager : MonoBehaviour
     public GameObject[] cpuPower;
 
     /// <summary>
-    /// Main Camaera of the game
+    /// player movement manager
     /// </summary>
-    public Camera mainCamera;
+    private PlayerMovement playerMovement;
 
     private int currentDroneIndex = 0;
     private float currentCPUIndex = GameConstants.MAX_CPU_POWER-1;
@@ -29,7 +30,7 @@ public class HUDManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        playerMovement = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<PlayerMovement>();
     }
 
     /// <summary>
@@ -64,8 +65,11 @@ public class HUDManager : MonoBehaviour
     /// <param name="drone">player drone to remove from the HUD</param>
     public void RemovePlayerDrone(BasicDrone drone) {
         for (int i = 0; i < drones.Length; i++) {
-            if (drones[i].GetComponent<HUDPlayerDrone>().drone.Equals(drone)) {
-                drones[i].SetActive(false);
+            if (drones[i].GetComponent<HUDPlayerDrone>().drone) {
+                if (drones[i].GetComponent<HUDPlayerDrone>().drone.Equals(drone))
+                {
+                    drones[i].SetActive(false);
+                }
             }
         }
         currentDroneIndex -= 1;
@@ -166,6 +170,40 @@ public class HUDManager : MonoBehaviour
         drones[index].GetComponentInChildren<SimpleHealthBar>().UpdateBar(drone.life, drone.maxHeath);
 
         drones[index].SetActive(true);
+    }
+
+    /// <summary>
+    /// Select drone from HUD
+    /// </summary>
+    /// <param name="index">index of the list</param>
+    public void SelectDrone(int index) {
+
+        bool isSelected = false;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player)
+        {
+            if (player.GetComponent<BasicDrone>().Equals(drones[index].GetComponent<HUDPlayerDrone>().drone))
+            {
+                playerMovement.ExternalSelect(player);
+                isSelected = true;
+            }
+        }
+
+        if (!isSelected) { 
+            GameObject[] playerDrones = GameObject.FindGameObjectsWithTag("Player_Drone");
+
+            foreach (GameObject playerDrone in playerDrones)
+            {
+                if (playerDrone.GetComponent<BasicDrone>().Equals(drones[index].GetComponent<HUDPlayerDrone>().drone))
+                {
+                    playerMovement.ExternalSelect(playerDrone);
+                    isSelected = true;
+                    break;
+                }
+            }
+        }
+
     }
 
     // Update is called once per frame
