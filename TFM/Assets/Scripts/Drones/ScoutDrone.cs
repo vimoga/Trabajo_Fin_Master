@@ -101,7 +101,14 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
             if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
             {
                 //scout_enemy = null;
-                GoToAlertState();
+                if (scout_enemy.Equals(other.gameObject))
+                {
+                    GoToAlertState();
+                }
+                else {
+                    scout_enemy = null;
+                }
+                
             }
         }
     }
@@ -123,9 +130,9 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
             {
                 if (Vector3.Distance(scout_enemy.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
                 {
-                    scout_enemy = other.gameObject;
-                    GoToAttackState();
+                    scout_enemy = other.gameObject;                   
                 }
+                GoToAttackState();
             }
         }
     }
@@ -226,6 +233,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                     else
                     {
                         scout_enemy = null;
+                        GoToPatrolState();
                     }
                 }
                 break;
@@ -235,7 +243,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                 {
                     agent.destination = wayPoints[nextWayPoint].position;
 
-                    if (agent.remainingDistance <= agent.stoppingDistance)
+                    if (agent.remainingDistance <= agent.stoppingDistance+GameConstants.WAYPOINT_STOP_AVOID)
                     {
                         nextWayPoint = (nextWayPoint + 1) % wayPoints.Length;
                     }
@@ -247,22 +255,37 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                 {
                     if (!AuxiliarOperations.IsDestroyed(scout_enemy))
                     {
-                        if (currentAlertTime > GameConstants.ALERT_TIME) {
+                        if (currentAlertTime < GameConstants.ALERT_TIME) {
+                            currentAlertTime = 0;
                             if (!scout_enemy.GetComponent<CommonInterface>().isDestroyed())
                             {
-                                agent.destination = scout_enemy.transform.position;
+                                if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                                {
+                                    agent.destination = scout_enemy.transform.position;
+                                }
                             }
                             else {
-                                GoToPatrolState();
+                                if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                                {
+                                    scout_enemy = null;
+                                    GoToPatrolState();
+                                }                                  
                             }
                         } else {
-                            GoToPatrolState();
+                            if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                            {
+                                scout_enemy = null;
+                                GoToPatrolState();
+                            }
                         }                       
                     }
                     else
                     {
-                        scout_enemy = null;
-                        GoToPatrolState();
+                        if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                        {
+                            scout_enemy = null;
+                            GoToPatrolState();
+                        }
                     }
                 }                
                 break;
@@ -289,20 +312,24 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
     public void GoToAttackState()
     {
         currentState = droneState.ATTACK;
+        Debug.Log("Drone state: " + droneState.ATTACK);
     }
 
     public void GoToAlertState()
     {
         currentState = droneState.ALERT;
+        Debug.Log("Drone state: " + droneState.ALERT);
     }
 
     public void GoToPatrolState()
     {
         currentState = droneState.PATROL;
+        Debug.Log("Drone state: " + droneState.PATROL);
     }
 
     public void GoToCapturedState()
     {
         currentState = droneState.CAPTURED;
+        Debug.Log("Drone state: " + droneState.CAPTURED);
     }
 }
