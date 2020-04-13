@@ -99,16 +99,14 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
         if (!isCaptured)
         {
             if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
-            {
-                //scout_enemy = null;
+            {                
                 if (scout_enemy.Equals(other.gameObject))
                 {
                     GoToAlertState();
                 }
                 else {
                     scout_enemy = null;
-                }
-                
+                }               
             }
         }
     }
@@ -215,7 +213,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
     // Update is called once per frame
     void Update()
     {       
-        // Switch on the Priority enum.
+        // Switch on the statr enum.
         switch (currentState)
         {
             case droneState.ATTACK:                
@@ -291,7 +289,6 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                 break;
             case droneState.CAPTURED:
                 break;
-
         }
 
         isCaptured = GetComponent<BasicDrone>().isCaptured;
