@@ -63405,7 +63405,8 @@ MonoBehaviour:
   captureBar: {fileID: 7090233537226966330}
   ammoCount: {fileID: 4485200797824848115}
   uiInfo: {fileID: 7090233538120830077}
-  isCaptured: 1
+  isCaptured: 0
+  isOnCover: 1
 --- !u!114 &3703160231189104274
 MonoBehaviour:
   m_ObjectHideFlags: 0
