@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Behaviour for the PEM Drone
@@ -27,9 +28,24 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     /// </summary>
     public GameObject PEMWave;
 
+    /// <summary>
+    /// waypoints for the patrol route
+    /// </summary>
+    public Transform[] wayPoints;
+
     private bool isCaptured = false;
 
     private enum colliderStatus {enter,stay,exit};
+
+    private enum droneState { ATTACK, PATROL, ALERT, CAPTURED };
+
+    private droneState currentState = droneState.PATROL;
+
+    private NavMeshAgent agent;
+
+    private int nextWayPoint = 0;
+
+    private float currentAlertTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +54,17 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         this.GetComponentInChildren<SphereCollider>().radius = firingRange;
 
         isCaptured = GetComponent<BasicDrone>().isCaptured;
+
+        if (isCaptured)
+        {
+            currentState = droneState.CAPTURED;
+        }
+        else
+        {
+            currentState = droneState.PATROL;
+        }
+
+        agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
     void DroneInterface.OnTriggerEnter(Collider other)
@@ -172,26 +199,63 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     // Update is called once per frame
     void Update()
     {
+        // Switch on the statr enum.
+        switch (currentState)
+        {
+            case droneState.ATTACK:
+                break;
+            case droneState.PATROL:
+                //patrol map by waypoints
+                if (!gameObject.GetComponent<CommonInterface>().isDestroyed())
+                {
+                    agent.destination = wayPoints[nextWayPoint].position;
+
+                    if (agent.remainingDistance <= agent.stoppingDistance + GameConstants.WAYPOINT_STOP_AVOID)
+                    {
+                        nextWayPoint = (nextWayPoint + 1) % wayPoints.Length;
+                    }
+                }
+                break;
+            case droneState.ALERT:
+                break;
+            case droneState.CAPTURED:
+                break;
+        }
+
         isCaptured = GetComponent<BasicDrone>().isCaptured;
+
+        if (isCaptured && currentState != droneState.CAPTURED)
+        {
+            GoToCapturedState();
+        }
+
+        if (currentState == droneState.ALERT)
+        {
+            currentAlertTime += Time.deltaTime;
+        }
     }
 
     public void GoToAttackState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.ATTACK;
+        Debug.Log("Drone state: " + droneState.ATTACK);
     }
 
     public void GoToAlertState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.ALERT;
+        Debug.Log("Drone state: " + droneState.ALERT);
     }
 
     public void GoToPatrolState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.PATROL;
+        Debug.Log("Drone state: " + droneState.PATROL);
     }
 
     public void GoToCapturedState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.CAPTURED;
+        Debug.Log("Drone state: " + droneState.CAPTURED);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Behaviour for the Healer Drone
@@ -27,6 +28,11 @@ public class HealerDrone : MonoBehaviour, DroneInterface
     /// </summary>
     public AudioClip beamSound;
 
+    /// <summary>
+    /// waypoints for the patrol route
+    /// </summary>
+    public Transform[] wayPoints;
+
     private bool isCaptured = false;
 
     private enum ColliderStatus { enter, stay, exit };
@@ -34,6 +40,16 @@ public class HealerDrone : MonoBehaviour, DroneInterface
     private AudioSource audioSource;
 
     private GameObject healerObjective;
+
+    private enum droneState { ATTACK, PATROL, ALERT, CAPTURED };
+
+    private droneState currentState = droneState.PATROL;
+
+    private NavMeshAgent agent;
+
+    private int nextWayPoint = 0;
+
+    private float currentAlertTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +60,17 @@ public class HealerDrone : MonoBehaviour, DroneInterface
         audioSource = GetComponent<AudioSource>();
 
         isCaptured = GetComponent<BasicDrone>().isCaptured;
+
+        if (isCaptured)
+        {
+            currentState = droneState.CAPTURED;
+        }
+        else
+        {
+            currentState = droneState.PATROL;
+        }
+
+        agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
     void DroneInterface.OnTriggerEnter(Collider other)
@@ -88,13 +115,27 @@ public class HealerDrone : MonoBehaviour, DroneInterface
         {
             if (AuxiliarOperations.IsPlayer(other))
             {
-                healerObjective = null;
+                if (healerObjective.Equals(other.gameObject))
+                {
+                    GoToAlertState();
+                }
+                else
+                {
+                    healerObjective = null;
+                }              
             }
         }
         else {
             if (AuxiliarOperations.IsEnemy(other))
             {
-                healerObjective = null;
+                if (healerObjective.Equals(other.gameObject))
+                {
+                    GoToAlertState();
+                }
+                else
+                {
+                    healerObjective = null;
+                }
             }
         }
     }
@@ -112,12 +153,26 @@ public class HealerDrone : MonoBehaviour, DroneInterface
                 if (healerObjective == null)
                 {
                     healerObjective = other.gameObject;
+                    if (!isCaptured) {
+                        GoToAttackState();
+                    } else {
+                        GoToCapturedState();
+                    }
                 }
                 else
                 {
                     if (Vector3.Distance(healerObjective.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
                     {
                         healerObjective = other.gameObject;
+                    }
+
+                    if (!isCaptured)
+                    {
+                        GoToAttackState();
+                    }
+                    else
+                    {
+                        GoToCapturedState();
                     }
                 }
             }           
@@ -167,49 +222,152 @@ public class HealerDrone : MonoBehaviour, DroneInterface
     // Update is called once per frame
     void Update()
     {
-        //Keeps healing the objectives if their healt is not at maximum
-        if (!GetComponent<CommonInterface>().isDestroyed())
+        
+
+        // Switch on the statr enum.
+        switch (currentState)
         {
-            if (healerObjective != null)
-            {
-                if (!AuxiliarOperations.IsDestroyed(healerObjective) && (healerObjective.GetComponent<BasicDrone>().life < healerObjective.GetComponent<BasicDrone>().maxHeath))
+            case droneState.ATTACK:
+                //Keeps healing the objectives if their healt is not at maximum
+                if (!GetComponent<CommonInterface>().isDestroyed())
                 {
-                    if (!healerObjective.GetComponent<CommonInterface>().isDestroyed())
+                    if (healerObjective != null)
                     {
-                        HealBeam(healerObjective);
+                        if (!AuxiliarOperations.IsDestroyed(healerObjective) && (healerObjective.GetComponent<BasicDrone>().life < healerObjective.GetComponent<BasicDrone>().maxHeath))
+                        {
+                            if (!healerObjective.GetComponent<CommonInterface>().isDestroyed())
+                            {
+                                agent.destination = gameObject.transform.position;
+                                HealBeam(healerObjective);
+                            }
+                        }
+                        else
+                        {
+                            healerObjective = null;
+                            GoToPatrolState();
+                        }
+                    }
+                    else
+                    {
+                        beam.SetActive(false);
                     }
                 }
-                else
+                break;
+            case droneState.PATROL:
+                //patrol map by waypoints
+                if (!gameObject.GetComponent<CommonInterface>().isDestroyed())
                 {
-                    healerObjective = null;
+                    agent.destination = wayPoints[nextWayPoint].position;
+
+                    if (agent.remainingDistance <= agent.stoppingDistance + GameConstants.WAYPOINT_STOP_AVOID)
+                    {
+                        nextWayPoint = (nextWayPoint + 1) % wayPoints.Length;
+                    }
                 }
-            }
-            else
-            {
-                beam.SetActive(false);
-            }
+                break;
+            case droneState.ALERT:
+                //follow player drones when is not captured
+                if (!isCaptured && healerObjective != null)
+                {
+                    if (!AuxiliarOperations.IsDestroyed(healerObjective))
+                    {
+                        if (currentAlertTime < GameConstants.ALERT_TIME)
+                        {
+                            currentAlertTime = 0;
+                            if (!healerObjective.GetComponent<CommonInterface>().isDestroyed())
+                            {
+                                if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                                {
+                                    agent.destination = healerObjective.transform.position;
+                                }
+                            }
+                            else
+                            {
+                                if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                                {
+                                    healerObjective = null;
+                                    GoToPatrolState();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                            {
+                                healerObjective = null;
+                                GoToPatrolState();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                        {
+                            healerObjective = null;
+                            GoToPatrolState();
+                        }
+                    }
+                }
+                break;
+            case droneState.CAPTURED:
+                //Keeps healing the objectives if their healt is not at maximum
+                if (!GetComponent<CommonInterface>().isDestroyed())
+                {
+                    if (healerObjective != null)
+                    {
+                        if (!AuxiliarOperations.IsDestroyed(healerObjective) && (healerObjective.GetComponent<BasicDrone>().life < healerObjective.GetComponent<BasicDrone>().maxHeath))
+                        {
+                            if (!healerObjective.GetComponent<CommonInterface>().isDestroyed())
+                            {
+                                HealBeam(healerObjective);
+                            }
+                        }
+                        else
+                        {
+                            healerObjective = null;
+                        }
+                    }
+                    else
+                    {
+                        beam.SetActive(false);
+                    }
+                }
+                break;
         }
-              
+
         isCaptured = GetComponent<BasicDrone>().isCaptured;
+        if (isCaptured && currentState != droneState.CAPTURED)
+        {
+            GoToCapturedState();
+        }
+
+        if (currentState == droneState.ALERT)
+        {
+            currentAlertTime += Time.deltaTime;
+        }
     }
 
     public void GoToAttackState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.ATTACK;
+        Debug.Log("Drone state: " + droneState.ATTACK);
     }
 
     public void GoToAlertState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.ALERT;
+        Debug.Log("Drone state: " + droneState.ALERT);
     }
 
     public void GoToPatrolState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.PATROL;
+        Debug.Log("Drone state: " + droneState.PATROL);
     }
 
     public void GoToCapturedState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.CAPTURED;
+        Debug.Log("Drone state: " + droneState.CAPTURED);
     }
 }

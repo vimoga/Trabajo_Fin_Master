@@ -19360,6 +19360,7 @@ MonoBehaviour:
   firingRange: 35
   beam: {fileID: 6476865750534874617}
   beamSound: {fileID: 8300000, guid: 1b3bf8c97f4ac204daee4f14c645cb44, type: 3}
+  wayPoints: []
 --- !u!1 &4834335707317274532
 GameObject:
   m_ObjectHideFlags: 0

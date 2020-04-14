@@ -234,7 +234,6 @@ public class TankDrone : MonoBehaviour,DroneInterface
                             agent.destination = gameObject.transform.position;
                             Attack(tnk_enemy);
                         }
-
                     }
                     else
                     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Behaviour for the Air Drone
@@ -37,11 +38,26 @@ public class AirDrone : MonoBehaviour, DroneInterface
     /// </summary>
     public GameObject missileLauncher;
 
+    /// <summary>
+    /// waypoints for the patrol route
+    /// </summary>
+    public Transform[] wayPoints;
+
     private GameObject airDroneEnemy;
 
     private float currentFireRate = 0;
 
     private bool isCaptured = false;
+
+    private enum droneState { ATTACK, PATROL, ALERT, CAPTURED };
+
+    private droneState currentState = droneState.PATROL;
+
+    private NavMeshAgent agent;
+
+    private int nextWayPoint = 0;
+
+    private float currentAlertTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +66,17 @@ public class AirDrone : MonoBehaviour, DroneInterface
         this.GetComponentInChildren<SphereCollider>().radius = firingRange;
 
         isCaptured = GetComponent<BasicDrone>().isCaptured;
+
+        if (isCaptured)
+        {
+            currentState = droneState.CAPTURED;
+        }
+        else
+        {
+            currentState = droneState.PATROL;
+        }
+
+        agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
     void DroneInterface.OnTriggerEnter(Collider other)
@@ -75,7 +102,14 @@ public class AirDrone : MonoBehaviour, DroneInterface
         {
             if (AuxiliarOperations.IsPlayer(other))
             {
-                airDroneEnemy = null;
+                if (airDroneEnemy.Equals(other.gameObject))
+                {
+                    GoToAlertState();
+                }
+                else
+                {
+                    airDroneEnemy = null;
+                }
             }
         }
     }
@@ -91,6 +125,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
             if (airDroneEnemy == null)
             {
                 airDroneEnemy = other.gameObject;
+                GoToAttackState();
             }
             else
             {
@@ -98,6 +133,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
                 {
                     airDroneEnemy = other.gameObject;
                 }
+                GoToAttackState();
             }
         }
     }
@@ -170,44 +206,126 @@ public class AirDrone : MonoBehaviour, DroneInterface
     // Update is called once per frame
     void Update()
     {
-        //attack player drones when is not captured
-        if (!isCaptured && airDroneEnemy != null)
+        
+
+        // Switch on the statr enum.
+        switch (currentState)
         {
-            if (!AuxiliarOperations.IsDestroyed(airDroneEnemy))
-            {
-                if (!airDroneEnemy.GetComponent<CommonInterface>().isDestroyed())
+            case droneState.ATTACK:
+                //attack player drones when is not captured
+                if (!isCaptured && airDroneEnemy != null)
                 {
-                    Attack(airDroneEnemy);
+                    if (!AuxiliarOperations.IsDestroyed(airDroneEnemy))
+                    {
+                        if (!airDroneEnemy.GetComponent<CommonInterface>().isDestroyed())
+                        {
+                            agent.destination = gameObject.transform.position;
+                            Attack(airDroneEnemy);
+                        }
+                    }
+                    else
+                    {
+                        airDroneEnemy = null;
+                        GoToPatrolState();
+                    }
                 }
-            }
-            else
-            {
-                airDroneEnemy = null;
-            }
+                break;
+            case droneState.PATROL:
+                //patrol map by waypoints
+                if (!gameObject.GetComponent<CommonInterface>().isDestroyed())
+                {
+                    agent.destination = wayPoints[nextWayPoint].position;
+
+                    if (agent.remainingDistance <= agent.stoppingDistance + GameConstants.WAYPOINT_STOP_AVOID)
+                    {
+                        nextWayPoint = (nextWayPoint + 1) % wayPoints.Length;
+                    }
+                }
+                break;
+            case droneState.ALERT:
+                //follow player drones when is not captured
+                if (!isCaptured && airDroneEnemy != null)
+                {
+                    if (!AuxiliarOperations.IsDestroyed(airDroneEnemy))
+                    {
+                        if (currentAlertTime < GameConstants.ALERT_TIME)
+                        {
+                            currentAlertTime = 0;
+                            if (!airDroneEnemy.GetComponent<CommonInterface>().isDestroyed())
+                            {
+                                if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                                {
+                                    agent.destination = airDroneEnemy.transform.position;
+                                }
+                            }
+                            else
+                            {
+                                if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                                {
+                                    airDroneEnemy = null;
+                                    GoToPatrolState();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                            {
+                                airDroneEnemy = null;
+                                GoToPatrolState();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                        {
+                            airDroneEnemy = null;
+                            GoToPatrolState();
+                        }
+                    }
+                }
+                break;
+            case droneState.CAPTURED:
+                break;
         }
 
         isCaptured = GetComponent<BasicDrone>().isCaptured;
 
         currentFireRate += Time.deltaTime;
+
+        if (isCaptured && currentState != droneState.CAPTURED)
+        {
+            GoToCapturedState();
+        }
+
+        if (currentState == droneState.ALERT)
+        {
+            currentAlertTime += Time.deltaTime;
+        }
     }
 
     public void GoToAttackState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.ATTACK;
+        Debug.Log("Drone state: " + droneState.ATTACK);
     }
 
     public void GoToAlertState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.ALERT;
+        Debug.Log("Drone state: " + droneState.ALERT);
     }
 
     public void GoToPatrolState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.PATROL;
+        Debug.Log("Drone state: " + droneState.PATROL);
     }
 
     public void GoToCapturedState()
     {
-        throw new System.NotImplementedException();
+        currentState = droneState.CAPTURED;
+        Debug.Log("Drone state: " + droneState.CAPTURED);
     }
 }
