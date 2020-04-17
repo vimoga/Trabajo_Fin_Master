@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum DroneState { ATTACK, PATROL, ALERT, CAPTURED };
+
 /// <summary>
 /// Constants used in the game
 /// </summary>

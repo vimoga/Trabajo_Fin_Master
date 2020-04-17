@@ -13,9 +13,5 @@ public interface DroneInterface
     float GetFiringRange();
     void OnTriggerEnter(Collider other);
     void OnTriggerStay(Collider other);
-    void OnTriggerExit(Collider other);
-    void GoToAttackState();
-    void GoToAlertState();
-    void GoToPatrolState();
-    void GoToCapturedState();
+    void OnTriggerExit(Collider other);    
 }

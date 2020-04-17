@@ -19248,6 +19248,8 @@ MonoBehaviour:
   uiInfo: {fileID: 6133657985873237211}
   isCaptured: 1
   isOnCover: 0
+  wayPoints: []
+  currentState: 1
 --- !u!82 &8666420598240052238
 AudioSource:
   m_ObjectHideFlags: 0
@@ -19357,10 +19359,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heal: 0.1
-  firingRange: 35
   beam: {fileID: 6476865750534874617}
   beamSound: {fileID: 8300000, guid: 1b3bf8c97f4ac204daee4f14c645cb44, type: 3}
-  wayPoints: []
 --- !u!1 &4834335707317274532
 GameObject:
   m_ObjectHideFlags: 0

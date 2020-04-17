@@ -99,6 +99,11 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     /// </summary>
     public bool isOnCover = false;
 
+    /// <summary>
+    /// waypoints for the patrol route
+    /// </summary>
+    public Transform[] wayPoints;
+
     private Rigidbody rb;
 
     private AudioSource audioSource;
@@ -110,6 +115,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     private float droneSpeed;
 
     private GameplayManager gameplayManager;
+
+    [HideInInspector]
+    public DroneState currentState = DroneState.PATROL;
 
     // Start is called before the first frame update
     void Start()
@@ -230,6 +238,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
             {
                 gameObject.tag = "Player_Drone";
                 isCaptured = true;
+                GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
                 Debug.Log("Drone captured: " + captureStatus);
 
                 //add to the hud
@@ -275,6 +284,30 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     bool CommonInterface.isCaptured()
     {
         return isCaptured;
+    }
+
+    public void GoToAttackState()
+    {
+        currentState = DroneState.ATTACK;
+        Debug.Log("Drone state: " + DroneState.ATTACK);
+    }
+
+    public void GoToAlertState()
+    {
+        currentState = DroneState.ALERT;
+        Debug.Log("Drone state: " + DroneState.ALERT);
+    }
+
+    public void GoToPatrolState()
+    {
+        currentState = DroneState.PATROL;
+        Debug.Log("Drone state: " + DroneState.PATROL);
+    }
+
+    public void GoToCapturedState()
+    {
+        currentState = DroneState.CAPTURED;
+        Debug.Log("Drone state: " + DroneState.CAPTURED);
     }
 
 

@@ -34089,6 +34089,8 @@ MonoBehaviour:
   uiInfo: {fileID: 8923713601275398344}
   isCaptured: 1
   isOnCover: 0
+  wayPoints: []
+  currentState: 1
 --- !u!82 &6451521947506053486
 AudioSource:
   m_ObjectHideFlags: 0
