@@ -16,12 +16,12 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     /// <summary>
     /// Distance the structure can provide cover
     /// </summary>
-    public float coverRange = 7f;
+    private float coverRange;
 
     /// <summary>
     /// Distance where the fog of war is revelated
     /// </summary>
-    public float fogOfWarCover = 0.75f;
+    private float fogOfWarCover;
 
     private float coverRangeSqr { get { return coverRange * coverRange; } }
     private Mesh m_Mesh;
@@ -38,7 +38,9 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     void Start()
     {
         // Set the firing range distance
-        this.GetComponentInChildren<SphereCollider>().radius = coverRange;
+        coverRange = this.GetComponentInChildren<SphereCollider>().radius;
+
+        fogOfWarCover = coverRange * transform.localScale.x;
 
         isCaptured = GetComponent<BasicStructure>().isCaptured;
 

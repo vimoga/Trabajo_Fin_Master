@@ -203,7 +203,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
 
     public float GetFiringRange()
     {
-        return firingRange;
+        return firingRange * transform.localScale.x; 
     }
 
     // Update is called once per frame
