@@ -23,6 +23,8 @@ public class HealerDrone : MonoBehaviour,DroneInterface
     /// </summary>
     public AudioClip beamSound;
 
+    private BasicDrone drone;
+
     private float firingRange;
 
     private bool isCaptured = false;
@@ -40,8 +42,6 @@ public class HealerDrone : MonoBehaviour,DroneInterface
     private int nextWayPoint = 0;
 
     private float currentAlertTime = 0;
-
-    private BasicDrone drone;
 
     // Start is called before the first frame update
     void Start()
@@ -223,6 +223,7 @@ public class HealerDrone : MonoBehaviour,DroneInterface
     /// <param name="enemy">objective of the beam</param>
     private void HealBeam(GameObject enemy)
     {
+        healerObjective = enemy;
         gameObject.transform.LookAt(healerObjective.transform);
         healerObjective.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
         beam.SetActive(true);

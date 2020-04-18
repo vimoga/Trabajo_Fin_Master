@@ -34200,7 +34200,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootSound: {fileID: 8300000, guid: 4a9350b088f442046a58a630e4df68ec, type: 3}
-  firingRange: 7
   beam: {fileID: 8191071003596348785}
 --- !u!1 &6667869153939464143
 GameObject:

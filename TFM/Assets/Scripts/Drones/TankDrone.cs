@@ -24,11 +24,6 @@ public class TankDrone : MonoBehaviour,DroneInterface
     public float firerate = 5f;
 
     /// <summary>
-    /// Distance the drone can fire from
-    /// </summary>
-    public float firingRange = 30;
-
-    /// <summary>
     /// Turret of the tank
     /// </summary>
     public GameObject tnk_turret;
@@ -38,10 +33,11 @@ public class TankDrone : MonoBehaviour,DroneInterface
     /// </summary>
     public ParticleSystem muzzelFlash;
 
-    /// <summary>
-    /// waypoints for the patrol route
-    /// </summary>
-    public Transform[] wayPoints;
+    private BasicDrone drone;
+
+    private float firingRange;
+
+    private Transform[] wayPoints;
 
     private GameObject tnk_enemy;
 
@@ -50,10 +46,6 @@ public class TankDrone : MonoBehaviour,DroneInterface
     private float currentFireRate = 0;
 
     private bool isCaptured = false;
-
-    private enum droneState { ATTACK, PATROL, ALERT, CAPTURED };
-
-    private droneState currentState = droneState.PATROL;
 
     private NavMeshAgent agent;
 
@@ -65,19 +57,23 @@ public class TankDrone : MonoBehaviour,DroneInterface
     void Start()
     {
         // Set the firing range distance
-        this.GetComponentInChildren<SphereCollider>().radius = firingRange;
+        firingRange = this.GetComponentInChildren<SphereCollider>().radius;
+
+        drone = GetComponent<BasicDrone>();
 
         audioSource = GetComponent<AudioSource>();
 
-        isCaptured = GetComponent<BasicDrone>().isCaptured;
+        isCaptured = drone.isCaptured;
+
+        wayPoints = drone.wayPoints;
 
         if (isCaptured)
         {
-            currentState = droneState.CAPTURED;
+            drone.currentState = DroneState.CAPTURED;
         }
         else
         {
-            currentState = droneState.PATROL;
+            drone.currentState = DroneState.PATROL;
         }
 
         agent = gameObject.GetComponent<NavMeshAgent>();
@@ -104,14 +100,16 @@ public class TankDrone : MonoBehaviour,DroneInterface
         {
             if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
             {
-                if (tnk_enemy.Equals(other.gameObject))
-                {
-                    GoToAlertState();
-                }
-                else
-                {
-                    tnk_enemy = null;
-                }
+                if (tnk_enemy == null) {
+                    if (tnk_enemy.Equals(other.gameObject))
+                    {
+                        drone.GoToAlertState();
+                    }
+                    else
+                    {
+                        tnk_enemy = null;
+                    }
+                }               
             }
         }
 
@@ -130,14 +128,14 @@ public class TankDrone : MonoBehaviour,DroneInterface
             if (tnk_enemy == null)
             {
                 tnk_enemy = other.gameObject;
-                GoToAttackState();
+                drone.GoToAttackState();
             }
             else
             {
                 if (Vector3.Distance(tnk_enemy.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
                 {
                     tnk_enemy = other.gameObject;
-                    GoToAttackState();
+                    drone.GoToAttackState();
                 }
             }
         }
@@ -212,18 +210,16 @@ public class TankDrone : MonoBehaviour,DroneInterface
 
     public float GetFiringRange()
     {
-        return firingRange;
+        return firingRange * transform.localScale.x;
     }
 
     // Update is called once per frame
     void Update()
-    {
-       
-
+    {     
         // Switch on the statr enum.
-        switch (currentState)
+        switch (drone.currentState)
         {
-            case droneState.ATTACK:
+            case DroneState.ATTACK:
                 //attack player drones when is not capture
                 if (!isCaptured && tnk_enemy != null)
                 {
@@ -238,11 +234,11 @@ public class TankDrone : MonoBehaviour,DroneInterface
                     else
                     {
                         tnk_enemy = null;
-                        GoToPatrolState();
+                        drone.GoToPatrolState();
                     }
                 }
                 break;
-            case droneState.PATROL:
+            case DroneState.PATROL:
                 //patrol map by waypoints
                 if (!gameObject.GetComponent<CommonInterface>().isDestroyed())
                 {
@@ -254,7 +250,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
                     }
                 }
                 break;
-            case droneState.ALERT:
+            case DroneState.ALERT:
                 //follow player drones when is not captured
                 if (!isCaptured && tnk_enemy != null)
                 {
@@ -263,81 +259,47 @@ public class TankDrone : MonoBehaviour,DroneInterface
                         if (currentAlertTime < GameConstants.ALERT_TIME)
                         {
                             currentAlertTime = 0;
-                            if (!tnk_enemy.GetComponent<CommonInterface>().isDestroyed())
+                            if (drone.currentState != DroneState.ATTACK || drone.currentState != DroneState.CAPTURED)
                             {
-                                if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
-                                {
-                                    agent.destination = tnk_enemy.transform.position;
-                                }
-                            }
-                            else
-                            {
-                                if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
-                                {
-                                    tnk_enemy = null;
-                                    GoToPatrolState();
-                                }
-                            }
+                                agent.destination = tnk_enemy.transform.position;
+                            }                           
                         }
                         else
                         {
-                            if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                            if (drone.currentState != DroneState.ATTACK || drone.currentState != DroneState.CAPTURED)
                             {
                                 tnk_enemy = null;
-                                GoToPatrolState();
+                                drone.GoToPatrolState();
                             }
                         }
                     }
                     else
                     {
-                        if (currentState != droneState.ATTACK || currentState != droneState.CAPTURED)
+                        if (drone.currentState != DroneState.ATTACK || drone.currentState != DroneState.CAPTURED)
                         {
                             tnk_enemy = null;
-                            GoToPatrolState();
+                            drone.GoToPatrolState();
                         }
                     }
                 }
                 break;
-            case droneState.CAPTURED:
+            case DroneState.CAPTURED:
                 break;
         }
 
         isCaptured = GetComponent<BasicDrone>().isCaptured;
 
-        if (isCaptured && currentState != droneState.CAPTURED)
+        if (isCaptured && drone.currentState != DroneState.CAPTURED)
         {
-            GoToCapturedState();
+            drone.GoToCapturedState();
         }
 
         currentFireRate += Time.deltaTime;
 
-        if (currentState == droneState.ALERT)
+        if (drone.currentState == DroneState.ALERT)
         {
             currentAlertTime += Time.deltaTime;
         }
     }
 
-    public void GoToAttackState()
-    {
-        currentState = droneState.ATTACK;
-        Debug.Log("Drone state: " + droneState.ATTACK);
-    }
-
-    public void GoToAlertState()
-    {
-        currentState = droneState.ALERT;
-        Debug.Log("Drone state: " + droneState.ALERT);
-    }
-
-    public void GoToPatrolState()
-    {
-        currentState = droneState.PATROL;
-        Debug.Log("Drone state: " + droneState.PATROL);
-    }
-
-    public void GoToCapturedState()
-    {
-        currentState = droneState.CAPTURED;
-        Debug.Log("Drone state: " + droneState.CAPTURED);
-    }
 }

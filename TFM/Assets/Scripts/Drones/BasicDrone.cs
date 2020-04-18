@@ -337,11 +337,13 @@ public class BasicDrone : MonoBehaviour, CommonInterface
                     greatDamage.SetActive(false);
                 }
 
-                //is out cover                
-                if (!isOnCover)
-                {
-                    Impact(0.1f);
-                }               
+                //is out cover 
+                if (isCaptured) {
+                    if (!isOnCover)
+                    {
+                        Impact(0.1f);
+                    }
+                }                             
             }
             else
             {

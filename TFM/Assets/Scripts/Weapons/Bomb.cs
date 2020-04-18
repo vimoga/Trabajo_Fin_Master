@@ -28,6 +28,8 @@ public class Bomb : MonoBehaviour
 
     private ArrayList affectedObjectives = new ArrayList();
 
+    private string targetTag;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,13 +37,15 @@ public class Bomb : MonoBehaviour
 
         target = enemy.transform;
 
+        targetTag = enemy.tag;
+
         audioSource = GetComponent<AudioSource>();       
     }
 
     void OnCollisionEnter(Collision collision)
     {
         //if collides with terrain or enemy explotes
-        if (collision.gameObject.tag.Equals(enemy.tag) || collision.gameObject.tag.Equals("Terrain"))
+        if (collision.gameObject.tag.Equals(targetTag) || collision.gameObject.tag.Equals("Terrain"))
         {
             Explode();
         }
@@ -53,7 +57,7 @@ public class Bomb : MonoBehaviour
         if (isExploted)
         {
             if (!affectedObjectives.Contains(other.transform.position)) {
-                if (other.tag.Equals(enemy.tag) || other.tag.Equals(AuxiliarOperations.GetAllies(enemy.tag)))
+                if (other.tag.Equals(targetTag) || other.tag.Equals(AuxiliarOperations.GetAllies(targetTag)))
                 {
                     if (!AuxiliarOperations.EnemyIsAerial(gameObject, other.transform.gameObject))
                     {

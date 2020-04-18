@@ -13,14 +13,11 @@ public class MainDrone : MonoBehaviour, DroneInterface
     public AudioClip shootSound;
 
     /// <summary>
-    /// Distance the drone can capture other drones
-    /// </summary>
-    public float firingRange = 7;
-
-    /// <summary>
     /// Beam generated from the drone
     /// </summary>
     public GameObject beam;
+
+    private float firingRange;
 
     private GameObject main_enemy;
 
@@ -32,7 +29,7 @@ public class MainDrone : MonoBehaviour, DroneInterface
     void Start()
     {
         // Set the firing range distance
-        this.GetComponentInChildren<SphereCollider>().radius = firingRange;
+        firingRange = this.GetComponentInChildren<SphereCollider>().radius;
 
         audioSource = GetComponent<AudioSource>();
 
@@ -64,7 +61,7 @@ public class MainDrone : MonoBehaviour, DroneInterface
 
     public float GetFiringRange()
     {
-        return firingRange;
+        return firingRange * transform.localScale.x;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -87,9 +84,10 @@ public class MainDrone : MonoBehaviour, DroneInterface
     {
         //cease beam when the capture is completed
         if (main_enemy) {
-            if (AuxiliarOperations.IsCaptured(main_enemy))
+            if (AuxiliarOperations.IsCaptured(main_enemy) || Vector3.Distance(main_enemy.transform.position, transform.position) > GetFiringRange())
             {
                 beam.SetActive(false);
+                main_enemy = null;
             }
             else
             {
@@ -100,23 +98,5 @@ public class MainDrone : MonoBehaviour, DroneInterface
         isCaptured = GetComponent<BasicDrone>().isCaptured;
     }
 
-    public void GoToAttackState()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void GoToAlertState()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void GoToPatrolState()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void GoToCapturedState()
-    {
-        throw new System.NotImplementedException();
-    }
+    
 }

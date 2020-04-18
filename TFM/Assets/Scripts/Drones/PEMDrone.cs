@@ -11,12 +11,7 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     /// <summary>
     /// Damage of the pem damage
     /// </summary>
-    public float damage = 0.10f;
-
-    /// <summary>
-    /// Distance the drone can deal damage
-    /// </summary>
-    public float firingRange = 25f;
+    public float damage = 0.10f; 
 
     /// <summary>
     /// PEM effect
@@ -28,18 +23,17 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     /// </summary>
     public GameObject PEMWave;
 
-    /// <summary>
-    /// waypoints for the patrol route
-    /// </summary>
-    public Transform[] wayPoints;
+    private Transform[] wayPoints;
+
+    private BasicDrone drone;
+
+    private float firingRange;
 
     private bool isCaptured = false;
 
+    public Collider PEMEnemy;
+
     private enum colliderStatus {enter,stay,exit};
-
-    private enum droneState { ATTACK, PATROL, ALERT, CAPTURED };
-
-    private droneState currentState = droneState.PATROL;
 
     private NavMeshAgent agent;
 
@@ -51,17 +45,21 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     void Start()
     {
         // Set the firing range distance
-        this.GetComponentInChildren<SphereCollider>().radius = firingRange;
+        firingRange = this.GetComponentInChildren<SphereCollider>().radius;
 
-        isCaptured = GetComponent<BasicDrone>().isCaptured;
+        drone = GetComponent<BasicDrone>();
+
+        isCaptured = drone.isCaptured;
+
+        wayPoints = drone.wayPoints;
 
         if (isCaptured)
         {
-            currentState = droneState.CAPTURED;
+            drone.currentState = DroneState.CAPTURED;
         }
         else
         {
-            currentState = droneState.PATROL;
+            drone.currentState = DroneState.PATROL;
         }
 
         agent = gameObject.GetComponent<NavMeshAgent>();
@@ -91,6 +89,7 @@ public class PEMDrone : MonoBehaviour, DroneInterface
             if (AuxiliarOperations.IsPlayer(other))
             {
                 ColliderBehaviour(colliderStatus.stay, other);
+                PEMEnemy = other;
             }
         }
         else {
@@ -98,8 +97,14 @@ public class PEMDrone : MonoBehaviour, DroneInterface
             {
                 ColliderBehaviour(colliderStatus.stay, other);
             }
+            else
+            {
+                if (AuxiliarOperations.IsPlayer(other) && other == PEMEnemy)
+                {
+                    CeaseDamage(other.transform.gameObject);
+                }
+            }
         }
-
     }
 
     void DroneInterface.OnTriggerExit(Collider other)
@@ -116,7 +121,7 @@ public class PEMDrone : MonoBehaviour, DroneInterface
             if (AuxiliarOperations.IsEnemy(other))
             {
                 ColliderBehaviour(colliderStatus.exit, other);
-            }
+            }        
         }     
     }
 
@@ -127,31 +132,29 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     /// <param name="other">object collided</param>
     private void ColliderBehaviour(colliderStatus colStatus, Collider other)
     {
+        
         switch (colStatus) {
             case colliderStatus.enter:
                 DealDamage(other.transform.gameObject);
                 break;
             case colliderStatus.stay:
-                if (AuxiliarOperations.IsDestroyed(other.transform.gameObject))
-                {
-                    PEMEffect.SetActive(false);
-                    PEMWave.SetActive(false);
-                }
-                else {
-                    DealDamage(other.transform.gameObject);
-                } 
                 if (gameObject.IsDestroyed())
                 {
-                    other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
+                    CeaseDamage(other.transform.gameObject);
                 }
+                else {
+                    if (AuxiliarOperations.IsDestroyed(other.transform.gameObject))
+                    {
+                        CeaseDamage(other.transform.gameObject);
+                    }
+                    else
+                    {
+                        DealDamage(other.transform.gameObject);                                             
+                    }                                      
+                }                                              
                 break;
             case colliderStatus.exit:
-                other.transform.gameObject.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
-                if (PEMEffect.activeSelf && PEMWave.activeSelf)
-                {
-                    PEMEffect.SetActive(false);
-                    PEMWave.SetActive(false);
-                }
+                CeaseDamage(other.transform.gameObject);
                 break;
         }
     }
@@ -171,6 +174,22 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         }
     }
 
+    /// <summary>
+    /// Cease damage to the affected drones
+    /// </summary>
+    /// <param name="other">enemy of the drone</param>
+    private void CeaseDamage(GameObject other)
+    {
+        if (other != null) {
+            other.SendMessage("StuntOut", SendMessageOptions.RequireReceiver);
+        }       
+        if (PEMEffect.activeSelf && PEMWave.activeSelf)
+        {
+            PEMEffect.SetActive(false);
+            PEMWave.SetActive(false);
+        }
+    }
+
     public void SetCaptured(bool isCaptured)
     {
         this.isCaptured = isCaptured;
@@ -183,7 +202,7 @@ public class PEMDrone : MonoBehaviour, DroneInterface
 
     public float GetFiringRange()
     {
-        return firingRange;
+        return firingRange * transform.localScale.x;
     }
 
     /// <summary>
@@ -200,11 +219,11 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     void Update()
     {
         // Switch on the statr enum.
-        switch (currentState)
+        switch (drone.currentState)
         {
-            case droneState.ATTACK:
+            case DroneState.ATTACK:
                 break;
-            case droneState.PATROL:
+            case DroneState.PATROL:
                 //patrol map by waypoints
                 if (!gameObject.GetComponent<CommonInterface>().isDestroyed())
                 {
@@ -216,46 +235,22 @@ public class PEMDrone : MonoBehaviour, DroneInterface
                     }
                 }
                 break;
-            case droneState.ALERT:
+            case DroneState.ALERT:
                 break;
-            case droneState.CAPTURED:
+            case DroneState.CAPTURED:
                 break;
         }
 
         isCaptured = GetComponent<BasicDrone>().isCaptured;
 
-        if (isCaptured && currentState != droneState.CAPTURED)
+        if (isCaptured && drone.currentState != DroneState.CAPTURED)
         {
-            GoToCapturedState();
+            drone.GoToCapturedState();
         }
 
-        if (currentState == droneState.ALERT)
+        if (drone.currentState == DroneState.ALERT)
         {
             currentAlertTime += Time.deltaTime;
         }
-    }
-
-    public void GoToAttackState()
-    {
-        currentState = droneState.ATTACK;
-        Debug.Log("Drone state: " + droneState.ATTACK);
-    }
-
-    public void GoToAlertState()
-    {
-        currentState = droneState.ALERT;
-        Debug.Log("Drone state: " + droneState.ALERT);
-    }
-
-    public void GoToPatrolState()
-    {
-        currentState = droneState.PATROL;
-        Debug.Log("Drone state: " + droneState.PATROL);
-    }
-
-    public void GoToCapturedState()
-    {
-        currentState = droneState.CAPTURED;
-        Debug.Log("Drone state: " + droneState.CAPTURED);
     }
 }
