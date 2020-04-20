@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public class CommandPost : MonoBehaviour, StructuresInterfaces
 {
+
+    public int cpuPower;
+
     private bool isCaptured = false;
 
     private bool isAddedToHUD = false;
@@ -51,7 +54,7 @@ public class CommandPost : MonoBehaviour, StructuresInterfaces
     {
         isCaptured = GetComponent<BasicStructure>().isCaptured;
         if (isCaptured && !isAddedToHUD) {
-            gameplayManager.AddCPUPower(1);
+            gameplayManager.AddCPUPower(cpuPower);
             isAddedToHUD = true;
         }
     }

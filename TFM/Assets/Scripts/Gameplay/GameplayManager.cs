@@ -24,7 +24,7 @@ public class GameplayManager : MonoBehaviour
     private float maxCPUPower = GameConstants.MAX_CPU_POWER;
 
     [HideInInspector]
-    public float currentCPUPower = GameConstants.MAX_CPU_POWER;
+    public float currentCPUPower = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +45,9 @@ public class GameplayManager : MonoBehaviour
             currentCPUPower -= playerDrone.GetComponent<BasicDrone>().captureCost;
         }
 
-        hudManager.RemoveCPUPower(maxCPUPower - currentCPUPower);
+        hudManager.RemoveCPUPower(maxCPUPower);
+
+        hudManager.AddCPUPower(currentCPUPower);
     }
 
     public void AddPlayerDrone(BasicDrone playerDrone) {

@@ -34076,7 +34076,7 @@ MonoBehaviour:
   description: Capture enemy drones ands structures
   life: 60
   maxHeath: 60
-  captureCost: 1
+  captureCost: 0
   ammo: -1
   maxAmmo: -1
   smallDamage: {fileID: 362493659913590685}
