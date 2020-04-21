@@ -31,7 +31,7 @@ public class PEMDrone : MonoBehaviour, DroneInterface
 
     private bool isCaptured = false;
 
-    public Collider PEMEnemy;
+    private Collider PEMEnemy;
 
     private enum colliderStatus {enter,stay,exit};
 
