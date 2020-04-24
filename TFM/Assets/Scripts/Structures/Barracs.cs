@@ -44,14 +44,14 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
     {
         if (isCaptured)
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 ColliderBehaviour(colliderStatus.enter, other);
             }
         }
         else
         {
-            if (AuxiliarOperations.IsEnemy(other))
+            if (AuxiliarOperations.IsEnemyDrone(other))
             {
                 ColliderBehaviour(colliderStatus.enter, other);
             }
@@ -62,14 +62,14 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
     {
         if (isCaptured)
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 ColliderBehaviour(colliderStatus.stay, other);
             }
         }
         else
         {
-            if (AuxiliarOperations.IsEnemy(other))
+            if (AuxiliarOperations.IsEnemyDrone(other))
             {
                 ColliderBehaviour(colliderStatus.stay, other);
             }
@@ -81,14 +81,14 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
     {
         if (isCaptured)
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 ColliderBehaviour(colliderStatus.exit, other);
             }
         }
         else
         {
-            if (AuxiliarOperations.IsEnemy(other))
+            if (AuxiliarOperations.IsEnemyDrone(other))
             {
                 ColliderBehaviour(colliderStatus.exit, other);
             }

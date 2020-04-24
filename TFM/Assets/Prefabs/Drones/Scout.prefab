@@ -78,7 +78,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 3
   m_ObstacleAvoidanceType: 4
 --- !u!65 &1264409191201164086
 BoxCollider:
@@ -122,6 +122,8 @@ MonoBehaviour:
   uiInfo: {fileID: 2015348625482377996}
   isCaptured: 1
   isOnCover: 0
+  wayPoints: []
+  currentState: 1
 --- !u!114 &1264409191201164072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +139,6 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 7896abb1a9bebd24ea3cc36f2edb10e8, type: 3}
   damage: 5
   firerate: 0.5
-  firingRange: 7
   muzzelFlash: {fileID: 6692834840061915584}
 --- !u!82 &1167628534
 AudioSource:

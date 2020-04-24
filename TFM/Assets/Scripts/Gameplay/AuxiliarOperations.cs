@@ -79,6 +79,25 @@ public static class AuxiliarOperations
     }
 
     /// <summary>
+    /// Check if the game object is drone and is propierty of the player
+    /// </summary>
+    /// <param name="gameObject">object to check</param>
+    public static bool IsPlayerDrone(this Collider other)
+    {
+        return (other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger;
+    }
+
+
+    /// <summary>
+    /// Check if the game object is drone and is enemy of the player
+    /// </summary>
+    /// <param name="gameObject">object to check</param>
+    public static bool IsEnemyDrone(this Collider other)
+    {
+        return (other.gameObject.tag == "Enemy") && !other.isTrigger;
+    }
+
+    /// <summary>
     /// Get the provided alies of the provided tag
     /// </summary>
     /// <param name="tag">tag to check</param>

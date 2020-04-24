@@ -226,7 +226,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
                 {
                     agent.destination = wayPoints[nextWayPoint].position;
 
-                    if (agent.remainingDistance <= agent.stoppingDistance + GameConstants.WAYPOINT_STOP_AVOID)
+                    if (Vector3.Distance(gameObject.transform.position, agent.destination) <= agent.stoppingDistance + GameConstants.WAYPOINT_STOP_AVOID)
                     {
                         nextWayPoint = (nextWayPoint + 1) % wayPoints.Length;
                     }
