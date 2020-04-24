@@ -276,6 +276,10 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         }        
     }
 
+    public void destroyDrone() {
+        life = 0;
+    }
+
     bool CommonInterface.isDestroyed()
     {
         return isDestroyed;

@@ -25,7 +25,7 @@ public class HUDManager : MonoBehaviour
     private PlayerMovement playerMovement;
 
     private int currentDroneIndex = 0;
-    private float currentCPUIndex = GameConstants.MAX_CPU_POWER-1;
+    private float currentCPUIndex = 0;
 
     // Start is called before the first frame update
     void Start()

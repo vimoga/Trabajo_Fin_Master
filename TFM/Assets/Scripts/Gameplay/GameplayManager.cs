@@ -21,10 +21,9 @@ public class GameplayManager : MonoBehaviour
 
     private List<BasicDrone> playerDrones = new List<BasicDrone>();
 
-    private float maxCPUPower = GameConstants.MAX_CPU_POWER;
 
     [HideInInspector]
-    public float currentCPUPower = 1;
+    public float currentCPUPower = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +33,7 @@ public class GameplayManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player) {
             AddPlayerDrone(player.GetComponent<BasicDrone>());
-            currentCPUPower -= player.GetComponent<BasicDrone>().captureCost;
+            currentCPUPower += player.GetComponent<BasicDrone>().captureCost;
         }
         
         GameObject[] playerDrones = GameObject.FindGameObjectsWithTag("Player_Drone");
@@ -42,10 +41,10 @@ public class GameplayManager : MonoBehaviour
         foreach (GameObject playerDrone in playerDrones)
         {
             AddPlayerDrone(playerDrone.GetComponent<BasicDrone>());
-            currentCPUPower -= playerDrone.GetComponent<BasicDrone>().captureCost;
+            currentCPUPower += playerDrone.GetComponent<BasicDrone>().captureCost;
         }
 
-        hudManager.RemoveCPUPower(maxCPUPower);
+        hudManager.RemoveCPUPower(GameConstants.MAX_CPU_POWER);
 
         hudManager.AddCPUPower(currentCPUPower);
     }

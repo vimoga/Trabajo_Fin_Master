@@ -19,12 +19,18 @@ public class HUDPlayerDrone : MonoBehaviour
     /// <summary>
     /// Bar that show the current heath quantity
     /// </summary>
-    public SimpleHealthBar health; 
+    public SimpleHealthBar health;
+
+    public Button deleteDrone;
 
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    public void destroyDrone() {
+        drone.destroyDrone();
     }
 
     // Update is called once per frame
