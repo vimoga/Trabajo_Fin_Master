@@ -95,6 +95,7 @@ public class Missile : MonoBehaviour
                 if (Vector3.Distance(transform.position, target.position) < 0.001f)
                 {
                     enemy.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
+                    isDestroyed = true;
                     Explode();
                 }
             }

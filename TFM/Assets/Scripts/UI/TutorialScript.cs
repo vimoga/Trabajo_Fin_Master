@@ -25,16 +25,17 @@ public class TutorialScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        updateTutorial();
+        UpdateTutorial();
     }
 
-    public void updateTutorial()
+    public void UpdateTutorial()
     {
+        currentTutorialTime = 0;
         gameObject.SetActive(true);
         tutorialText = GetComponentInChildren<Text>();
         tutorialText.text = text;
         tutorialImage = GetComponentInChildren<RawImage>();
-        tutorialImage.texture = (Texture)Resources.Load("Textures/"+image);
+        tutorialImage.texture = (Texture)Resources.Load("Textures/" + image);
     }
 
     // Update is called once per frame
@@ -42,7 +43,7 @@ public class TutorialScript : MonoBehaviour
     {
         currentTutorialTime += Time.deltaTime;
 
-        if ((currentTutorialTime > firerate))
+        if ((currentTutorialTime > GameConstants.TUTORIAL_TIME))
         {
             currentTutorialTime = 0;
 

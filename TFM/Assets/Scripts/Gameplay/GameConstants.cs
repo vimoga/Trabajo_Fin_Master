@@ -17,4 +17,5 @@ static class GameConstants
    public static float MAX_CPU_POWER = 8;
    public static float ALERT_TIME = 5f;
    public static float WAYPOINT_STOP_AVOID = 1;
+   public static float TUTORIAL_TIME = 5;
 }

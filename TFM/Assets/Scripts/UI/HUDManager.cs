@@ -167,9 +167,21 @@ public class HUDManager : MonoBehaviour
             drones[index].GetComponentInChildren<Text>().text = "";
         }
 
+        /*if (drone.name.Equals("Main Drone"))
+        {
+            drones[index].GetComponentInChildren<Button>().transform.parent.gameObject.SetActive(false);
+        }
+        else
+        {
+            drones[index].GetComponentInChildren<Button>().gameObject.SetActive(true);
+        }*/
+
         drones[index].GetComponentInChildren<SimpleHealthBar>().UpdateBar(drone.life, drone.maxHeath);
 
         drones[index].SetActive(true);
+
+
+        
     }
 
     /// <summary>
