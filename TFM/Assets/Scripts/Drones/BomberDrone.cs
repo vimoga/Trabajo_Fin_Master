@@ -242,8 +242,10 @@ public class BomberDrone : MonoBehaviour, DroneInterface
                 if (!gameObject.GetComponent<CommonInterface>().isDestroyed())
                 {
                     agent.destination = wayPoints[nextWayPoint].position;
+                    Vector3 fixedPosition = gameObject.transform.position;
+                    fixedPosition.y -= GameConstants.TERRAIN_HEIGHT_CORRECTION;
 
-                    if (Vector3.Distance(gameObject.transform.position, agent.destination) <= agent.stoppingDistance + GameConstants.WAYPOINT_STOP_AVOID)
+                    if (Vector3.Distance(fixedPosition, agent.destination) <= agent.stoppingDistance + GameConstants.WAYPOINT_STOP_AVOID)
                     {
                         nextWayPoint = (nextWayPoint + 1) % wayPoints.Length;
                     }
