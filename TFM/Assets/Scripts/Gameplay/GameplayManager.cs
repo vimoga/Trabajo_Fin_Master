@@ -55,8 +55,12 @@ public class GameplayManager : MonoBehaviour
     }
 
     public void RemovePlayerDrone(BasicDrone drone) {
+
+        //game over when main drone is destroyed
+        if (drone.name.Equals("Main Drone")) {
+            Invoke("GameOver", 2.5f);
+        }
         hudManager.RemovePlayerDrone(drone);
-        //revisar
         playerDrones.Remove(drone);
     }
 
@@ -70,25 +74,25 @@ public class GameplayManager : MonoBehaviour
         currentCPUPower -= power;
     }
 
+    private void GameOver() {
+        SceneManager.LoadScene("EndGameMenu");
+    }
+
     // Update is called once per frame
     void Update()
-    {
-        
-        if (SceneManager.GetActiveScene().name.Equals("Demo"))
+    {      
+        //Enables and disables the pause menu
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //Enables and disables the pause menu
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (pauseMenu)
             {
-                if (pauseMenu)
+                if (pauseMenu.activeSelf)
                 {
-                    if (pauseMenu.activeSelf)
-                    {
-                        pauseMenu.SetActive(false);
-                    }
-                    else
-                    {
-                        pauseMenu.SetActive(true);
-                    }
+                    pauseMenu.SetActive(false);
+                }
+                else
+                {
+                    pauseMenu.SetActive(true);
                 }
             }
         }

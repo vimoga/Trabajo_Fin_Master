@@ -6,17 +6,17 @@ public class ApplicationManager : MonoBehaviour {
 	  
     public void NewGame()
     {
-        SceneManager.LoadScene("Demo");
+        SceneManager.LoadScene("MainLevel");
     }
 
     public void Restart()
     {
-        if(SceneManager.GetActiveScene().name.Equals("Demo")) {
+        if(SceneManager.GetActiveScene().name.Equals("MainLevel")) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else
         {
-            SceneManager.LoadScene("Demo");
+            SceneManager.LoadScene("MainLevel");
         }
     }
 
