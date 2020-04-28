@@ -16,14 +16,15 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     /// <summary>
     /// Distance the structure can provide cover
     /// </summary>
-    private float coverRange;
+    //private float coverRange;
 
     /// <summary>
     /// Distance where the fog of war is revelated
     /// </summary>
     private float fogOfWarCover;
 
-    private float coverRangeSqr { get { return coverRange * coverRange; } }
+    //private float coverRangeSqr { get { return coverRange * coverRange; } }
+    private float coverRangeSqr;
     private Mesh m_Mesh;
     private Vector3[] vertices;
     private Color[] colors;
@@ -38,9 +39,11 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     void Start()
     {
         // Set the firing range distance
-        coverRange = this.GetComponentInChildren<SphereCollider>().radius;
+        float coverRange = this.GetComponentInChildren<SphereCollider>().radius;
 
         fogOfWarCover = coverRange * transform.localScale.x;
+
+        coverRangeSqr = fogOfWarCover * fogOfWarCover;
 
         isCaptured = GetComponent<BasicStructure>().isCaptured;
 
@@ -135,7 +138,10 @@ public class Radar : MonoBehaviour, StructuresInterfaces
             if (dist < fogOfWarCover)
             {
                 float alpha = Mathf.Min(colors[i].a, dist / fogOfWarCover);
-                colors[i].a = alpha;
+                if (alpha < 0.07) {
+                    colors[i].a = alpha;
+                }
+                
             }
         }
 
@@ -147,18 +153,7 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     void Update()
     {
         if (isCaptured && !isDrawed )
-        {
-            /*for (int i = 0; i < vertices.Length; i++)
-            {
-                Vector3 v = fogOfWarPlane.transform.TransformPoint(vertices[i]);
-                float dist = Vector3.SqrMagnitude(v - transform.position);
-                dist /= coverRangeSqr;
-                if (dist < fogOfWarCover)
-                {
-                    float alpha = Mathf.Min(colors[i].a, dist / fogOfWarCover);
-                    colors[i].a = alpha;
-                }
-            }*/
+        {            
             m_Mesh = fogOfWarPlane.GetComponent<MeshFilter>().mesh;
             colors = m_Mesh.colors;
             UpdateColor();
