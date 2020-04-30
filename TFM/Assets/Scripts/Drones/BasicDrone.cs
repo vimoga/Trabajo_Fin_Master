@@ -187,10 +187,10 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     /// </summary>
     public void InCover()
     {        
-        if (!isOnCover)
+        /*if (!isOnCover)
         {
             OutCover();
-        }
+        }*/
         isOnCover = true;
         stuntDamage.SetActive(false);
         GetComponent<NavMeshAgent>().speed = droneSpeed;
@@ -234,6 +234,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         {
             captureStatus += (captureCost) * 0.5f;
             captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
+            //GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
             if (captureStatus >= GameConstants.CAPTURE_LIMIT)
             {
                 gameObject.tag = "Player_Drone";

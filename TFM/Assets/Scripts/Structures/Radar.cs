@@ -14,6 +14,11 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     public GameObject fogOfWarPlane;
 
     /// <summary>
+    /// Used to identify the radar on the shader variables
+    /// </summary>
+    public int radarNumber;
+
+    /// <summary>
     /// Distance the structure can provide cover
     /// </summary>
     //private float coverRange;
@@ -24,10 +29,10 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     private float fogOfWarCover;
 
     //private float coverRangeSqr { get { return coverRange * coverRange; } }
-    private float coverRangeSqr;
+    /*private float coverRangeSqr;
     private Mesh m_Mesh;
     private Vector3[] vertices;
-    private Color[] colors;
+    private Color[] colors;*/
 
     private bool isCaptured = false;
 
@@ -43,22 +48,8 @@ public class Radar : MonoBehaviour, StructuresInterfaces
 
         fogOfWarCover = coverRange * transform.localScale.x;
 
-        coverRangeSqr = fogOfWarCover * fogOfWarCover;
-
         isCaptured = GetComponent<BasicStructure>().isCaptured;
 
-        m_Mesh = fogOfWarPlane.GetComponent<MeshFilter>().mesh;
-        vertices = m_Mesh.vertices;
-        colors = new Color[vertices.Length];
-        for (int i = 0; i < colors.Length; i++)
-        {
-            colors[i] = Color.black;
-            colors[i].a = 255;
-        }
-        UpdateColor();
-        if (isCaptured) {
-            isDrawed = true;
-        }
     }
 
     public void Attack()
@@ -127,36 +118,13 @@ public class Radar : MonoBehaviour, StructuresInterfaces
         }
     }
 
-    void UpdateColor()
-    {
-
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            Vector3 v = fogOfWarPlane.transform.TransformPoint(vertices[i]);
-            float dist = Vector3.SqrMagnitude(v - transform.position);
-            dist /= coverRangeSqr;
-            if (dist < fogOfWarCover)
-            {
-                float alpha = Mathf.Min(colors[i].a, dist / fogOfWarCover);
-                if (alpha < 0.07) {
-                    colors[i].a = alpha;
-                }
-                
-            }
-        }
-
-        m_Mesh.colors = colors;
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
         if (isCaptured && !isDrawed )
-        {            
-            m_Mesh = fogOfWarPlane.GetComponent<MeshFilter>().mesh;
-            colors = m_Mesh.colors;
-            UpdateColor();
+        {
+            fogOfWarPlane.GetComponent<Renderer>().material.SetVector("_Radar" + radarNumber + "_Pos", gameObject.transform.position);
+            fogOfWarPlane.GetComponent<Renderer>().material.SetFloat("_FogRadius" + radarNumber, fogOfWarCover);
             isDrawed = true;
         }
         

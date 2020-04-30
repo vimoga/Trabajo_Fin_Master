@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// Implements the player movement via  the A* implmented in Unity (NavMesh y NavMeshAgent).
@@ -34,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Ray raytest;
 
+    private string test = "";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,8 +64,7 @@ public class PlayerMovement : MonoBehaviour
         raytest = ray;
         
         if (Physics.Raycast(ray, out hit))
-        {
-          
+        {          
             GameObject auxiliar = hit.transform.gameObject;
             if (AuxiliarOperations.IsPlayableObject(hit.transform.gameObject.tag))
             {
@@ -260,7 +262,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //Detects player left click
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)&& !EventSystem.current.IsPointerOverGameObject())
         {
             Clicked();
         }
@@ -278,9 +280,20 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!AuxiliarOperations.IsDestroyed(currentObjective) && !AuxiliarOperations.IsCaptured(currentObjective))
                 {
-                    if (Vector3.Distance(jugador.transform.position, currentObjective.transform.position) > jugador.GetComponent<DroneInterface>().GetFiringRange())
+                    if (Vector3.Distance(jugador.transform.position, currentObjective.transform.position) > (jugador.GetComponent<DroneInterface>().GetFiringRange()))
                     {
                         agente.destination = currentObjective.transform.position;
+
+                        if (!test.Equals("off distance")) {
+                            test = "off distance";
+                            Debug.Log(test);
+                        }
+                        //test
+                        /*NavMeshHit hit;
+                        if (NavMesh.SamplePosition(currentObjective.transform.position, out hit, jugador.GetComponent<DroneInterface>().GetFiringRange(), NavMesh.AllAreas))
+                        {
+                            agente.destination = hit.position;
+                        }*/
                     }
                     else
                     {
@@ -289,6 +302,11 @@ public class PlayerMovement : MonoBehaviour
                             if ((jugador.GetComponent<BasicDrone>().maxAmmo != GameConstants.INFINITE_AMMO && jugador.GetComponent<BasicDrone>().ammo > 0) || jugador.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO) {
                                 jugador.GetComponent<DroneInterface>().Attack(currentObjective);
                                 agente.destination = agente.gameObject.transform.position;
+                                if (!test.Equals("in distance"))
+                                {
+                                    test = "in distance";
+                                    Debug.Log(test);
+                                }
                             }
                             
                         }
@@ -296,6 +314,11 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
+                    if (!test.Equals("no target"))
+                    {
+                        test = "no target";
+                        Debug.Log(test);
+                    }
                     currentObjective = null;
                     isAttacking = false;
                 }

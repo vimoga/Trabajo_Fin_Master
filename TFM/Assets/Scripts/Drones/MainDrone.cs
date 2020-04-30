@@ -43,7 +43,7 @@ public class MainDrone : MonoBehaviour, DroneInterface
     public void Attack(GameObject enemy)
     {
         main_enemy = enemy;
-        gameObject.transform.LookAt(enemy.transform);
+        //gameObject.transform.LookAt(enemy.transform);
         enemy.SendMessage("Capture", SendMessageOptions.RequireReceiver);
         beam.SetActive(true);
         audioSource.PlayOneShot(shootSound, 1);

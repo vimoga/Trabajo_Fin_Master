@@ -106,12 +106,13 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
         {
             case colliderStatus.enter:
 
-                // provide health recovery
-                other.transform.gameObject.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
+                
                 if (!AuxiliarOperations.IsDestroyed(other.transform.gameObject) && (other.transform.gameObject.GetComponent<BasicDrone>().life < other.transform.gameObject.GetComponent<BasicDrone>().maxHeath))
                 {
                     if (!healEffect.activeSelf && !HealWave.activeSelf)
                     {
+                        // provide health recovery
+                        other.transform.gameObject.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
                         healEffect.SetActive(true);
                         HealWave.SetActive(true);
                     }
@@ -120,8 +121,7 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
                 break;
             case colliderStatus.stay:
 
-                // provide health recovery until the drone reaches maximun ammo
-                other.transform.gameObject.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
+                
                 if (AuxiliarOperations.IsDestroyed(other.transform.gameObject) || (other.transform.gameObject.GetComponent<BasicDrone>().life >= other.transform.gameObject.GetComponent<BasicDrone>().maxHeath))
                 {
                     healEffect.SetActive(false);
@@ -132,6 +132,8 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
                     {
                         if (!healEffect.activeSelf && !HealWave.activeSelf)
                         {
+                            // provide health recovery until the drone reaches maximun ammo
+                            other.transform.gameObject.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
                             healEffect.SetActive(true);
                             HealWave.SetActive(true);
                         }
