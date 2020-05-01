@@ -3317,7 +3317,7 @@ GameObject:
   - component: {fileID: 2495892240625031447}
   m_Layer: 0
   m_Name: Tower_2 Variant
-  m_TagString: Untagged
+  m_TagString: Enemy_Structure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3498,6 +3498,7 @@ MonoBehaviour:
   uiInfo: {fileID: 2692184973017352230}
   isCapturable: 0
   isCaptured: 0
+  isAerialUnit: 0
 --- !u!114 &2495892240625031446
 MonoBehaviour:
   m_ObjectHideFlags: 0

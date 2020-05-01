@@ -78,6 +78,11 @@ public class BasicStructure : MonoBehaviour,CommonInterface
     /// </summary
     public bool isCaptured = false;
 
+    /// <summary>
+    /// Indicates if the unit is aerial
+    /// </summary>
+    public bool isAerialUnit = false;
+
     private bool isDestroyed = false;
 
     // Start is called before the first frame update
@@ -145,6 +150,10 @@ public class BasicStructure : MonoBehaviour,CommonInterface
         return isCaptured;
     }
 
+    public bool isAerial()
+    {
+        return isAerialUnit;
+    }
 
     // Update is called once per frame
     void Update()

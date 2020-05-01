@@ -33325,6 +33325,10 @@ MonoBehaviour:
   ammoCount: {fileID: 3524051145147753291}
   uiInfo: {fileID: 7835351111815004101}
   isCaptured: 1
+  isOnCover: 0
+  wayPoints: []
+  isAerialUnit: 1
+  currentState: 1
 --- !u!114 &1409123450277343290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33338,7 +33342,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0.1
-  firingRange: 25
   PEMEffect: {fileID: 1408245875334254059}
   PEMWave: {fileID: 5183045982927625173}
 --- !u!82 &1409123450277343301

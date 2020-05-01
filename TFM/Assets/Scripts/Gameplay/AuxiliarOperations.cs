@@ -118,7 +118,6 @@ public static class AuxiliarOperations
             case "Player_Structure":
                 allies = "Player_Drone";
                 break;
-
         }
 
         return allies;
@@ -169,22 +168,9 @@ public static class AuxiliarOperations
     /// <param name="player">gameobject of the player</param>
     /// <param name="enemy">game object of the enemy to check</param>
     /// <returns></returns>
-    public static bool EnemyIsAerial(GameObject player, GameObject enemy)
+    public static bool EnemyIsAerial(GameObject enemy)
     {
-        //correguir no sirve en escenario real
-        //return (enemy.transform.position.y - player.transform.position.y) >= GameConstants.SEPARATION_TERRAIN_AERIAL;
-        return enemy.transform.position.y >= GameConstants.SEPARATION_TERRAIN_AERIAL;
-    }
-
-    /// <summary>
-    /// Check if the enemy game object is a ground object
-    /// </summary>
-    /// <param name="player">gameobject of the player</param>
-    /// <param name="enemy">gameobject of the enemy to check</param>
-    /// <returns></returns>
-    public static bool EnemyIsOnTerrain(GameObject player, GameObject enemy)
-    {
-        return (enemy.transform.position.y - player.transform.position.y) <= GameConstants.SEPARATION_TERRAIN_AERIAL;
+        return enemy.GetComponent<CommonInterface>().isAerial();
     }
 
     /// <summary>
@@ -203,7 +189,7 @@ public static class AuxiliarOperations
             {
                 find = child.gameObject;
             }
-            if (child.childCount > 0)
+            if (find == null && child.childCount > 0)
             {
                 find = GetChildObject(child, _tag);
             }

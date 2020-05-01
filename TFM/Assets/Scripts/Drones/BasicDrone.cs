@@ -104,6 +104,11 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     /// </summary>
     public Transform[] wayPoints;
 
+    /// <summary>
+    /// Indicates if the unit is aerial
+    /// </summary>
+    public bool isAerialUnit = false;
+
     private Rigidbody rb;
 
     private AudioSource audioSource;
@@ -315,6 +320,10 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         Debug.Log("Drone state: " + DroneState.CAPTURED);
     }
 
+    public bool isAerial()
+    {
+        return isAerialUnit;
+    }
 
     // Update is called once per frame
     void Update()
@@ -379,5 +388,5 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         uiInfo.transform.Rotate(new Vector3(0,180,0));
     }
 
-
-    }
+   
+}

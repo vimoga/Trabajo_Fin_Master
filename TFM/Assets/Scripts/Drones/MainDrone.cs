@@ -42,6 +42,13 @@ public class MainDrone : MonoBehaviour, DroneInterface
     /// <param name="enemy">objective of the capture</param>
     public void Attack(GameObject enemy)
     {
+        if (enemy.GetComponent<BasicStructure>()) {
+            if (!enemy.GetComponent<BasicStructure>().isCapturable)
+            {
+                main_enemy = null;
+                return;
+            }
+        }
         main_enemy = enemy;
         //gameObject.transform.LookAt(enemy.transform);
         enemy.SendMessage("Capture", SendMessageOptions.RequireReceiver);

@@ -84,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     //Move the player to the selected point
                     agente.destination = hit.point;
+                    currentObjective = null;
                     isAttacking = false;
                 }
 

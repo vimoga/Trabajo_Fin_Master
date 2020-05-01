@@ -34090,6 +34090,7 @@ MonoBehaviour:
   isCaptured: 1
   isOnCover: 0
   wayPoints: []
+  isAerialUnit: 1
   currentState: 1
 --- !u!82 &6451521947506053486
 AudioSource:

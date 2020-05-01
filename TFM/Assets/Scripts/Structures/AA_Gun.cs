@@ -123,7 +123,7 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
         //attack player drones if are in the attack area
         if (aa_Enemy != null)
         {           
-            if (!AuxiliarOperations.IsDestroyed(aa_Enemy) && AuxiliarOperations.EnemyIsAerial(gameObject,aa_Enemy))
+            if (!AuxiliarOperations.IsDestroyed(aa_Enemy) && AuxiliarOperations.EnemyIsAerial(aa_Enemy))
             {
                 if ((currentFireRate > timeBetweenShoots))
                 {

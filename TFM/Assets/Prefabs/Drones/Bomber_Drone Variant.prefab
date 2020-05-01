@@ -38237,6 +38237,10 @@ MonoBehaviour:
   ammoCount: {fileID: 1614463443624923280}
   uiInfo: {fileID: 5349302706600725534}
   isCaptured: 1
+  isOnCover: 0
+  wayPoints: []
+  isAerialUnit: 1
+  currentState: 1
 --- !u!114 &2175316041824162826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38251,7 +38255,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 200
   firerate: 6
-  firingRange: 120
   bomb: {fileID: 8663531991617894462, guid: 0012f793aa2747842aaeff8754cfffd5, type: 3}
   bombLauncher: {fileID: 4874263746362162447}
 --- !u!64 &6761686854665398788

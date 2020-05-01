@@ -59,7 +59,7 @@ public class Bomb : MonoBehaviour
             if (!affectedObjectives.Contains(other.transform.position)) {
                 if (other.tag.Equals(targetTag) || other.tag.Equals(AuxiliarOperations.GetAllies(targetTag)))
                 {
-                    if (!AuxiliarOperations.EnemyIsAerial(gameObject, other.transform.gameObject))
+                    if (!AuxiliarOperations.EnemyIsAerial(other.transform.gameObject))
                     {
                         other.transform.gameObject.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
                         affectedObjectives.Add(other.transform.position);

@@ -33299,6 +33299,10 @@ MonoBehaviour:
   ammoCount: {fileID: 9018537893816730333}
   uiInfo: {fileID: 2410406446244978259}
   isCaptured: 1
+  isOnCover: 0
+  wayPoints: []
+  isAerialUnit: 1
+  currentState: 1
 --- !u!114 &1297814073526209132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33313,7 +33317,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 25
   firerate: 1
-  firingRange: 1.5
   missile: {fileID: 7459252645901394141, guid: e4c0730182e952048a3997ceb8685b33, type: 3}
   missileSpeed: 10
   missileLauncher: {fileID: 3318263651368665470}

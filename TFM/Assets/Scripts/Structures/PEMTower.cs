@@ -32,7 +32,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
     /// </summary>
     public GameObject energyGenerator;
 
-    private enum colliderStatus { enter, stay, exit };
+    private enum ColliderStatus { enter, stay, exit };
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +46,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
         if (!AuxiliarOperations.IsDestroyed(energyGenerator)) {
             if (AuxiliarOperations.IsPlayer(other))
             {
-                ColliderBehaviour(colliderStatus.enter, other);
+                ColliderBehaviour(ColliderStatus.enter, other);
             }
         }               
     }
@@ -57,7 +57,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
         {
             if (AuxiliarOperations.IsPlayer(other))
             {
-                ColliderBehaviour(colliderStatus.stay, other);
+                ColliderBehaviour(ColliderStatus.stay, other);
             }
         }
         else
@@ -75,7 +75,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
         {
             if (AuxiliarOperations.IsPlayer(other))
             {
-                ColliderBehaviour(colliderStatus.exit, other);
+                ColliderBehaviour(ColliderStatus.exit, other);
             }
         }
     }
@@ -85,16 +85,16 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
     /// </summary>
     /// <param name="colStatus">type of collider</param>
     /// <param name="other">object collided</param>
-    private void ColliderBehaviour(colliderStatus colStatus, Collider other)
+    private void ColliderBehaviour(ColliderStatus colStatus, Collider other)
     {
         switch (colStatus)
         {
-            case colliderStatus.enter:
+            case ColliderStatus.enter:
 
                 DealDamage(other.transform.gameObject);
 
                 break;
-            case colliderStatus.stay:
+            case ColliderStatus.stay:
 
                 // provide PEM recovery until the enemy drone is destroyed
                 if (AuxiliarOperations.IsDestroyed(other.transform.gameObject))
@@ -114,7 +114,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
                 }
 
                 break;
-            case colliderStatus.exit:
+            case ColliderStatus.exit:
 
                 StopDamage(other.transform.gameObject);
                 break;

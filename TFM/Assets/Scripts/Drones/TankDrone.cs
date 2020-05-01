@@ -123,7 +123,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger && !AuxiliarOperations.EnemyIsAerial(gameObject, other.gameObject))
+        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger && !AuxiliarOperations.EnemyIsAerial(other.gameObject))
         {
             if (tnk_enemy == null)
             {
@@ -161,7 +161,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
             }
             else
             {
-                if (gameObject.GetComponent<BasicDrone>().ammo > 0 && !AuxiliarOperations.EnemyIsAerial(gameObject, enemy))
+                if (gameObject.GetComponent<BasicDrone>().ammo > 0 && !AuxiliarOperations.EnemyIsAerial(enemy))
                 {
                     MakeAttack(enemy);
                 }
@@ -223,7 +223,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
                 //attack player drones when is not capture
                 if (!isCaptured && tnk_enemy != null)
                 {
-                    if (!AuxiliarOperations.IsDestroyed(tnk_enemy) && !AuxiliarOperations.EnemyIsAerial(gameObject, tnk_enemy))
+                    if (!AuxiliarOperations.IsDestroyed(tnk_enemy) && !AuxiliarOperations.EnemyIsAerial(tnk_enemy))
                     {
                         if (!tnk_enemy.GetComponent<CommonInterface>().isDestroyed())
                         {

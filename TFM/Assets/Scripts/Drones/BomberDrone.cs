@@ -114,7 +114,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if (AuxiliarOperations.IsPlayer(other) && !AuxiliarOperations.EnemyIsAerial(gameObject, other.gameObject))
+        if (AuxiliarOperations.IsPlayer(other) && !AuxiliarOperations.EnemyIsAerial(other.gameObject))
         {
             if (airDroneEnemy == null)
             {
@@ -124,7 +124,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
             else
             {
                 if ((Vector3.Distance(airDroneEnemy.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position)) 
-                    && !AuxiliarOperations.EnemyIsAerial(gameObject, other.transform.gameObject))
+                    && !AuxiliarOperations.EnemyIsAerial(other.transform.gameObject))
                 {
                     airDroneEnemy = other.gameObject;
                 }
@@ -146,13 +146,13 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         else
         {
             //only attack if there is ammo remaining
-            if (gameObject.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO && !AuxiliarOperations.EnemyIsAerial(gameObject, enemy))
+            if (gameObject.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO && !AuxiliarOperations.EnemyIsAerial(enemy))
             {
                 MakeAttack(enemy);
             }
             else
             {
-                if (gameObject.GetComponent<BasicDrone>().ammo > 0 && !AuxiliarOperations.EnemyIsAerial(gameObject, enemy))
+                if (gameObject.GetComponent<BasicDrone>().ammo > 0 && !AuxiliarOperations.EnemyIsAerial(enemy))
                 {
                     MakeAttack(enemy);
                 }
@@ -213,7 +213,7 @@ public class BomberDrone : MonoBehaviour, DroneInterface
                 {
                     if (!AuxiliarOperations.IsDestroyed(airDroneEnemy))
                     {
-                        if (!AuxiliarOperations.EnemyIsAerial(gameObject, airDroneEnemy))
+                        if (!AuxiliarOperations.EnemyIsAerial(airDroneEnemy))
                         {
                             if (Vector3.Distance(airDroneEnemy.transform.position, gameObject.transform.position) > (gameObject.GetComponent<NavMeshAgent>().radius + 3))
                             {

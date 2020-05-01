@@ -9,4 +9,5 @@ public interface CommonInterface
 {
     bool isDestroyed();
     bool isCaptured();
+    bool isAerial();
 }

@@ -109,10 +109,11 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
                 
                 if (!AuxiliarOperations.IsDestroyed(other.transform.gameObject) && (other.transform.gameObject.GetComponent<BasicDrone>().life < other.transform.gameObject.GetComponent<BasicDrone>().maxHeath))
                 {
+                    // provide health recovery
+                    other.transform.gameObject.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
                     if (!healEffect.activeSelf && !HealWave.activeSelf)
                     {
-                        // provide health recovery
-                        other.transform.gameObject.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
+
                         healEffect.SetActive(true);
                         HealWave.SetActive(true);
                     }
@@ -130,10 +131,10 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
                 else {
                     if (!AuxiliarOperations.IsDestroyed(other.transform.gameObject) && (other.transform.gameObject.GetComponent<BasicDrone>().life < other.transform.gameObject.GetComponent<BasicDrone>().maxHeath))
                     {
+                        // provide health recovery until the drone reaches maximun health
+                        other.transform.gameObject.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
                         if (!healEffect.activeSelf && !HealWave.activeSelf)
-                        {
-                            // provide health recovery until the drone reaches maximun ammo
-                            other.transform.gameObject.SendMessage("Heal", heal, SendMessageOptions.RequireReceiver);
+                        {                           
                             healEffect.SetActive(true);
                             HealWave.SetActive(true);
                         }
