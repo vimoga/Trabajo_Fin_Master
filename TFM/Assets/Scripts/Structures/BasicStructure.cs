@@ -129,7 +129,7 @@ public class BasicStructure : MonoBehaviour,CommonInterface
     {
         if (isCapturable)
         {
-            captureStatus += (captureCost) * 0.5f;
+            captureStatus += (1/captureCost);
             captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
             if (captureStatus >= GameConstants.CAPTURE_LIMIT)
             {

@@ -235,11 +235,10 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     /// The drone is captured from the player to take control
     /// </summary>
     public void Capture() {
-        if (gameplayManager.currentCPUPower>= captureCost)
+        if (gameplayManager.IsCapturePosible(captureCost))
         {
-            captureStatus += (captureCost) * 0.5f;
+            captureStatus += (1/captureCost);
             captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
-            //GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
             if (captureStatus >= GameConstants.CAPTURE_LIMIT)
             {
                 gameObject.tag = "Player_Drone";

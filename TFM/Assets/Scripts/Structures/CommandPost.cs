@@ -55,6 +55,7 @@ public class CommandPost : MonoBehaviour, StructuresInterfaces
         isCaptured = GetComponent<BasicStructure>().isCaptured;
         if (isCaptured && !isAddedToHUD) {
             gameplayManager.AddCPUPower(cpuPower);
+            gameplayManager.AddMaxCPU(cpuPower);
             isAddedToHUD = true;
         }
     }

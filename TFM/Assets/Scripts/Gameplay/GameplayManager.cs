@@ -23,7 +23,9 @@ public class GameplayManager : MonoBehaviour
 
 
     [HideInInspector]
-    public float currentCPUPower = 0;
+    public float currentCPUGamePower = 0;
+
+    private int currentMaxCPUPower = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +35,7 @@ public class GameplayManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player) {
             AddPlayerDrone(player.GetComponent<BasicDrone>());
-            currentCPUPower += player.GetComponent<BasicDrone>().captureCost;
+            currentCPUGamePower += player.GetComponent<BasicDrone>().captureCost;
         }
         
         GameObject[] playerDrones = GameObject.FindGameObjectsWithTag("Player_Drone");
@@ -41,12 +43,20 @@ public class GameplayManager : MonoBehaviour
         foreach (GameObject playerDrone in playerDrones)
         {
             AddPlayerDrone(playerDrone.GetComponent<BasicDrone>());
-            currentCPUPower += playerDrone.GetComponent<BasicDrone>().captureCost;
+            currentCPUGamePower += playerDrone.GetComponent<BasicDrone>().captureCost;
         }
 
-        hudManager.RemoveCPUPower(GameConstants.MAX_CPU_POWER);
+        if (currentCPUGamePower == 0) {
+            currentMaxCPUPower = 1;
+        }
+        else
+        {
+            currentMaxCPUPower = (int)currentCPUGamePower; 
+        }
 
-        hudManager.AddCPUPower(currentCPUPower);
+        hudManager.AddCPUPower(currentCPUGamePower);
+
+        hudManager.AddCPUMaxPower(currentMaxCPUPower);
     }
 
     public void AddPlayerDrone(BasicDrone playerDrone) {
@@ -65,13 +75,29 @@ public class GameplayManager : MonoBehaviour
     }
 
     public void AddCPUPower(float power) {
-        currentCPUPower += power;
+        currentCPUGamePower += power;
         hudManager.AddCPUPower(power);
     }
 
     public void RemoveCPUPower(float power) {
         hudManager.RemoveCPUPower(power);
-        currentCPUPower -= power;
+        currentCPUGamePower -= power;
+    }
+
+    public void AddMaxCPU(int power)
+    {
+        currentMaxCPUPower += power;
+        hudManager.AddCPUMaxPower(power);
+    }
+
+    public void RemoveMaxCPU(int power)
+    {
+        hudManager.RemoveCPUMaxPower(power);
+        currentMaxCPUPower -= power;
+    }
+
+    public bool IsCapturePosible(float cost) {
+        return (currentMaxCPUPower - currentCPUGamePower) >= cost;
     }
 
     private void GameOver() {

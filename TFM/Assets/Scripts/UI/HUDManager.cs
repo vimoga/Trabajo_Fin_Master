@@ -20,12 +20,18 @@ public class HUDManager : MonoBehaviour
     public GameObject[] cpuPower;
 
     /// <summary>
+    /// Visual representation of the used CPU Power
+    /// </summary>
+    public GameObject[] cpuPowerUsed;
+
+    /// <summary>
     /// player movement manager
     /// </summary>
     private PlayerMovement playerMovement;
 
     private int currentDroneIndex = 0;
     private float currentCPUIndex = 0;
+    private int currentMaxCPU = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -94,20 +100,46 @@ public class HUDManager : MonoBehaviour
         drawCPUPower();
     }
 
+    /// <summary>
+    /// Add CPU power in the HUD
+    /// </summary>
+    /// <param name="drone">Quantity of CPU power to add in the HUD</param>
+    public void AddCPUMaxPower(int power)
+    {
+        currentMaxCPU += power;
+        drawCPUPower();
+    }
+
+    /// <summary>
+    /// remove CPU power from the HUD
+    /// </summary>
+    /// <param name="drone">Quantity of CPU power to remove from the HUD</param>
+    public void RemoveCPUMaxPower(int power)
+    {
+        currentMaxCPU -= power;
+        drawCPUPower();
+    }
+
     private void drawCPUPower()
     {
-        int counter = 0;
-        foreach (GameObject cpu in cpuPower)
+        for (int x= 0; x<cpuPower.Length; x++)
         {
-            if (counter <= currentCPUIndex)
+            if (x <= currentCPUIndex)
             {
-                cpu.SetActive(true);
+                cpuPower[x].SetActive(true);
+                cpuPowerUsed[x].SetActive(false);
             }
             else
             {
-                cpu.SetActive(false);
+                if (x < currentMaxCPU)
+                {
+                    cpuPowerUsed[x].SetActive(true);
+                }
+                else {
+                    cpuPower[x].SetActive(false);
+                    cpuPowerUsed[x].SetActive(false);
+                }
             }
-            counter++;
         }
     }
 

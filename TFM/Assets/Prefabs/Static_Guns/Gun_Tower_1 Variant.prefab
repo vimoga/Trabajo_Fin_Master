@@ -39371,6 +39371,7 @@ GameObject:
   - component: {fileID: 8512604024972715943}
   - component: {fileID: 4024178001377593905}
   - component: {fileID: 3530287780032842278}
+  - component: {fileID: 5348790178905324429}
   m_Layer: 0
   m_Name: Gun_Tower_1 Variant
   m_TagString: Enemy_Structure
@@ -39476,6 +39477,7 @@ MonoBehaviour:
   uiInfo: {fileID: 5523422887935088908}
   isCapturable: 0
   isCaptured: 0
+  isAerialUnit: 0
 --- !u!114 &4024178001377593905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39592,6 +39594,45 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!23 &5348790178905324429
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7381175880740149407}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1001 &5032811101450238566
 PrefabInstance:
   m_ObjectHideFlags: 0

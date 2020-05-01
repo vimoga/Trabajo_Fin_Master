@@ -50,7 +50,6 @@ public class MainDrone : MonoBehaviour, DroneInterface
             }
         }
         main_enemy = enemy;
-        //gameObject.transform.LookAt(enemy.transform);
         enemy.SendMessage("Capture", SendMessageOptions.RequireReceiver);
         beam.SetActive(true);
         audioSource.PlayOneShot(shootSound, 1);
@@ -90,7 +89,8 @@ public class MainDrone : MonoBehaviour, DroneInterface
     void Update()
     {
         //cease beam when the capture is completed
-        if (main_enemy) {
+        if (main_enemy)
+        {
             if (AuxiliarOperations.IsCaptured(main_enemy) || Vector3.Distance(main_enemy.transform.position, transform.position) > GetFiringRange())
             {
                 beam.SetActive(false);
@@ -99,6 +99,11 @@ public class MainDrone : MonoBehaviour, DroneInterface
             else
             {
                 beam.GetComponent<VolumetricLines.VolumetricLineBehavior>().EndPos = gameObject.transform.InverseTransformPoint(main_enemy.transform.position);
+            }
+        }
+        else {
+            if (beam.activeSelf) {
+                beam.SetActive(false);
             }
         }
         

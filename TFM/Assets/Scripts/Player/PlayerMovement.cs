@@ -83,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
                 if (!AuxiliarOperations.IsDestroyed(jugador))
                 {
                     //Move the player to the selected point
+                    agente.isStopped = false;
                     agente.destination = hit.point;
                     currentObjective = null;
                     isAttacking = false;
@@ -281,8 +282,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!AuxiliarOperations.IsDestroyed(currentObjective) && !AuxiliarOperations.IsCaptured(currentObjective))
                 {
-                    if (Vector3.Distance(jugador.transform.position, currentObjective.transform.position) > (jugador.GetComponent<DroneInterface>().GetFiringRange()))
+                    float testDistance = Vector3.Distance(jugador.transform.position, currentObjective.transform.position);
+                    if (Vector3.Distance(jugador.transform.position, currentObjective.transform.position) > (jugador.GetComponent<DroneInterface>().GetFiringRange()+0.5))
                     {
+                        agente.isStopped = false;
                         agente.destination = currentObjective.transform.position;
 
                         if (!test.Equals("off distance")) {
@@ -302,7 +305,8 @@ public class PlayerMovement : MonoBehaviour
                         {
                             if ((jugador.GetComponent<BasicDrone>().maxAmmo != GameConstants.INFINITE_AMMO && jugador.GetComponent<BasicDrone>().ammo > 0) || jugador.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO) {
                                 jugador.GetComponent<DroneInterface>().Attack(currentObjective);
-                                agente.destination = agente.gameObject.transform.position;
+                                //agente.destination = agente.gameObject.transform.position;
+                                agente.isStopped=true;
                                 if (!test.Equals("in distance"))
                                 {
                                     test = "in distance";

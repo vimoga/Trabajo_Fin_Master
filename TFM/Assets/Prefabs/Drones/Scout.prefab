@@ -68,8 +68,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1.58
-  m_Speed: 7
-  m_Acceleration: 8
+  m_Speed: 14
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -123,6 +123,7 @@ MonoBehaviour:
   isCaptured: 1
   isOnCover: 0
   wayPoints: []
+  isAerialUnit: 0
   currentState: 1
 --- !u!114 &1264409191201164072
 MonoBehaviour:
