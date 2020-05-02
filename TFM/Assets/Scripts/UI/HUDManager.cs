@@ -133,6 +133,7 @@ public class HUDManager : MonoBehaviour
             {
                 if (x < currentMaxCPU)
                 {
+                    cpuPower[x].SetActive(false);
                     cpuPowerUsed[x].SetActive(true);
                 }
                 else {

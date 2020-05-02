@@ -293,11 +293,11 @@ public class PlayerMovement : MonoBehaviour
                             Debug.Log(test);
                         }
                         //test
-                        /*NavMeshHit hit;
+                        NavMeshHit hit;
                         if (NavMesh.SamplePosition(currentObjective.transform.position, out hit, jugador.GetComponent<DroneInterface>().GetFiringRange(), NavMesh.AllAreas))
                         {
                             agente.destination = hit.position;
-                        }*/
+                        }
                     }
                     else
                     {

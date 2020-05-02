@@ -111,7 +111,7 @@ SubShader {
 		
 		float radarsAplhas = powerForPos(_Radar1_Pos, IN.location, _FogRadius1);
 		radarsAplhas += powerForPos(_Radar2_Pos, IN.location, _FogRadius2);
-		radarsAplhas += powerForPos(_Radar3_Pos, IN.location, _FogRadius3);
+		/*radarsAplhas += powerForPos(_Radar3_Pos, IN.location, _FogRadius3);
 		radarsAplhas += powerForPos(_Radar4_Pos, IN.location, _FogRadius4);
 		radarsAplhas += powerForPos(_Radar5_Pos, IN.location, _FogRadius5);
 		radarsAplhas += powerForPos(_Radar6_Pos, IN.location, _FogRadius6);
@@ -122,10 +122,10 @@ SubShader {
 		radarsAplhas += powerForPos(_Radar11_Pos, IN.location, _FogRadius11);
 		radarsAplhas += powerForPos(_Radar12_Pos, IN.location, _FogRadius12);
 		radarsAplhas += powerForPos(_Radar13_Pos, IN.location, _FogRadius13);
-		radarsAplhas += powerForPos(_Radar14_Pos, IN.location, _FogRadius14);
+		radarsAplhas += powerForPos(_Radar14_Pos, IN.location, _FogRadius14);*/
 
-        float alpha = (1.0 - (baseColor.a + radarsAplhas));
 
+		float alpha = (1 - (baseColor.a + radarsAplhas));
         o.Albedo = baseColor.rgb;
         o.Alpha = alpha;
     }
