@@ -124,7 +124,7 @@ public class HUDManager : MonoBehaviour
     {
         for (int x= 0; x<cpuPower.Length; x++)
         {
-            if (x <= currentCPUIndex)
+            if (x < currentCPUIndex)
             {
                 cpuPower[x].SetActive(true);
                 cpuPowerUsed[x].SetActive(false);

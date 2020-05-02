@@ -110,8 +110,8 @@ SubShader {
         fixed4 baseColor = tex2D(_MainTex, IN.uv_MainTex) * _Color;
 		
 		float radarsAplhas = powerForPos(_Radar1_Pos, IN.location, _FogRadius1);
-		radarsAplhas += powerForPos(_Radar2_Pos, IN.location, _FogRadius2);
-		/*radarsAplhas += powerForPos(_Radar3_Pos, IN.location, _FogRadius3);
+		radarsAplhas += powerForPos(_Radar2_Pos, IN.location, _FogRadius2);		
+		radarsAplhas += powerForPos(_Radar3_Pos, IN.location, _FogRadius3);
 		radarsAplhas += powerForPos(_Radar4_Pos, IN.location, _FogRadius4);
 		radarsAplhas += powerForPos(_Radar5_Pos, IN.location, _FogRadius5);
 		radarsAplhas += powerForPos(_Radar6_Pos, IN.location, _FogRadius6);
@@ -122,7 +122,7 @@ SubShader {
 		radarsAplhas += powerForPos(_Radar11_Pos, IN.location, _FogRadius11);
 		radarsAplhas += powerForPos(_Radar12_Pos, IN.location, _FogRadius12);
 		radarsAplhas += powerForPos(_Radar13_Pos, IN.location, _FogRadius13);
-		radarsAplhas += powerForPos(_Radar14_Pos, IN.location, _FogRadius14);*/
+		radarsAplhas += powerForPos(_Radar14_Pos, IN.location, _FogRadius14);
 
 
 		float alpha = (1 - (baseColor.a + radarsAplhas));
@@ -133,16 +133,13 @@ SubShader {
     //return 0 if (pos - nearVertex) > _FogRadius
     float powerForPos(float4 pos, float2 nearVertex, float fogRadius) {
 
-		//float fogRadiusFixed = clamp(fogRadius, 0.0, 1.0);
         float atten = clamp(fogRadius - length(pos.xz - nearVertex.xy), 0.0, fogRadius);
-		//float fogRadiusFixed = clamp(atten, 0.0, 1.0);
 		if (atten > 0.0 && atten < fogRadius) {
 			atten = 1;
 		}
 		else {
 			atten = 0;
 		}
-        //return (1.0/(fogRadiusFixed /2))*atten/ fogRadiusFixed;
 		return atten;
     }
 

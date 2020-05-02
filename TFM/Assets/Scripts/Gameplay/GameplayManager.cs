@@ -48,6 +48,7 @@ public class GameplayManager : MonoBehaviour
 
         if (currentCPUGamePower == 0) {
             currentMaxCPUPower = 1;
+            currentCPUGamePower = 1;
         }
         else
         {
@@ -97,7 +98,7 @@ public class GameplayManager : MonoBehaviour
     }
 
     public bool IsCapturePosible(float cost) {
-        return (currentMaxCPUPower - currentCPUGamePower) >= cost;
+        return currentCPUGamePower >= cost;
     }
 
     private void GameOver() {
