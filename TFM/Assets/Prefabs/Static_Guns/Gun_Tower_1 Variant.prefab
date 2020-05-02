@@ -39496,7 +39496,7 @@ MonoBehaviour:
   barrelRotationSpeed: 500
   firingRange: 10
   muzzelFlash: {fileID: 7380394174387111893}
-  damage: 1
+  damage: 2
   firerate: 0.15
 --- !u!82 &3530287780032842278
 AudioSource:
