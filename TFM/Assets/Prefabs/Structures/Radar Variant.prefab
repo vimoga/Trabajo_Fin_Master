@@ -147,6 +147,7 @@ MonoBehaviour:
   uiInfo: {fileID: 7752081401927049731}
   isCapturable: 1
   isCaptured: 0
+  isAerialUnit: 0
 --- !u!114 &831092710634624022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,8 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fogOfWarPlane: {fileID: 0}
-  coverRange: 50
-  fogOfWarCover: 0.75
+  radarNumber: 0
 --- !u!82 &831092710634624026
 AudioSource:
   m_ObjectHideFlags: 0

@@ -127,7 +127,11 @@ SubShader {
 
 		float alpha = (1 - (baseColor.a + radarsAplhas));
         o.Albedo = baseColor.rgb;
-        o.Alpha = alpha;
+		/*if (alpha > 0 && alpha < 1 ) {
+			alpha == 1;
+		}*/
+		o.Alpha = alpha;
+        
     }
 
     //return 0 if (pos - nearVertex) > _FogRadius

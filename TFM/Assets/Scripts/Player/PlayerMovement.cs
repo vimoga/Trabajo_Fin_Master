@@ -283,7 +283,7 @@ public class PlayerMovement : MonoBehaviour
                 if (!AuxiliarOperations.IsDestroyed(currentObjective) && !AuxiliarOperations.IsCaptured(currentObjective))
                 {
                     float testDistance = Vector3.Distance(jugador.transform.position, currentObjective.transform.position);
-                    if (Vector3.Distance(jugador.transform.position, currentObjective.transform.position) > (jugador.GetComponent<DroneInterface>().GetFiringRange()+0.5))
+                    if (Vector3.Distance(jugador.transform.position, currentObjective.transform.position) > (jugador.GetComponent<DroneInterface>().GetFiringRange()))
                     {
                         agente.isStopped = false;
                         agente.destination = currentObjective.transform.position;
@@ -291,12 +291,6 @@ public class PlayerMovement : MonoBehaviour
                         if (!test.Equals("off distance")) {
                             test = "off distance";
                             Debug.Log(test);
-                        }
-                        //test
-                        NavMeshHit hit;
-                        if (NavMesh.SamplePosition(currentObjective.transform.position, out hit, jugador.GetComponent<DroneInterface>().GetFiringRange(), NavMesh.AllAreas))
-                        {
-                            agente.destination = hit.position;
                         }
                     }
                     else

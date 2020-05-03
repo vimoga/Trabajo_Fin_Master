@@ -239,6 +239,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
 
                     if (Vector3.Distance(gameObject.transform.position,agent.destination) <= agent.stoppingDistance+GameConstants.WAYPOINT_STOP_AVOID)
                     {
+                        //reducir velocidad temporalmente
                         nextWayPoint = (nextWayPoint + 1) % wayPoints.Length;
                     }
                 }               
