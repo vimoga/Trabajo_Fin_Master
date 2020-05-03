@@ -237,7 +237,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public void Capture() {
         if (gameplayManager.IsCapturePosible(captureCost))
         {
-            captureStatus += (1/captureCost);
+            captureStatus += (1 / captureCost);
             captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
             if (captureStatus >= GameConstants.CAPTURE_LIMIT)
             {
@@ -259,6 +259,11 @@ public class BasicDrone : MonoBehaviour, CommonInterface
                         selection.GetComponent<RawImage>().texture = (Texture)Resources.Load("Textures/selection_friend");
                     }
                 }
+            }
+        }
+        else {
+            if (gameObject.GetComponent<AudioSource>()) {
+                gameObject.GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("Sounds/No_CPU"));
             }
         }
         
@@ -364,6 +369,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
                 isDestroyed = true;
                 isCaptured = true;
                 audioSource.Stop();
+                rb.constraints = RigidbodyConstraints.None;
                 rb.useGravity = true;
                 rb.isKinematic = false;
                 if (GetComponent<NavMeshAgent>()) {
