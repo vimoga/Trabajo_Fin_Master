@@ -146,7 +146,7 @@ public class HealerDrone : MonoBehaviour,DroneInterface
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if (AuxiliarOperations.IsPlayer(other) || AuxiliarOperations.IsEnemy(other))
+        if (AuxiliarOperations.IsPlayer(other) || AuxiliarOperations.IsEnemyDrone(other))
         {
             if (other.gameObject.GetComponent<BasicDrone>().life < other.gameObject.GetComponent<BasicDrone>().maxHeath)
             {
