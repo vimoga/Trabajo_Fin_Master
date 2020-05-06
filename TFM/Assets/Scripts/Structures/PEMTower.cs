@@ -44,7 +44,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
     void StructuresInterfaces.OnTriggerEnter(Collider other)
     {
         if (!AuxiliarOperations.IsDestroyed(energyGenerator)) {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 ColliderBehaviour(ColliderStatus.enter, other);
             }
@@ -55,14 +55,14 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
     {
         if (!AuxiliarOperations.IsDestroyed(energyGenerator))
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 ColliderBehaviour(ColliderStatus.stay, other);
             }
         }
         else
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 StopDamage(other.transform.gameObject);
             }
@@ -73,7 +73,7 @@ public class PEMTower : MonoBehaviour, StructuresInterfaces
     {
         if (!AuxiliarOperations.IsDestroyed(energyGenerator))
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 ColliderBehaviour(ColliderStatus.exit, other);
             }

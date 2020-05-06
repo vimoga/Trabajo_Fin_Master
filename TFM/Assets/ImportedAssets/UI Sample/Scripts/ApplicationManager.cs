@@ -11,7 +11,9 @@ public class ApplicationManager : MonoBehaviour {
 
     public void Restart()
     {
-        if(SceneManager.GetActiveScene().name.Equals("MainLevel")) {
+        if (SceneManager.GetActiveScene().name.Equals("MainLevel")) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        } else if (SceneManager.GetActiveScene().name.Equals("MainLevel2")) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else
