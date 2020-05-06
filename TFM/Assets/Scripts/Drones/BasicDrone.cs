@@ -237,7 +237,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public void Capture() {
         if (gameplayManager.IsCapturePosible(captureCost))
         {
-            captureStatus += (1 / captureCost);
+            captureStatus += (1 / captureCost)*1.25f;
             captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
             if (captureStatus >= GameConstants.CAPTURE_LIMIT)
             {

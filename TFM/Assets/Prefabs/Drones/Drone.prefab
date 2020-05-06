@@ -34074,8 +34074,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Main Drone
   description: Capture enemy drones ands structures
-  life: 60
-  maxHeath: 60
+  life: 120
+  maxHeath: 120
   captureCost: 0
   ammo: -1
   maxAmmo: -1
