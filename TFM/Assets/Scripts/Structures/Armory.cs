@@ -89,7 +89,7 @@ public class Armory : MonoBehaviour, StructuresInterfaces
     {
         if (isCaptured)
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 ColliderBehaviour(colliderStatus.exit, other);
             }

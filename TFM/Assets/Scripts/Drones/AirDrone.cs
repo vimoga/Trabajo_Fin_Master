@@ -72,6 +72,11 @@ public class AirDrone : MonoBehaviour, DroneInterface
             drone.currentState = DroneState.PATROL;
         }
 
+        if (wayPoints.Length == 0)
+        {
+            wayPoints = new Transform[1]{ gameObject.transform };
+        }
+
         agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
@@ -95,7 +100,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
     {
         if (!isCaptured)
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 if (airDroneEnemy.Equals(other.gameObject))
                 {
@@ -115,7 +120,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if (AuxiliarOperations.IsPlayer(other))
+        if (AuxiliarOperations.IsPlayerDrone(other))
         {
             if (airDroneEnemy == null)
             {

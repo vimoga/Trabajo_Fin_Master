@@ -66,6 +66,11 @@ public class HealerDrone : MonoBehaviour,DroneInterface
             drone.currentState = DroneState.PATROL;
         }
 
+        if (wayPoints.Length == 0)
+        {
+            wayPoints = new Transform[1] { gameObject.transform };
+        }
+
         agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
@@ -73,7 +78,7 @@ public class HealerDrone : MonoBehaviour,DroneInterface
     {
         if (!isCaptured)
         {
-            if (AuxiliarOperations.IsEnemy(other) && !other.isTrigger)
+            if (AuxiliarOperations.IsEnemyDrone(other))
             {
                 OnTriggerBehaviour(other);
                 drone.GoToAttackState();
@@ -81,7 +86,7 @@ public class HealerDrone : MonoBehaviour,DroneInterface
         }
         else
         {
-            if (AuxiliarOperations.IsPlayer(other) && !other.isTrigger)
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 OnTriggerBehaviour(other);
             }
@@ -92,7 +97,7 @@ public class HealerDrone : MonoBehaviour,DroneInterface
     {
         if (!isCaptured)
         {
-            if (AuxiliarOperations.IsEnemy(other) && !other.isTrigger)
+            if (AuxiliarOperations.IsEnemyDrone(other))
             {
                 OnTriggerBehaviour(other);
                 //drone.GoToAttackState();
@@ -100,7 +105,7 @@ public class HealerDrone : MonoBehaviour,DroneInterface
         }
         else
         {
-            if (AuxiliarOperations.IsPlayer(other) && !other.isTrigger)
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 OnTriggerBehaviour(other);
             }
@@ -111,7 +116,7 @@ public class HealerDrone : MonoBehaviour,DroneInterface
     {
         if (!isCaptured)
         {
-            if (AuxiliarOperations.IsEnemy(other))
+            if (AuxiliarOperations.IsEnemyDrone(other))
             {
                 if (healerObjective != null && healerObjective.Equals(other.gameObject))
                 {
@@ -125,7 +130,7 @@ public class HealerDrone : MonoBehaviour,DroneInterface
             }
         }
         else {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 if (healerObjective != null && healerObjective.Equals(other.gameObject))
                 {
@@ -146,7 +151,7 @@ public class HealerDrone : MonoBehaviour,DroneInterface
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if (AuxiliarOperations.IsPlayer(other) || AuxiliarOperations.IsEnemyDrone(other))
+        if (AuxiliarOperations.IsPlayerDrone(other) || AuxiliarOperations.IsEnemyDrone(other))
         {
             if (other.gameObject.GetComponent<BasicDrone>().life < other.gameObject.GetComponent<BasicDrone>().maxHeath)
             {

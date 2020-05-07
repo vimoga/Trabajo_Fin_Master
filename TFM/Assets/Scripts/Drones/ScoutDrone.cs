@@ -70,6 +70,11 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
             drone.currentState = DroneState.PATROL;
         }
 
+        if (wayPoints.Length == 0)
+        {
+            wayPoints = new Transform[1] { gameObject.transform };
+        }
+
         agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
@@ -94,7 +99,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
     {
         if (!isCaptured)
         {
-            if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {                
                 if (scout_enemy.Equals(other.gameObject))
                 {
@@ -113,7 +118,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
+        if (AuxiliarOperations.IsPlayerDrone(other))
         {
             if (scout_enemy == null)
             {

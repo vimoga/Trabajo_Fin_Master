@@ -17,7 +17,15 @@ public class EndLevel : MonoBehaviour
     {
         if (col.gameObject.tag.Equals("Player"))
         {
-            SceneManager.LoadScene("EndGameMenu");
+            if (SceneManager.GetActiveScene().name.Equals("MainLevel"))
+            {
+                SceneManager.LoadScene("MainLevel2");
+            }
+            else if (SceneManager.GetActiveScene().name.Equals("MainLevel2"))
+            {
+                SceneManager.LoadScene("EndGameMenu");
+            }
+            
         }
     }
 }

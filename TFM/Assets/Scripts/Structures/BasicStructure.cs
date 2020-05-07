@@ -186,7 +186,8 @@ public class BasicStructure : MonoBehaviour,CommonInterface
                 explosion.SetActive(true);
                 isDestroyed = true;
                 isCaptured = true;
-                Object.Destroy(gameObject, 2.0f);
+                //revisar si es necesario
+                //Object.Destroy(gameObject, 2.0f);
             }
         }
 

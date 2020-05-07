@@ -71,7 +71,7 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     {
         if (isCaptured)
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 if (other.transform.gameObject.GetComponent<BasicDrone>())
                 {
@@ -88,7 +88,7 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     {
         if (isCaptured)
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 if (other.transform.gameObject.GetComponent<BasicDrone>())
                 {
@@ -105,7 +105,7 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     {
         if (isCaptured)
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 if (other.transform.gameObject.GetComponent<BasicDrone>())
                 {

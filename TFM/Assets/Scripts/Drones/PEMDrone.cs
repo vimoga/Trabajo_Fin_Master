@@ -62,6 +62,11 @@ public class PEMDrone : MonoBehaviour, DroneInterface
             drone.currentState = DroneState.PATROL;
         }
 
+        if (wayPoints.Length == 0)
+        {
+            wayPoints = new Transform[1] { gameObject.transform };
+        }
+
         agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
@@ -69,13 +74,13 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     {
         if (!isCaptured)
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 ColliderBehaviour(colliderStatus.enter, other);
             }
         }
         else {
-            if (AuxiliarOperations.IsEnemy(other))
+            if (AuxiliarOperations.IsEnemyDrone(other))
             {
                 ColliderBehaviour(colliderStatus.enter, other);
             }
@@ -86,20 +91,20 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     {
         if (!isCaptured)
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 ColliderBehaviour(colliderStatus.stay, other);
                 PEMEnemy = other;
             }
         }
         else {
-            if (AuxiliarOperations.IsEnemy(other))
+            if (AuxiliarOperations.IsEnemyDrone(other))
             {
                 ColliderBehaviour(colliderStatus.stay, other);
             }
             else
             {
-                if (AuxiliarOperations.IsPlayer(other) && other == PEMEnemy)
+                if (AuxiliarOperations.IsPlayerDrone(other) && other == PEMEnemy)
                 {
                     CeaseDamage(other.transform.gameObject);
                 }
@@ -111,14 +116,14 @@ public class PEMDrone : MonoBehaviour, DroneInterface
     {
         if (!isCaptured)
         {
-            if (AuxiliarOperations.IsPlayer(other))
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 ColliderBehaviour(colliderStatus.exit, other);
             }
         }
         else
         {
-            if (AuxiliarOperations.IsEnemy(other))
+            if (AuxiliarOperations.IsEnemyDrone(other))
             {
                 ColliderBehaviour(colliderStatus.exit, other);
             }        

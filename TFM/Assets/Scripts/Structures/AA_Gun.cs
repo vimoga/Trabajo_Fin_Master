@@ -74,7 +74,7 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
 
     void StructuresInterfaces.OnTriggerExit(Collider other)
     {
-        if (AuxiliarOperations.IsPlayer(other))
+        if (AuxiliarOperations.IsPlayerDrone(other))
         {
             aa_Enemy = null;
         }
@@ -86,7 +86,7 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if (AuxiliarOperations.IsPlayer(other))
+        if (AuxiliarOperations.IsPlayerDrone(other))
         {
             if (aa_Enemy == null)
             {

@@ -76,6 +76,10 @@ public class TankDrone : MonoBehaviour,DroneInterface
             drone.currentState = DroneState.PATROL;
         }
 
+        if (wayPoints.Length == 0) {
+            wayPoints = new Transform[1] { gameObject.transform };
+        }
+
         agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
@@ -98,7 +102,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
     {
         if (!isCaptured)
         {
-            if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger)
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 if (tnk_enemy == null) {
                     if (tnk_enemy.Equals(other.gameObject))
@@ -123,7 +127,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone") && !other.isTrigger && !AuxiliarOperations.EnemyIsAerial(other.gameObject))
+        if (AuxiliarOperations.IsPlayerDrone(other) && !other.isTrigger && !AuxiliarOperations.EnemyIsAerial(other.gameObject))
         {
             if (tnk_enemy == null)
             {
