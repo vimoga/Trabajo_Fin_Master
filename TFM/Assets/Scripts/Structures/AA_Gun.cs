@@ -91,7 +91,6 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
             if (aa_Enemy == null)
             {
                 aa_Enemy = other.gameObject;
-
             }
             else
             {

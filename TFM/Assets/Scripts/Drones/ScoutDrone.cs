@@ -48,6 +48,8 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
 
     private float currentAlertTime = 0;
 
+    private float topSpeed = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +78,8 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
         }
 
         agent = gameObject.GetComponent<NavMeshAgent>();
+
+        topSpeed = agent.speed;
     }
 
     void DroneInterface.OnTriggerEnter(Collider other)
@@ -242,9 +246,19 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                 {
                     agent.destination = wayPoints[nextWayPoint].position;
 
-                    if (Vector3.Distance(gameObject.transform.position,agent.destination) <= agent.stoppingDistance+GameConstants.WAYPOINT_STOP_AVOID)
+                    float distance = Vector3.Distance(gameObject.transform.position, agent.destination);
+
+                    //reducir velocidad temporalmente
+                    if (nextWayPoint > 0 && distance > (Vector3.Distance(wayPoints[nextWayPoint - 1].position, wayPoints[nextWayPoint].position) * 0.25))
                     {
-                        //reducir velocidad temporalmente
+                        agent.speed = topSpeed / 2;
+                    }
+                    else {
+                        agent.speed = topSpeed;
+                    }
+
+                    if ( distance <= agent.stoppingDistance+GameConstants.WAYPOINT_STOP_AVOID)
+                    {                        
                         nextWayPoint = (nextWayPoint + 1) % wayPoints.Length;
                     }
                 }               

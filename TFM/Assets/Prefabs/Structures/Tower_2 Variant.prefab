@@ -3511,7 +3511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b86210d8852e17349a3c21dc36e3fc08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0.1
+  damage: 0.2
   firingRange: 85
   PEMEffect: {fileID: 225279990386266795}
   PEMWave: {fileID: 4817591108342129908}

@@ -18,6 +18,7 @@ TagManager:
   - HUD
   - GameplayManager
   - PlayerManager
+  - Collider
   layers:
   - Default
   - TransparentFX

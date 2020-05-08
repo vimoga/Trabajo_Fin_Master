@@ -31,6 +31,9 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
 
     private enum colliderStatus { enter, stay, exit };
 
+    private float currentStayColControl = 0;
+
+    private float StayColControl = 2.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -125,8 +128,16 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
                 
                 if (AuxiliarOperations.IsDestroyed(other.transform.gameObject) || (other.transform.gameObject.GetComponent<BasicDrone>().life >= other.transform.gameObject.GetComponent<BasicDrone>().maxHeath))
                 {
-                    healEffect.SetActive(false);
-                    HealWave.SetActive(false);
+                    if (currentStayColControl > StayColControl)
+                    {
+                        healEffect.SetActive(false);
+                        HealWave.SetActive(false);
+                        currentStayColControl = 0;
+                    }
+                    else
+                    {
+                        currentStayColControl += Time.deltaTime;
+                    }
                 }
                 else {
                     if (!AuxiliarOperations.IsDestroyed(other.transform.gameObject) && (other.transform.gameObject.GetComponent<BasicDrone>().life < other.transform.gameObject.GetComponent<BasicDrone>().maxHeath))
@@ -145,6 +156,7 @@ public class Barracs : MonoBehaviour, StructuresInterfaces
                 break;
             case colliderStatus.exit:
 
+                currentStayColControl = 0;
                 //cease health recovery effect
                 if (healEffect.activeSelf && HealWave.activeSelf)
                 {

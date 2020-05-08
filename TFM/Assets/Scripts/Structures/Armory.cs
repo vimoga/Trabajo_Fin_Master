@@ -45,6 +45,10 @@ public class Armory : MonoBehaviour, StructuresInterfaces
 
     private enum colliderStatus { enter, stay, exit, destroyed };
 
+    private float currentStayColControl = 0;
+
+    private float StayColControl = 2.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -127,8 +131,16 @@ public class Armory : MonoBehaviour, StructuresInterfaces
                 // provide ammo recovery until the drone reaches maximun ammo
                 if (AuxiliarOperations.IsDestroyed(other.transform.gameObject) || (other.transform.gameObject.GetComponent<BasicDrone>().ammo >= other.transform.gameObject.GetComponent<BasicDrone>().maxAmmo))
                 {
-                    ammoEffect.SetActive(false);
-                    ammoWave.SetActive(false);
+                    if (currentStayColControl > StayColControl)
+                    {
+                        ammoEffect.SetActive(false);
+                        ammoWave.SetActive(false);
+                        currentStayColControl = 0;
+                    }
+                    else
+                    {
+                        currentStayColControl += Time.deltaTime;
+                    }
                 }
                 else
                 {
