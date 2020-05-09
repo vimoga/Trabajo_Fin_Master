@@ -7,6 +7,7 @@ public class ApplicationManager : MonoBehaviour {
     public void NewGame()
     {
         SceneManager.LoadScene("MainLevel");
+        GameConstants.currentLevel = "MainLevel";
     }
 
     public void Restart()
@@ -18,7 +19,7 @@ public class ApplicationManager : MonoBehaviour {
         }
         else
         {
-            SceneManager.LoadScene("MainLevel2");
+            SceneManager.LoadScene(GameConstants.currentLevel);
         }
     }
 

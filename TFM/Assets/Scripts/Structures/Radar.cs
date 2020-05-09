@@ -18,6 +18,8 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     /// </summary>
     public int radarNumber;
 
+    public Transform spawnPoint;
+
     /// <summary>
     /// Distance the structure can provide cover
     /// </summary>
@@ -43,12 +45,20 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     // Start is called before the first frame update
     void Start()
     {
+
         // Set the firing range distance
         float coverRange = this.GetComponentInChildren<SphereCollider>().radius;
 
         fogOfWarCover = coverRange * transform.localScale.x;
 
-        isCaptured = GetComponent<BasicStructure>().isCaptured;
+        if (GameConstants.radarCaptured.Contains(gameObject.name))
+        {
+            GetComponent<BasicStructure>().SetAsCatured();         
+        }
+        else {
+            isCaptured = GetComponent<BasicStructure>().isCaptured;
+        }
+        
 
     }
 
@@ -126,6 +136,13 @@ public class Radar : MonoBehaviour, StructuresInterfaces
             fogOfWarPlane.GetComponent<Renderer>().material.SetVector("_Radar" + radarNumber + "_Pos", gameObject.transform.position);
             fogOfWarPlane.GetComponent<Renderer>().material.SetFloat("_FogRadius" + radarNumber, fogOfWarCover);
             isDrawed = true;
+
+            if (!GameConstants.radarCaptured.Contains(gameObject.name)) {
+                GameConstants.spawnPoint = spawnPoint.position;
+                GameConstants.radarCaptured.Add(gameObject.name);
+            }
+                
+            
         }
         
 

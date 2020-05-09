@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RTS_Cam;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -40,24 +41,36 @@ public class GameplayManager : MonoBehaviour
         
         GameObject[] playerDrones = GameObject.FindGameObjectsWithTag("Player_Drone");
 
-        foreach (GameObject playerDrone in playerDrones)
+        /*if (GameConstants.lastCPUPower > 1)
         {
-            AddPlayerDrone(playerDrone.GetComponent<BasicDrone>());
-            currentCPUGamePower += playerDrone.GetComponent<BasicDrone>().captureCost;
+            currentCPUGamePower = GameConstants.lastCPUPower;
         }
+        else {*/
+            foreach (GameObject playerDrone in playerDrones)
+            {
+                //AddPlayerDrone(playerDrone.GetComponent<BasicDrone>());
+                currentCPUGamePower += playerDrone.GetComponent<BasicDrone>().captureCost;
+            }
 
-        if (currentCPUGamePower == 0) {
-            currentMaxCPUPower = 1;
-            currentCPUGamePower = 1;
-        }
-        else
-        {
-            currentMaxCPUPower = (int)currentCPUGamePower; 
-        }
-
+            if (currentCPUGamePower == 0)
+            {
+                currentMaxCPUPower = 1;
+                currentCPUGamePower = 1;
+            }
+            else
+            {
+                currentMaxCPUPower = (int)currentCPUGamePower;
+            }
+        //}
+       
         hudManager.AddCPUPower(currentCPUGamePower);
 
         hudManager.AddCPUMaxPower(currentMaxCPUPower);
+
+        if (GameConstants.spawnPoint.x != 0 && GameConstants.spawnPoint.z != 0) {
+            player.transform.position = new Vector3(GameConstants.spawnPoint.x, player.transform.position.y, GameConstants.spawnPoint.z);
+            GameObject.FindObjectOfType<RTS_Camera>().transform.position = new Vector3(GameConstants.spawnPoint.x, GameObject.FindObjectOfType<RTS_Camera>().transform.position.y, GameConstants.spawnPoint.z);
+        }        
     }
 
     public void AddPlayerDrone(BasicDrone playerDrone) {
@@ -69,7 +82,13 @@ public class GameplayManager : MonoBehaviour
 
         //game over when main drone is destroyed
         if (drone.name.Equals("Main Drone")) {
-            Invoke("GameOver", 2.5f);
+            if (GameConstants.spawnPoint.x != 0 && GameConstants.spawnPoint.z != 0) {
+                Invoke("Respawn", 2.5f);
+            }
+            else
+            {
+                Invoke("GameOver", 2.5f);
+            }           
         }
         hudManager.RemovePlayerDrone(drone);
         playerDrones.Remove(drone);
@@ -99,6 +118,11 @@ public class GameplayManager : MonoBehaviour
 
     public bool IsCapturePosible(float cost) {
         return currentCPUGamePower >= cost;
+    }
+
+    private void Respawn()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void GameOver() {

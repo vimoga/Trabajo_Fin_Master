@@ -150,6 +150,11 @@ public class BasicStructure : MonoBehaviour,CommonInterface
         return isCaptured;
     }
 
+    public void SetAsCatured() {
+        gameObject.tag = "Player_Structure";
+        isCaptured = true;
+    }
+
     public bool isAerial()
     {
         return isAerialUnit;

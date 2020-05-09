@@ -20,12 +20,19 @@ public class EndLevel : MonoBehaviour
             if (SceneManager.GetActiveScene().name.Equals("MainLevel"))
             {
                 SceneManager.LoadScene("MainLevel2");
+                GameConstants.currentLevel = "MainLevel2";
             }
             else if (SceneManager.GetActiveScene().name.Equals("MainLevel2"))
             {
                 SceneManager.LoadScene("EndGameMenu");
+                GameConstants.currentLevel = "MainLevel";
             }
-            
+
+            //clear game variables
+            GameConstants.lastCPUPower = 0;
+            GameConstants.radarCaptured.Clear();
+            GameConstants.postCaptured.Clear();
+            GameConstants.spawnPoint = new Vector3(0, 0, 0);
         }
     }
 }
