@@ -33288,8 +33288,8 @@ MonoBehaviour:
   life: 50
   maxHeath: 100
   captureCost: 2
-  ammo: 10
-  maxAmmo: 10
+  ammo: 8
+  maxAmmo: 8
   smallDamage: {fileID: 3318263651546405444}
   greatDamage: {fileID: 3318263650745451021}
   explosion: {fileID: 6009427967103521854}

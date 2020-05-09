@@ -18,7 +18,7 @@ public class ApplicationManager : MonoBehaviour {
         }
         else
         {
-            SceneManager.LoadScene("MainLevel");
+            SceneManager.LoadScene("MainLevel2");
         }
     }
 

@@ -53,6 +53,9 @@ namespace RTS_Cam
 
         private float zoomPos = 0; //value in range (0, 1) used as t in Matf.Lerp
 
+        private float currentLevel = 0; //added to fix player offset
+        private float zoomOffsetFix = 0;  //added to fix player offset
+
         #endregion
 
         #region MapLimits
@@ -135,10 +138,12 @@ namespace RTS_Cam
                 bool zoomOut = Input.GetKey(zoomOutKey);
                 if (zoomIn && zoomOut)
                     return 0;
-                else if (!zoomIn && zoomOut)
+                else if (!zoomIn && zoomOut) {              
                     return 1;
-                else if (zoomIn && !zoomOut)
+                }
+                else if (zoomIn && !zoomOut) {
                     return -1;
+                }                   
                 else 
                     return 0;
             }
@@ -160,6 +165,7 @@ namespace RTS_Cam
                     return 0;
             }
         }
+
 
         #endregion
 
@@ -265,13 +271,16 @@ namespace RTS_Cam
             zoomPos = Mathf.Clamp01(zoomPos);
 
             float targetHeight = Mathf.Lerp(minHeight, maxHeight, zoomPos);
-            float difference = 0; 
+            float difference = 0;
 
             if(distanceToGround != targetHeight)
                 difference = targetHeight - distanceToGround;
 
+            currentLevel = difference;
+
             m_Transform.position = Vector3.Lerp(m_Transform.position, 
                 new Vector3(m_Transform.position.x, targetHeight + difference, m_Transform.position.z), Time.deltaTime * heightDampening);
+                      
         }
 
         /// <summary>
@@ -284,6 +293,29 @@ namespace RTS_Cam
 
             if (useMouseRotation && Input.GetKey(mouseRotationKey))
                 m_Transform.Rotate(Vector3.up, -MouseAxis.x * Time.deltaTime * mouseRotationSpeed, Space.World);
+
+            //target offset fix
+            if ((m_Transform.rotation.y > -0.99 && m_Transform.rotation.y < -0.75) || (m_Transform.rotation.y < 0.99 && m_Transform.rotation.y > 0.75))
+            {
+                targetOffset.z = currentLevel;
+                targetOffset.x = 0;
+            }
+            else if ((m_Transform.rotation.y > -0.75 && m_Transform.rotation.y < -0.50))
+            {
+                targetOffset.z = 0;
+                targetOffset.x = -currentLevel;
+            }
+            else if ((m_Transform.rotation.y < 0.50 && m_Transform.rotation.y > 0.25))
+            {
+                targetOffset.z = 0;
+                targetOffset.x = currentLevel;
+            }
+            else if ((m_Transform.rotation.y > -025 && m_Transform.rotation.y < 0) || (m_Transform.rotation.y < 0.25 && m_Transform.rotation.y > 0))
+            {
+                targetOffset.z = -currentLevel;
+                targetOffset.x = 0;
+            }
+
         }
 
         /// <summary>
