@@ -168,7 +168,7 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
     {      
         if (!AuxiliarOperations.IsDestroyed(enemy))
         {
-            if ((currentFireRate > firerate))
+            if ((currentFireRate > firerate) && (GetComponent<BasicStructure>().life > 0))
             {
                 Attack();
             }
@@ -179,6 +179,9 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
             CancelAttack();
         }
 
+        if (GetComponent<BasicStructure>().life <= 0) {
+            CancelAttack();
+        }
         currentFireRate += Time.deltaTime;
     }
    

@@ -38,6 +38,11 @@ public class Missile : MonoBehaviour
 
     private bool isDestroyed =  false;
 
+    private float followTime = 5;
+
+
+    private float currentTime = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,23 +90,35 @@ public class Missile : MonoBehaviour
 
             if (!AuxiliarOperations.IsDestroyed(enemy))
             {
-                transform.LookAt(target);
+                if (currentTime < followTime)
+                {
+                    transform.LookAt(target);
+                    // Move our position a step closer to the target.
+                    //float step = ; // calculate distance to move
+                    transform.position = Vector3.MoveTowards(transform.position, target.position, (speed * Time.deltaTime));
+                }
+                else {
+                    transform.position = Vector3.MoveTowards(transform.position, transform.forward, (speed * Time.deltaTime)); 
+                }
 
-                // Move our position a step closer to the target.
-                float step = speed * Time.deltaTime; // calculate distance to move
-                transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-
-                // Check if the position of the cube and sphere are approximately equal.
+                // Check if the position of the missile and objetive are approximately equal.
                 if (Vector3.Distance(transform.position, target.position) < 0.001f)
                 {
                     enemy.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
                     isDestroyed = true;
                     Explode();
                 }
+
+                if (currentTime > followTime)
+                {
+                    Explode();
+                }
             }
-            else {
+            else
+            {
                 Explode();
             }
         }
+        currentTime += Time.deltaTime;
     }
 }

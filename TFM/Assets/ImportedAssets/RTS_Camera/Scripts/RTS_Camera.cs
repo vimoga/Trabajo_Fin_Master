@@ -54,7 +54,6 @@ namespace RTS_Cam
         private float zoomPos = 0; //value in range (0, 1) used as t in Matf.Lerp
 
         private float currentLevel = 0; //added to fix player offset
-        private float zoomOffsetFix = 0;  //added to fix player offset
 
         #endregion
 
@@ -294,28 +293,43 @@ namespace RTS_Cam
             if (useMouseRotation && Input.GetKey(mouseRotationKey))
                 m_Transform.Rotate(Vector3.up, -MouseAxis.x * Time.deltaTime * mouseRotationSpeed, Space.World);
 
+
+            //Debug.Log(m_Transform.rotation.y);
+            Debug.Log(m_Transform.eulerAngles.y);
+
+      
             //target offset fix
-            if ((m_Transform.rotation.y > -0.99 && m_Transform.rotation.y < -0.75) || (m_Transform.rotation.y < 0.99 && m_Transform.rotation.y > 0.75))
-            {
-                targetOffset.z = currentLevel;
-                targetOffset.x = 0;
-            }
-            else if ((m_Transform.rotation.y > -0.75 && m_Transform.rotation.y < -0.50))
-            {
-                targetOffset.z = 0;
-                targetOffset.x = -currentLevel;
-            }
-            else if ((m_Transform.rotation.y < 0.50 && m_Transform.rotation.y > 0.25))
-            {
-                targetOffset.z = 0;
-                targetOffset.x = currentLevel;
-            }
-            else if ((m_Transform.rotation.y > -025 && m_Transform.rotation.y < 0) || (m_Transform.rotation.y < 0.25 && m_Transform.rotation.y > 0))
+            if (m_Transform.eulerAngles.y < 360 && m_Transform.eulerAngles.y > 300)
             {
                 targetOffset.z = -currentLevel;
                 targetOffset.x = 0;
             }
-
+            else if (m_Transform.eulerAngles.y < 300 && m_Transform.eulerAngles.y > 240)
+            {
+                targetOffset.z = -currentLevel;
+                targetOffset.x = currentLevel;
+            }
+            else if (m_Transform.eulerAngles.y < 240 && m_Transform.eulerAngles.y > 180)
+            {
+                targetOffset.z = currentLevel;
+                targetOffset.x = 0;
+            }
+            else if (m_Transform.eulerAngles.y < 180 && m_Transform.eulerAngles.y > 120)
+            {
+                targetOffset.z = currentLevel;
+                targetOffset.x = 0;
+            }
+            else if (m_Transform.eulerAngles.y < 120 && m_Transform.eulerAngles.y > 60)
+            {
+                targetOffset.z = currentLevel;
+                targetOffset.x = -currentLevel;
+            }         
+            else if (m_Transform.eulerAngles.y < 60 && m_Transform.eulerAngles.y > 0)
+            {
+                targetOffset.z = -currentLevel;
+                targetOffset.x = 0;
+            }
+                          
         }
 
         /// <summary>
