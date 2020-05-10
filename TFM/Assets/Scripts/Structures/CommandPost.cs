@@ -20,7 +20,7 @@ public class CommandPost : MonoBehaviour, StructuresInterfaces
     void Start()
     {
         gameplayManager = GameObject.FindGameObjectWithTag("GameplayManager").GetComponent<GameplayManager>();
-        if (GameConstants.radarCaptured.Contains(gameObject.name))
+        if (GameConstants.postCaptured.Contains(gameObject.name))
         {
             GetComponent<BasicStructure>().SetAsCatured();
         }
@@ -61,16 +61,14 @@ public class CommandPost : MonoBehaviour, StructuresInterfaces
     void Update()
     {
         isCaptured = GetComponent<BasicStructure>().isCaptured;
-        if (isCaptured && !isAddedToHUD) {
-                
+        if (isCaptured && !isAddedToHUD) {             
             gameplayManager.AddCPUPower(cpuPower);
             gameplayManager.AddMaxCPU(cpuPower);
             isAddedToHUD = true;
-            if (!GameConstants.radarCaptured.Contains(gameObject.name))
+            if (!GameConstants.postCaptured.Contains(gameObject.name))
             {
                 GameConstants.postCaptured.Add(gameObject.name);
-            }
-                
+            }               
         }
     }
    

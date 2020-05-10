@@ -53,7 +53,7 @@ public class Radar : MonoBehaviour, StructuresInterfaces
 
         if (GameConstants.radarCaptured.Contains(gameObject.name))
         {
-            GetComponent<BasicStructure>().SetAsCatured();         
+            GetComponent<BasicStructure>().SetAsCatured();
         }
         else {
             isCaptured = GetComponent<BasicStructure>().isCaptured;
@@ -133,19 +133,15 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     {
         if (isCaptured && !isDrawed )
         {
-            fogOfWarPlane.GetComponent<Renderer>().material.SetVector("_Radar" + radarNumber + "_Pos", gameObject.transform.position);
-            fogOfWarPlane.GetComponent<Renderer>().material.SetFloat("_FogRadius" + radarNumber, fogOfWarCover);
+            fogOfWarPlane.GetComponent<FogOfWar>().activateRadar(radarNumber, gameObject.transform.position,fogOfWarCover);
             isDrawed = true;
 
             if (!GameConstants.radarCaptured.Contains(gameObject.name)) {
                 GameConstants.spawnPoint = spawnPoint.position;
                 GameConstants.radarCaptured.Add(gameObject.name);
-            }
-                
-            
+            }                          
         }
-        
-
+       
         isCaptured = GetComponent<BasicStructure>().isCaptured;
         isDestroyed = GetComponent<CommonInterface>().isDestroyed();
     }

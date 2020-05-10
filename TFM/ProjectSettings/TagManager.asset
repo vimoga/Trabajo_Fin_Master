@@ -19,6 +19,7 @@ TagManager:
   - GameplayManager
   - PlayerManager
   - Collider
+  - FogOfWar
   layers:
   - Default
   - TransparentFX

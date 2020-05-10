@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -41,34 +42,30 @@ public class GameplayManager : MonoBehaviour
         
         GameObject[] playerDrones = GameObject.FindGameObjectsWithTag("Player_Drone");
 
-        /*if (GameConstants.lastCPUPower > 1)
+        foreach (GameObject playerDrone in playerDrones)
         {
-            currentCPUGamePower = GameConstants.lastCPUPower;
+            currentCPUGamePower += playerDrone.GetComponent<BasicDrone>().captureCost;
         }
-        else {*/
-            foreach (GameObject playerDrone in playerDrones)
-            {
-                //AddPlayerDrone(playerDrone.GetComponent<BasicDrone>());
-                currentCPUGamePower += playerDrone.GetComponent<BasicDrone>().captureCost;
-            }
 
-            if (currentCPUGamePower == 0)
-            {
-                currentMaxCPUPower = 1;
-                currentCPUGamePower = 1;
-            }
-            else
-            {
-                currentMaxCPUPower = (int)currentCPUGamePower;
-            }
-        //}
+        if (currentCPUGamePower == 0)
+        {
+            currentMaxCPUPower = 1;
+            currentCPUGamePower = 1;
+        }
+        else
+        {
+            currentMaxCPUPower = (int)currentCPUGamePower;
+        }
        
         hudManager.AddCPUPower(currentCPUGamePower);
 
         hudManager.AddCPUMaxPower(currentMaxCPUPower);
 
+        GameObject.FindGameObjectWithTag("FogOfWar").GetComponent<FogOfWar>().clearRadars();
+
         if (GameConstants.spawnPoint.x != 0 && GameConstants.spawnPoint.z != 0) {
             player.transform.position = new Vector3(GameConstants.spawnPoint.x, player.transform.position.y, GameConstants.spawnPoint.z);
+            player.GetComponent<NavMeshAgent>().destination = player.transform.position;
             GameObject.FindObjectOfType<RTS_Camera>().transform.position = new Vector3(GameConstants.spawnPoint.x, GameObject.FindObjectOfType<RTS_Camera>().transform.position.y, GameConstants.spawnPoint.z);
         }        
     }
