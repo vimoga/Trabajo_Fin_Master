@@ -33,10 +33,6 @@ public class PlayerMovement : MonoBehaviour
 
     private RTS_Camera camera;
 
-    private Ray raytest;
-
-    private string test = "";
-
     // Start is called before the first frame update
     void Start()
     {
@@ -60,8 +56,6 @@ public class PlayerMovement : MonoBehaviour
         //Get clicked point
         RaycastHit hit = new RaycastHit();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        raytest = ray;
         
         if (Physics.Raycast(ray, out hit))
         {          
@@ -287,11 +281,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         agente.isStopped = false;
                         agente.destination = currentObjective.transform.position;
-
-                        if (!test.Equals("off distance")) {
-                            test = "off distance";
-                            Debug.Log(test);
-                        }
+                       
                     }
                     else
                     {
@@ -300,24 +290,14 @@ public class PlayerMovement : MonoBehaviour
                             if ((jugador.GetComponent<BasicDrone>().maxAmmo != GameConstants.INFINITE_AMMO && jugador.GetComponent<BasicDrone>().ammo > 0) || jugador.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO) {
                                 jugador.GetComponent<DroneInterface>().Attack(currentObjective);
                                 //agente.destination = agente.gameObject.transform.position;
-                                agente.isStopped=true;
-                                if (!test.Equals("in distance"))
-                                {
-                                    test = "in distance";
-                                    Debug.Log(test);
-                                }
+                                agente.isStopped=true;                               
                             }
                             
                         }
                     }
                 }
                 else
-                {
-                    if (!test.Equals("no target"))
-                    {
-                        test = "no target";
-                        Debug.Log(test);
-                    }
+                {                  
                     currentObjective = null;
                     isAttacking = false;
                 }

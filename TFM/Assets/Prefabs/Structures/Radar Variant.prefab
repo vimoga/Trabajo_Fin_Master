@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Radar
   description: Increases drone reach limit
-  life: 100
+  life: 100000
   maxHeath: 100
   captureCost: 1
   smallDamage: {fileID: 7055370245411753132}

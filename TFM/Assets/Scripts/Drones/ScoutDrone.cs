@@ -249,7 +249,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                     float distance = Vector3.Distance(gameObject.transform.position, agent.destination);
 
                     //reducir velocidad temporalmente
-                    if (nextWayPoint > 0 && distance > (Vector3.Distance(wayPoints[nextWayPoint - 1].position, wayPoints[nextWayPoint].position) * 0.25))
+                    if (nextWayPoint > 0 && distance < (Vector3.Distance(wayPoints[nextWayPoint - 1].position, wayPoints[nextWayPoint].position) * 0.25))
                     {
                         agent.speed = topSpeed / 2;
                     }
@@ -302,6 +302,19 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
         if (isCaptured && drone.currentState !=DroneState.CAPTURED) {
             drone.GoToCapturedState();
         }
+
+        /*if (isCaptured) {
+            float distance = Vector3.Distance(gameObject.transform.position, agent.destination);
+            //reducir velocidad temporalmente
+            if (distance < GetFiringRange())
+            {
+                agent.speed = topSpeed / 2;
+            }
+            else
+            {
+                agent.speed = topSpeed;
+            }
+        }*/
 
         currentFireRate += Time.deltaTime;
 

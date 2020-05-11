@@ -63,11 +63,13 @@ public class GameplayManager : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("FogOfWar").GetComponent<FogOfWar>().clearRadars();
 
+        GameConstants.currentCPUPower = currentCPUGamePower;
+
         if (GameConstants.spawnPoint.x != 0 && GameConstants.spawnPoint.z != 0) {
             player.transform.position = new Vector3(GameConstants.spawnPoint.x, player.transform.position.y, GameConstants.spawnPoint.z);
             player.GetComponent<NavMeshAgent>().destination = player.transform.position;
             GameObject.FindObjectOfType<RTS_Camera>().transform.position = new Vector3(GameConstants.spawnPoint.x, GameObject.FindObjectOfType<RTS_Camera>().transform.position.y, GameConstants.spawnPoint.z);
-        }        
+        }      
     }
 
     public void AddPlayerDrone(BasicDrone playerDrone) {
@@ -94,11 +96,13 @@ public class GameplayManager : MonoBehaviour
     public void AddCPUPower(float power) {
         currentCPUGamePower += power;
         hudManager.AddCPUPower(power);
+        GameConstants.currentCPUPower = currentCPUGamePower;
     }
 
     public void RemoveCPUPower(float power) {
         hudManager.RemoveCPUPower(power);
         currentCPUGamePower -= power;
+        GameConstants.currentCPUPower = currentCPUGamePower;
     }
 
     public void AddMaxCPU(int power)
@@ -113,9 +117,9 @@ public class GameplayManager : MonoBehaviour
         currentMaxCPUPower -= power;
     }
 
-    public bool IsCapturePosible(float cost) {
+    /*public bool IsCapturePosible(float cost) {       
         return currentCPUGamePower >= cost;
-    }
+    }*/
 
     private void Respawn()
     {

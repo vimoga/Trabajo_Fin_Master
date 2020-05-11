@@ -140,10 +140,12 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         else {
             healthBar.UpdateBar(life, maxHeath);
         }
-
-        SetAmmoCount();
-
+      
         isCaptured = AuxiliarOperations.IsCaptured(gameObject.tag);
+
+        if (!isCaptured) {
+            ammoCount.text = captureCost.ToString();
+        }
         gameplayManager = GameObject.FindGameObjectWithTag("GameplayManager").GetComponent<GameplayManager>();
     }
 
@@ -191,11 +193,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     /// The drone recieves stunt damage
     /// </summary>
     public void InCover()
-    {        
-        /*if (!isOnCover)
-        {
-            OutCover();
-        }*/
+    {              
         isOnCover = true;
         stuntDamage.SetActive(false);
         GetComponent<NavMeshAgent>().speed = droneSpeed;
@@ -218,7 +216,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     {
         this.ammo += ammo;
         Debug.Log("Drone get ammo: " + this.ammo);
-        SetAmmoCount();
+        //SetAmmoCount();
     }
 
     /// <summary>
@@ -228,52 +226,44 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     {
         this.ammo -= 1;
         Debug.Log("Drone loss ammo: " + this.ammo);
-        SetAmmoCount();
+        //SetAmmoCount();
     }
 
     /// <summary>
     /// The drone is captured from the player to take control
     /// </summary>
     public void Capture() {
-        if (gameplayManager.IsCapturePosible(captureCost))
+        captureStatus += (1 / captureCost)*1.25f;
+        captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
+        if (captureStatus >= GameConstants.CAPTURE_LIMIT)
         {
-            captureStatus += (1 / captureCost)*1.25f;
-            captureBar.UpdateBar(captureStatus, GameConstants.CAPTURE_LIMIT);
-            if (captureStatus >= GameConstants.CAPTURE_LIMIT)
+            gameObject.tag = "Player_Drone";
+            isCaptured = true;
+            ammoCount.text = "";
+            GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
+            Debug.Log("Drone captured: " + captureStatus);
+
+            //add to the hud
+            gameplayManager.RemoveCPUPower(captureCost);
+            gameplayManager.AddPlayerDrone(this);
+
+            //chage selection if active
+            GameObject selection = AuxiliarOperations.GetChildObject(gameObject.transform, "Selection");
+            if (selection)
             {
-                gameObject.tag = "Player_Drone";
-                isCaptured = true;
-                GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
-                Debug.Log("Drone captured: " + captureStatus);
-
-                //add to the hud
-                gameplayManager.RemoveCPUPower(captureCost);
-                gameplayManager.AddPlayerDrone(this);
-
-                //chage selection if active
-                GameObject selection = AuxiliarOperations.GetChildObject(gameObject.transform, "Selection");
-                if (selection)
+                if (selection.activeSelf)
                 {
-                    if (selection.activeSelf)
-                    {
-                        selection.GetComponent<RawImage>().texture = (Texture)Resources.Load("Textures/selection_friend");
-                    }
+                    selection.GetComponent<RawImage>().texture = (Texture)Resources.Load("Textures/selection_friend");
                 }
             }
-        }
-        else {
-            if (gameObject.GetComponent<AudioSource>()) {
-                gameObject.GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("Sounds/No_CPU"));
-            }
-        }
-        
+        }        
     }
 
 
     /// <summary>
     /// The current ammo level is updated on the UI
     /// </summary>
-    private void SetAmmoCount() {
+    /*private void SetAmmoCount() {
         if (isCaptured)
         {
             if (maxAmmo != -1)
@@ -284,7 +274,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         else {
             ammoCount.text = "";
         }        
-    }
+    }*/
 
     public void destroyDrone() {
         life = 0;
@@ -359,13 +349,19 @@ public class BasicDrone : MonoBehaviour, CommonInterface
                 if (isCaptured) {
                     if (!isOnCover)
                     {
-                        Impact(0.1f);
+                        Impact(0.2f);
                     }
                 }                             
             }
             else
             {
                 explosion.SetActive(true);
+                if (isCaptured)
+                {
+                    //removes from the hud
+                    gameplayManager.AddCPUPower(captureCost);
+                    gameplayManager.RemovePlayerDrone(this);
+                }
                 isDestroyed = true;
                 isCaptured = true;
                 audioSource.Stop();
@@ -375,9 +371,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
                 if (GetComponent<NavMeshAgent>()) {
                     GetComponent<NavMeshAgent>().enabled = false;
                 }
-                //removes from the hud
-                gameplayManager.AddCPUPower(captureCost);
-                gameplayManager.RemovePlayerDrone(this);
+
+               
+                
                 Object.Destroy(gameObject, 2.0f);
             }
         }

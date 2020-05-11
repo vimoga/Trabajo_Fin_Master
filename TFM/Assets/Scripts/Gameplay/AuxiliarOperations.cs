@@ -54,8 +54,6 @@ public static class AuxiliarOperations
         {
             return gameObject.GetComponent<BasicStructure>().isCaptured;
         }
-
-
         return false;
     }
 
@@ -171,6 +169,11 @@ public static class AuxiliarOperations
     public static bool EnemyIsAerial(GameObject enemy)
     {
         return enemy.GetComponent<CommonInterface>().isAerial();
+    }
+
+    public static bool IsCapturePosible(float cost)
+    {
+        return GameConstants.currentCPUPower >= cost;
     }
 
     /// <summary>

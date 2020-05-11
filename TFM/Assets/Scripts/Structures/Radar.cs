@@ -137,7 +137,7 @@ public class Radar : MonoBehaviour, StructuresInterfaces
             isDrawed = true;
 
             if (!GameConstants.radarCaptured.Contains(gameObject.name)) {
-                GameConstants.spawnPoint = spawnPoint.position;
+                GameConstants.spawnPoint = new Vector3(spawnPoint.position.x, spawnPoint.position.y, spawnPoint.position.z);
                 GameConstants.radarCaptured.Add(gameObject.name);
             }                          
         }

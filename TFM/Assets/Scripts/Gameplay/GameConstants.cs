@@ -21,7 +21,7 @@ static class GameConstants
 
 
     public static Vector3 spawnPoint;
-    public static float lastCPUPower = 0;
+    public static float currentCPUPower = 0;
     public static string currentLevel = "MainLevel";
 
     public static ArrayList radarCaptured = new ArrayList();

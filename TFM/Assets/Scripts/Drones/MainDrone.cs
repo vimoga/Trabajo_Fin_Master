@@ -34,6 +34,7 @@ public class MainDrone : MonoBehaviour, DroneInterface
         audioSource = GetComponent<AudioSource>();
 
         isCaptured = GetComponent<BasicDrone>().isCaptured;
+
     }
 
     /// <summary>
@@ -42,13 +43,32 @@ public class MainDrone : MonoBehaviour, DroneInterface
     /// <param name="enemy">objective of the capture</param>
     public void Attack(GameObject enemy)
     {
-        if (enemy.GetComponent<BasicStructure>()) {
+        if (enemy.GetComponent<BasicStructure>())
+        {
             if (!enemy.GetComponent<BasicStructure>().isCapturable)
             {
-                main_enemy = null;
-                return;
+                audioSource.PlayOneShot((AudioClip)Resources.Load("Sounds/Error"));
+            }
+            else {
+                MakeAttack(enemy);
             }
         }
+        else {
+            if (AuxiliarOperations.IsCapturePosible(enemy.GetComponent<BasicDrone>().captureCost))
+            {
+                MakeAttack(enemy);
+            }
+            else {
+                audioSource.PlayOneShot((AudioClip)Resources.Load("Sounds/No_CPU"));
+            }
+        }       
+    }
+
+    /// <summary>
+    /// Makes the attack effect of the drone
+    /// </summary>
+    /// <param name="enemy">objective of the capture</param>
+    public void MakeAttack(GameObject enemy) {
         main_enemy = enemy;
         enemy.SendMessage("Capture", SendMessageOptions.RequireReceiver);
         beam.SetActive(true);

@@ -54,11 +54,7 @@ public class Missile : MonoBehaviour
     }
 
     public void CollisionDetected(GameObject childInpact)
-    {        
-        /*if (childInpact.tag == "Player" || childInpact.tag == "Player_Drone" )
-        {
-            childInpact.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
-        }*/
+    {               
     }
 
     //add explosion effect
@@ -94,7 +90,6 @@ public class Missile : MonoBehaviour
                 {
                     transform.LookAt(target);
                     // Move our position a step closer to the target.
-                    //float step = ; // calculate distance to move
                     transform.position = Vector3.MoveTowards(transform.position, target.position, (speed * Time.deltaTime));
                 }
                 else {
