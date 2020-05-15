@@ -18,23 +18,14 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     /// </summary>
     public int radarNumber;
 
+    /// <summary>
+    /// Location on of the spawn point associated to the radar tower
+    /// </summary>
     public Transform spawnPoint;
 
-    /// <summary>
-    /// Distance the structure can provide cover
-    /// </summary>
-    //private float coverRange;
+    public bool enableRespawn = true;
 
-    /// <summary>
-    /// Distance where the fog of war is revelated
-    /// </summary>
     private float fogOfWarCover;
-
-    //private float coverRangeSqr { get { return coverRange * coverRange; } }
-    /*private float coverRangeSqr;
-    private Mesh m_Mesh;
-    private Vector3[] vertices;
-    private Color[] colors;*/
 
     private bool isCaptured = false;
 
@@ -131,12 +122,13 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     // Update is called once per frame
     void Update()
     {
-        if (isCaptured && !isDrawed )
+        if (isCaptured && !isDrawed)
         {
             fogOfWarPlane.GetComponent<FogOfWar>().activateRadar(radarNumber, gameObject.transform.position,fogOfWarCover);
             isDrawed = true;
 
-            if (!GameConstants.radarCaptured.Contains(gameObject.name)) {
+
+            if (!GameConstants.radarCaptured.Contains(gameObject.name) && enableRespawn) {
                 GameConstants.spawnPoint = new Vector3(spawnPoint.position.x, spawnPoint.position.y, spawnPoint.position.z);
                 GameConstants.radarCaptured.Add(gameObject.name);
             }                          
