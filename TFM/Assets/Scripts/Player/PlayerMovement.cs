@@ -37,7 +37,14 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         //Capture the elements needed
-        jugador = GameObject.FindGameObjectWithTag("Player");
+        if (GameConstants.playerTemp != null)
+        {
+            jugador = GameConstants.playerTemp;
+        }
+        else {
+            jugador = GameObject.FindGameObjectWithTag("Player");
+        }
+        
         currentSetection = AuxiliarOperations.GetChildObject(jugador.transform, "Selection");
         currentPlayerSetection = currentSetection;
         agente = jugador.GetComponent<NavMeshAgent>();
@@ -226,7 +233,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     /// <param name="toSelect">drone to select</param>
     public void ExternalSelect(GameObject toSelect) {
-        if (toSelect.tag!="Player") {
+        if (toSelect.tag != "Player")
+        {
             if (!AuxiliarOperations.IsDestroyed(jugador))
             {
                 GameObject.FindGameObjectWithTag("Player").tag = "Player_Drone";
@@ -251,7 +259,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 Select(toSelect);
             }
-        }        
+        }
+        else {
+            jugador = toSelect;
+            agente = toSelect.GetComponent<NavMeshAgent>();
+            camera.SetTarget(jugador.transform);
+            SelectPlayerSelection(jugador);         
+        }       
     }
 
     // Update is called once per frame

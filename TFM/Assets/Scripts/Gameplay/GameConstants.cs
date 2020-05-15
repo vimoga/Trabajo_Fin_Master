@@ -26,5 +26,6 @@ static class GameConstants
 
     public static ArrayList radarCaptured = new ArrayList();
     public static ArrayList postCaptured = new ArrayList();
+    public static GameObject playerTemp;
 
 }

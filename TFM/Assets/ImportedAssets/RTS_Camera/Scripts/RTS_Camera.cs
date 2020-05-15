@@ -293,11 +293,6 @@ namespace RTS_Cam
             if (useMouseRotation && Input.GetKey(mouseRotationKey))
                 m_Transform.Rotate(Vector3.up, -MouseAxis.x * Time.deltaTime * mouseRotationSpeed, Space.World);
 
-
-            //Debug.Log(m_Transform.rotation.y);
-            Debug.Log(m_Transform.eulerAngles.y);
-
-      
             //target offset fix
             if (m_Transform.eulerAngles.y < 360 && m_Transform.eulerAngles.y > 300)
             {

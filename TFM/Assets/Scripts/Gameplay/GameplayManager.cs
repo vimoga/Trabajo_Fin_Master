@@ -21,13 +21,24 @@ public class GameplayManager : MonoBehaviour
     /// </summary>
     public HUDManager hudManager;
 
-    private List<BasicDrone> playerDrones = new List<BasicDrone>();
+    /// <summary>
+    /// Instance of the player to use on the checkpoints
+    /// </summary>
+    public GameObject playerPrebab;
 
+    /// <summary>
+    /// Instance of player movement to use on the checkpoints
+    /// </summary>
+    public PlayerMovement playerMovement;
+
+    private List<BasicDrone> playerDrones = new List<BasicDrone>();
 
     [HideInInspector]
     public float currentCPUGamePower = 0;
 
     private int currentMaxCPUPower = 1;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -66,8 +77,12 @@ public class GameplayManager : MonoBehaviour
         GameConstants.currentCPUPower = currentCPUGamePower;
 
         if (GameConstants.spawnPoint.x != 0 && GameConstants.spawnPoint.z != 0) {
-            player.transform.position = new Vector3(GameConstants.spawnPoint.x, player.transform.position.y, GameConstants.spawnPoint.z);
-            player.GetComponent<NavMeshAgent>().destination = player.transform.position;
+            Destroy(player);
+
+            player = Instantiate(playerPrebab, new Vector3(GameConstants.spawnPoint.x, player.transform.position.y, GameConstants.spawnPoint.z), Quaternion.identity);
+            player.transform.parent = GameObject.FindGameObjectWithTag("DroneContainer").transform;
+            GameConstants.playerTemp = player;
+            //playerMovement.ExternalSelect(GameObject.FindGameObjectWithTag("Player"));
             GameObject.FindObjectOfType<RTS_Camera>().transform.position = new Vector3(GameConstants.spawnPoint.x, GameObject.FindObjectOfType<RTS_Camera>().transform.position.y, GameConstants.spawnPoint.z);
         }      
     }
