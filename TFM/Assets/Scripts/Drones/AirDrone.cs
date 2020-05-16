@@ -102,13 +102,14 @@ public class AirDrone : MonoBehaviour, DroneInterface
         {
             if (AuxiliarOperations.IsPlayerDrone(other))
             {
-                if (airDroneEnemy.Equals(other.gameObject))
+                if (airDroneEnemy.Equals(other.gameObject) && !AuxiliarOperations.IsDestroyed(other.gameObject))
                 {
                     drone.GoToAlertState();
                 }
                 else
                 {
                     airDroneEnemy = null;
+                    drone.GoToPatrolState();
                 }
             }
         }

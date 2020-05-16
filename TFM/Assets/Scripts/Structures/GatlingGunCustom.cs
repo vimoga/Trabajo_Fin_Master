@@ -35,12 +35,24 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
 
     private float currentFireRate = 0;
 
+    private bool idleRotation = true;
+    private int idleRotationControl = 1;
+
+    private bool isAttacking = false;
+
     void Start()
     {
         // Set the firing range distance
         this.GetComponentInChildren<SphereCollider>().radius = firingRange;
         audioSource = GetComponent<AudioSource>();
         audioSource.Stop();
+
+        if (Random.value < 0.5)
+        {
+
+            idleRotationControl = -1;
+
+        }
     }
 
     void OnDrawGizmosSelected()
@@ -103,6 +115,8 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
     /// </summary>
     public void Attack()
     {
+        idleRotation = false;
+
         // Gun barrel rotation
         go_barrel.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
 
@@ -115,6 +129,8 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
 
         go_baseRotation.transform.LookAt(baseTargetPostition);
         go_GunBody.transform.LookAt(gunBodyTargetPostition);
+
+        isAttacking = true;
 
         if ((currentFireRate > firerate))
         {
@@ -148,6 +164,9 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
             muzzelFlash.SetActive(false);
             audioSource.Stop();
         }
+
+        idleRotation = true;
+        isAttacking = false;
     }
 
     public void SetCaptured(bool isCaptured)
@@ -181,8 +200,25 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
 
         if (GetComponent<BasicStructure>().life <= 0) {
             CancelAttack();
+            idleRotation = false;
         }
         currentFireRate += Time.deltaTime;
+        
+    }
+
+    void FixedUpdate()
+    {
+        if (idleRotation) {
+            go_baseRotation.transform.Rotate(0, (idleRotationControl*(barrelRotationSpeed/5)) * Time.deltaTime, 0);         
+        }
+        /*if (isAttacking) {
+            Quaternion OriginalRot = transform.rotation;
+            transform.LookAt(enemy.transform);
+            Quaternion NewRot = transform.rotation;
+            transform.rotation = OriginalRot;
+            transform.rotation = Quaternion.Lerp(transform.rotation, NewRot, barrelRotationSpeed * Time.deltaTime);
+        }*/
+            
     }
    
 }

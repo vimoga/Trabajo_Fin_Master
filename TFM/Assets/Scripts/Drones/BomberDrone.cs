@@ -100,13 +100,14 @@ public class BomberDrone : MonoBehaviour, DroneInterface
             {
                 if (airDroneEnemy !=null )
                 {
-                    if (airDroneEnemy.Equals(other.gameObject))
+                    if (airDroneEnemy.Equals(other.gameObject) && !AuxiliarOperations.IsDestroyed(other.gameObject))
                     {
                         drone.GoToAlertState();
                     }
                     else
                     {
                         airDroneEnemy = null;
+                        drone.GoToPatrolState();
                     }
                 }               
             }

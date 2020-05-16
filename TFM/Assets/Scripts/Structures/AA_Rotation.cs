@@ -49,6 +49,13 @@ public class AA_Rotation : MonoBehaviour
     /// <returns>the actual rotating power of the rotor</returns>
     public float getPower() { return power; }
 
+    private void Update()
+    {
+        if (AuxiliarOperations.IsDestroyed(gameObject.transform.parent.gameObject)) {
+            animationActivated = false;
+        }
+    }
+
     /// <summary>
     /// Function called once per frame
     /// </summary>

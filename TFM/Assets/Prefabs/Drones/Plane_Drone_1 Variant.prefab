@@ -33316,7 +33316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
-  firerate: 1
+  firerate: 3
   missile: {fileID: 7459252645901394141, guid: e4c0730182e952048a3997ceb8685b33, type: 3}
   missileSpeed: 10
   missileLauncher: {fileID: 3318263651368665470}

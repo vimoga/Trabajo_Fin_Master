@@ -118,13 +118,14 @@ public class HealerDrone : MonoBehaviour,DroneInterface
         {
             if (AuxiliarOperations.IsEnemyDrone(other))
             {
-                if (healerObjective != null && healerObjective.Equals(other.gameObject))
+                if (healerObjective != null && healerObjective.Equals(other.gameObject) && other.gameObject.GetComponent<BasicDrone>().life < other.gameObject.GetComponent<BasicDrone>().maxHeath)
                 {
                     drone.GoToAlertState();
                 }
                 else
                 {
                     healerObjective = null;
+                    drone.GoToPatrolState();
                 }
                 HealBeamCease();
             }
@@ -132,14 +133,15 @@ public class HealerDrone : MonoBehaviour,DroneInterface
         else {
             if (AuxiliarOperations.IsPlayerDrone(other))
             {
-                if (healerObjective != null && healerObjective.Equals(other.gameObject))
+                /*if (healerObjective != null && healerObjective.Equals(other.gameObject))
                 {
                     drone.GoToAlertState();
                 }
                 else
-                {
+                {*/
                     healerObjective = null;
-                }
+
+                //}
                 HealBeamCease();
             }
         }

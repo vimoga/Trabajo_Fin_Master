@@ -105,12 +105,13 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
         {
             if (AuxiliarOperations.IsPlayerDrone(other))
             {                
-                if (scout_enemy.Equals(other.gameObject))
+                if (scout_enemy.Equals(other.gameObject) && !AuxiliarOperations.IsDestroyed(other.gameObject))
                 {
                     drone.GoToAlertState();
                 }
                 else {
                     scout_enemy = null;
+                    drone.GoToPatrolState();
                 }               
             }
         }
