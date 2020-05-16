@@ -104,7 +104,7 @@ public class TankDrone : MonoBehaviour,DroneInterface
         {
             if (AuxiliarOperations.IsPlayerDrone(other))
             {
-                if (tnk_enemy == null) {
+                if (tnk_enemy != null) {
                     if (tnk_enemy.Equals(other.gameObject) && !AuxiliarOperations.IsDestroyed(other.gameObject))
                     {
                         drone.GoToAlertState();

@@ -293,25 +293,25 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public void GoToAttackState()
     {
         currentState = DroneState.ATTACK;
-        Debug.Log("Drone state: " + DroneState.ATTACK);
+        //Debug.Log("Drone state: " + DroneState.ATTACK);
     }
 
     public void GoToAlertState()
     {
         currentState = DroneState.ALERT;
-        Debug.Log("Drone state: " + DroneState.ALERT);
+        //Debug.Log("Drone state: " + DroneState.ALERT);
     }
 
     public void GoToPatrolState()
     {
         currentState = DroneState.PATROL;
-        Debug.Log("Drone state: " + DroneState.PATROL);
+        //Debug.Log("Drone state: " + DroneState.PATROL);
     }
 
     public void GoToCapturedState()
     {
         currentState = DroneState.CAPTURED;
-        Debug.Log("Drone state: " + DroneState.CAPTURED);
+        //Debug.Log("Drone state: " + DroneState.CAPTURED);
     }
 
     public bool isAerial()
@@ -355,6 +355,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
             }
             else
             {
+                currentState = DroneState.DESTROYED;
                 explosion.SetActive(true);
                 if (isCaptured)
                 {

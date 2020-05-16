@@ -39,6 +39,15 @@ public class GameplayManager : MonoBehaviour
         hudManager.Initialize();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (GameConstants.spawnPoint.x != 0 && GameConstants.spawnPoint.z != 0)
+        {
+            Destroy(player);
+            player = Instantiate(playerPrebab, new Vector3(GameConstants.spawnPoint.x, player.transform.position.y, GameConstants.spawnPoint.z), Quaternion.identity);
+            player.transform.parent = GameObject.FindGameObjectWithTag("DroneContainer").transform;
+            GameConstants.playerTemp = player;
+            GameObject.FindObjectOfType<RTS_Camera>().transform.position = new Vector3(GameConstants.spawnPoint.x, GameObject.FindObjectOfType<RTS_Camera>().transform.position.y, GameConstants.spawnPoint.z);
+        }
         if (player) {
             AddPlayerDrone(player.GetComponent<BasicDrone>());
             currentCPUGamePower += player.GetComponent<BasicDrone>().captureCost;
@@ -69,13 +78,7 @@ public class GameplayManager : MonoBehaviour
 
         GameConstants.currentCPUPower = currentCPUGamePower;
 
-        if (GameConstants.spawnPoint.x != 0 && GameConstants.spawnPoint.z != 0) {
-            Destroy(player);
-            player = Instantiate(playerPrebab, new Vector3(GameConstants.spawnPoint.x, player.transform.position.y, GameConstants.spawnPoint.z), Quaternion.identity);
-            player.transform.parent = GameObject.FindGameObjectWithTag("DroneContainer").transform;
-            GameConstants.playerTemp = player;
-            GameObject.FindObjectOfType<RTS_Camera>().transform.position = new Vector3(GameConstants.spawnPoint.x, GameObject.FindObjectOfType<RTS_Camera>().transform.position.y, GameConstants.spawnPoint.z);
-        }      
+             
     }
 
     public void AddPlayerDrone(BasicDrone playerDrone) {
