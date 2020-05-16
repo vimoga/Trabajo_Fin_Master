@@ -1352,7 +1352,7 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
-      Hash: 4b00ab1e64ce56e98f17882ecaa8674a
+      Hash: 714b419fb956c7d93bba30c7edbfa91f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BasicDrone

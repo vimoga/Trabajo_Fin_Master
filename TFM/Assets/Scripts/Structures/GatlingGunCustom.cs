@@ -178,7 +178,7 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
         return false;
     }
 
-    public bool isCaptured()
+    public bool IsCaptured()
     {
         return false;
     }

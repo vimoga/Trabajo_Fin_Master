@@ -34091,6 +34091,7 @@ MonoBehaviour:
   isOnCover: 0
   wayPoints: []
   isAerialUnit: 1
+  droneSpeed: 0
   currentState: 1
 --- !u!82 &6451521947506053486
 AudioSource:

@@ -39,13 +39,20 @@ public class GameplayManager : MonoBehaviour
         hudManager.Initialize();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
 
         if (GameConstants.spawnPoint.x != 0 && GameConstants.spawnPoint.z != 0)
         {
             Destroy(player);
+            //playerPrebab.GetComponent<NavMeshAgent>().speed = agent.speed;
             player = Instantiate(playerPrebab, new Vector3(GameConstants.spawnPoint.x, player.transform.position.y, GameConstants.spawnPoint.z), Quaternion.identity);
             player.transform.parent = GameObject.FindGameObjectWithTag("DroneContainer").transform;
+            //player.GetComponent<NavMeshAgent>().speed = agent.speed;
             GameConstants.playerTemp = player;
+        
+            Debug.Log("player temp creado");
+            //fix for build mode
+//            GameObject.FindObjectOfType<PlayerMovement>().ExternalSelect(player);
             GameObject.FindObjectOfType<RTS_Camera>().transform.position = new Vector3(GameConstants.spawnPoint.x, GameObject.FindObjectOfType<RTS_Camera>().transform.position.y, GameConstants.spawnPoint.z);
         }
         if (player) {
@@ -57,6 +64,7 @@ public class GameplayManager : MonoBehaviour
 
         foreach (GameObject playerDrone in playerDrones)
         {
+            AddPlayerDrone(playerDrone.GetComponent<BasicDrone>());
             currentCPUGamePower += playerDrone.GetComponent<BasicDrone>().captureCost;
         }
 

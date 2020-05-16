@@ -117,7 +117,8 @@ public class BasicDrone : MonoBehaviour, CommonInterface
 
     private bool isStuned = false;
 
-    private float droneSpeed;
+    [HideInInspector]
+    public float droneSpeed;
 
     private GameplayManager gameplayManager;
 
@@ -259,6 +260,8 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         }        
     }
 
+    
+
 
     /// <summary>
     /// The current ammo level is updated on the UI
@@ -276,7 +279,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         }        
     }*/
 
-    public void destroyDrone() {
+    public void DestroyDrone() {
         life = 0;
     }
 

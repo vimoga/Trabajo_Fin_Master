@@ -30,7 +30,7 @@ public class HUDPlayerDrone : MonoBehaviour
     }
 
     public void destroyDrone() {
-        drone.destroyDrone();
+        drone.DestroyDrone();
     }
 
     // Update is called once per frame

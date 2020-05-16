@@ -44,7 +44,11 @@ public class ColliderComunicator : MonoBehaviour
     {
         if (transform.parent.GetComponent<DroneInterface>() != null)
         {
-            transform.parent.GetComponent<DroneInterface>().OnTriggerExit(other);
+            if (!AuxiliarOperations.IsDestroyed(transform.parent.gameObject))
+            {
+                transform.parent.GetComponent<DroneInterface>().OnTriggerExit(other);
+            }
+            
         }
         else if (transform.parent.GetComponent<StructuresInterfaces>() != null)
         {

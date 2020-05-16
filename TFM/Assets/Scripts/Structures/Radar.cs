@@ -23,6 +23,9 @@ public class Radar : MonoBehaviour, StructuresInterfaces
     /// </summary>
     public Transform spawnPoint;
 
+    /// <summary>
+    /// Enables or dissables the respawn when the radar is captured
+    /// </summary>
     public bool enableRespawn = true;
 
     private float fogOfWarCover;

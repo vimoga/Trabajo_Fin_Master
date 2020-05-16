@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private GameObject jugador;
 
+
     /// <summary>
     /// Players NavMesh Agent
     /// </summary>
@@ -32,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
     private GameObject currentPlayerSetection;
 
     private RTS_Camera camera;
+
+    private bool buildFix = false;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +58,9 @@ public class PlayerMovement : MonoBehaviour
         {
             currentSetection.SetActive(true);
         }
+
+        //enable only on build scenary
+        //Invoke("BuildFix", 1);
     }
 
 
@@ -101,7 +107,9 @@ public class PlayerMovement : MonoBehaviour
                     currentSetection = null;
                 }                
             }
-        }       
+        }
+
+        
     }
 
     void RightClicked() {
@@ -229,6 +237,16 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
+    /// Fix for the bug of not getting the player on respanw on build scenary
+    /// </summary>
+    private void BuildFix() {
+        //if(GameConstants.playerTemp != null)
+        //{
+            ExternalSelect(GameConstants.playerTemp);
+        //}      
+    }
+
+    /// <summary>
     /// Allows to select a player from other script
     /// </summary>
     /// <param name="toSelect">drone to select</param>
@@ -262,7 +280,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else {
             jugador = toSelect;
-            agente = toSelect.GetComponent<NavMeshAgent>();
+            agente = toSelect.GetComponent<NavMeshAgent>();           
             camera.SetTarget(jugador.transform);
             SelectPlayerSelection(jugador);         
         }       
@@ -317,5 +335,14 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+
+        if (!buildFix && GameConstants.playerTemp != null) {
+            Debug.Log("player temp capturado");
+            GameConstants.playerTemp.GetComponent<NavMeshAgent>().speed = 7;
+            GameConstants.playerTemp.GetComponent<BasicDrone>().droneSpeed = 7;
+            BuildFix();
+            buildFix = true;
+        }
+            
     }
 }
