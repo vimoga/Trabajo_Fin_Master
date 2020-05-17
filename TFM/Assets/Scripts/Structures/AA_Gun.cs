@@ -86,20 +86,27 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
     /// <param name="other">object collided</param>
     void OnTriggerBehaviour(Collider other)
     {
-        if (AuxiliarOperations.IsPlayerDrone(other))
+        if (!isDestroyed)
         {
-            if (aa_Enemy == null)
+            if (AuxiliarOperations.IsPlayerDrone(other))
             {
-                aa_Enemy = other.gameObject;
-            }
-            else
-            {
-                if (Vector3.Distance(aa_Enemy.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
+                if (aa_Enemy == null)
                 {
                     aa_Enemy = other.gameObject;
                 }
+                else
+                {
+                    if (Vector3.Distance(aa_Enemy.transform.position, gameObject.transform.position) > Vector3.Distance(other.transform.position, gameObject.transform.position))
+                    {
+                        aa_Enemy = other.gameObject;
+                    }
+                }
             }
         }
+        else {
+            aa_Enemy = null;
+        }
+        
     }
 
     public void SetCaptured(bool isCaptured)
@@ -119,6 +126,7 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
     // Update is called once per frame
     void Update()
     {
+        isDestroyed = GetComponent<CommonInterface>().isDestroyed();
         //attack player drones if are in the attack area
         if (aa_Enemy != null)
         {           

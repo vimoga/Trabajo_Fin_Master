@@ -103,17 +103,25 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
     {
         if (!isCaptured)
         {
-            if (AuxiliarOperations.IsPlayerDrone(other))
-            {                
-                if (scout_enemy.Equals(other.gameObject) && !AuxiliarOperations.IsDestroyed(other.gameObject))
+            if (scout_enemy != null)
+            {
+                if (AuxiliarOperations.IsPlayerDrone(other))
                 {
-                    drone.GoToAlertState();
+                    if (scout_enemy.Equals(other.gameObject) && !AuxiliarOperations.IsDestroyed(other.gameObject))
+                    {
+                        drone.GoToAlertState();
+                    }
+                    else
+                    {
+                        scout_enemy = null;
+                        drone.GoToPatrolState();
+                    }
                 }
-                else {
-                    scout_enemy = null;
-                    drone.GoToPatrolState();
-                }               
             }
+            else {
+                drone.GoToPatrolState();
+            }
+            
         }
     }
 
@@ -230,8 +238,11 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                     {
                         if (!scout_enemy.GetComponent<CommonInterface>().isDestroyed())
                         {
-                            agent.destination = gameObject.transform.position;
-                            Attack(scout_enemy);
+                            if (agent.isOnNavMesh) {
+                                agent.destination = gameObject.transform.position;
+                                Attack(scout_enemy);
+                            }
+                            
                         }
                     }
                     else

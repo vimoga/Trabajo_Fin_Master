@@ -25,7 +25,10 @@ static class GameConstants
     public static string currentLevel = "MainLevel2";
 
     public static ArrayList radarCaptured = new ArrayList();
+    public static ArrayList postCapturedTemp = new ArrayList();
+    public static ArrayList generatorDestroyedTemp = new ArrayList();
     public static ArrayList postCaptured = new ArrayList();
+    public static ArrayList generatorDestroyed = new ArrayList();
     public static GameObject playerTemp;
 
 }

@@ -98,6 +98,8 @@ public class GameplayManager : MonoBehaviour
 
         //game over when main drone is destroyed
         if (drone.name.Equals("Main Drone")) {
+            GameConstants.postCapturedTemp.Clear();
+            GameConstants.generatorDestroyedTemp.Clear();
             if (GameConstants.spawnPoint.x != 0 && GameConstants.spawnPoint.z != 0) {
                 Invoke("Respawn", 2.5f);
             }

@@ -99,8 +99,7 @@ public class Missile : MonoBehaviour
                 // Check if the position of the missile and objetive are approximately equal.
                 if (Vector3.Distance(transform.position, target.position) < 0.001f)
                 {
-                    enemy.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);
-                    //isDestroyed = true;
+                    enemy.SendMessage("Impact", damage, SendMessageOptions.RequireReceiver);                   
                     Explode();
                 }
 

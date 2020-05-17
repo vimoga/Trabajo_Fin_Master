@@ -134,6 +134,10 @@ public class Radar : MonoBehaviour, StructuresInterfaces
             if (!GameConstants.radarCaptured.Contains(gameObject.name) && enableRespawn) {
                 GameConstants.spawnPoint = new Vector3(spawnPoint.position.x, spawnPoint.position.y, spawnPoint.position.z);
                 GameConstants.radarCaptured.Add(gameObject.name);
+                GameConstants.postCaptured.AddRange(GameConstants.postCapturedTemp);
+                GameConstants.postCapturedTemp.Clear();
+                GameConstants.generatorDestroyed.AddRange(GameConstants.generatorDestroyedTemp);
+                GameConstants.generatorDestroyedTemp.Clear();
             }                          
         }
        

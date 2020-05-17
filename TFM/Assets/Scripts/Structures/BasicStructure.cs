@@ -160,6 +160,11 @@ public class BasicStructure : MonoBehaviour,CommonInterface
         return isAerialUnit;
     }
 
+    public void DestroyStructure()
+    {
+        life = 0;
+    }
+
     // Update is called once per frame
     void Update()
     {

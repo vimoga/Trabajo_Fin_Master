@@ -65,9 +65,9 @@ public class CommandPost : MonoBehaviour, StructuresInterfaces
             gameplayManager.AddCPUPower(cpuPower);
             gameplayManager.AddMaxCPU(cpuPower);
             isAddedToHUD = true;
-            if (!GameConstants.postCaptured.Contains(gameObject.name))
+            if (!GameConstants.postCapturedTemp.Contains(gameObject.name))
             {
-                GameConstants.postCaptured.Add(gameObject.name);
+                GameConstants.postCapturedTemp.Add(gameObject.name);
             }               
         }
     }

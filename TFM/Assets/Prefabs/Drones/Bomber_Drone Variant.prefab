@@ -38232,10 +38232,10 @@ MonoBehaviour:
   greatDamage: {fileID: 4874953687932064543}
   explosion: {fileID: 312278528870996959}
   stuntDamage: {fileID: 6059999333875780928}
-  healthBar: {fileID: 0}
-  captureBar: {fileID: 0}
-  ammoCount: {fileID: 0}
-  uiInfo: {fileID: 0}
+  healthBar: {fileID: 3856811910846700871}
+  captureBar: {fileID: 3856811910846725985}
+  ammoCount: {fileID: 7628278036338322088}
+  uiInfo: {fileID: 3856811911546598950}
   isCaptured: 1
   isOnCover: 0
   wayPoints: []
@@ -66929,9 +66929,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c04144ac0770d046b70dff56a576b5c, type: 3}
+--- !u!114 &3856811910846700871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 755445373076996593, guid: 4c04144ac0770d046b70dff56a576b5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4611057578056932534}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1310e65397a274d44a776b51d6937f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3856811910846725985 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 755445373076988887, guid: 4c04144ac0770d046b70dff56a576b5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4611057578056932534}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1310e65397a274d44a776b51d6937f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7628278036338322088 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6206191299807737374, guid: 4c04144ac0770d046b70dff56a576b5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4611057578056932534}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3856811911546598947 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 755445371170073237, guid: 4c04144ac0770d046b70dff56a576b5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4611057578056932534}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &3856811911546598950 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 755445371170073232, guid: 4c04144ac0770d046b70dff56a576b5c,
     type: 3}
   m_PrefabInstance: {fileID: 4611057578056932534}
   m_PrefabAsset: {fileID: 0}

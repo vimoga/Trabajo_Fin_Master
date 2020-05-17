@@ -241,7 +241,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
             gameObject.tag = "Player_Drone";
             isCaptured = true;
             ammoCount.text = "";
-            GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
+            gameObject.GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
             Debug.Log("Drone captured: " + captureStatus);
 
             //add to the hud
@@ -259,25 +259,6 @@ public class BasicDrone : MonoBehaviour, CommonInterface
             }
         }        
     }
-
-    
-
-
-    /// <summary>
-    /// The current ammo level is updated on the UI
-    /// </summary>
-    /*private void SetAmmoCount() {
-        if (isCaptured)
-        {
-            if (maxAmmo != -1)
-            {
-                ammoCount.text = ammo.ToString();
-            }
-        }
-        else {
-            ammoCount.text = "";
-        }        
-    }*/
 
     public void DestroyDrone() {
         life = 0;

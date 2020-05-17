@@ -32,6 +32,9 @@ public class EndLevel : MonoBehaviour
             GameConstants.currentCPUPower = 0;
             GameConstants.radarCaptured.Clear();
             GameConstants.postCaptured.Clear();
+            GameConstants.postCapturedTemp.Clear();
+            GameConstants.generatorDestroyed.Clear();
+            GameConstants.generatorDestroyedTemp.Clear();
             GameConstants.spawnPoint = new Vector3(0, 0, 0);
         }
     }
