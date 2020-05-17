@@ -128,7 +128,7 @@ public class AA_Gun : MonoBehaviour, StructuresInterfaces
     {
         isDestroyed = GetComponent<CommonInterface>().isDestroyed();
         //attack player drones if are in the attack area
-        if (aa_Enemy != null)
+        if (aa_Enemy != null && !isDestroyed)
         {           
             if (!AuxiliarOperations.IsDestroyed(aa_Enemy) && AuxiliarOperations.EnemyIsAerial(aa_Enemy))
             {

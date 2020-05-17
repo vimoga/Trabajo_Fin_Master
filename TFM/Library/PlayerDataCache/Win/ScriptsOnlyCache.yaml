@@ -98,17 +98,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12434}
     - Class: 114
-      Script: {instanceID: 13036}
+      Script: {instanceID: 13038}
     - Class: 114
-      Script: {instanceID: 13762}
+      Script: {instanceID: 13764}
     - Class: 114
-      Script: {instanceID: 14278}
+      Script: {instanceID: 14280}
     - Class: 114
-      Script: {instanceID: 14310}
+      Script: {instanceID: 14312}
     - Class: 114
-      Script: {instanceID: 14338}
+      Script: {instanceID: 14340}
     - Class: 114
-      Script: {instanceID: 14364}
+      Script: {instanceID: 14366}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 124
@@ -229,57 +229,57 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12832}
     - Class: 114
-      Script: {instanceID: 12894}
+      Script: {instanceID: 12836}
     - Class: 114
-      Script: {instanceID: 12916}
+      Script: {instanceID: 12896}
     - Class: 114
-      Script: {instanceID: 12946}
+      Script: {instanceID: 12918}
     - Class: 114
-      Script: {instanceID: 12986}
+      Script: {instanceID: 12948}
     - Class: 114
-      Script: {instanceID: 13036}
+      Script: {instanceID: 12988}
     - Class: 114
-      Script: {instanceID: 13044}
+      Script: {instanceID: 13038}
     - Class: 114
-      Script: {instanceID: 13070}
+      Script: {instanceID: 13046}
     - Class: 114
-      Script: {instanceID: 13084}
+      Script: {instanceID: 13072}
     - Class: 114
-      Script: {instanceID: 13276}
+      Script: {instanceID: 13086}
     - Class: 114
-      Script: {instanceID: 13342}
+      Script: {instanceID: 13278}
     - Class: 114
-      Script: {instanceID: 13534}
+      Script: {instanceID: 13344}
     - Class: 114
-      Script: {instanceID: 13564}
+      Script: {instanceID: 13536}
     - Class: 114
-      Script: {instanceID: 13602}
+      Script: {instanceID: 13566}
     - Class: 114
-      Script: {instanceID: 13682}
+      Script: {instanceID: 13604}
     - Class: 114
-      Script: {instanceID: 13762}
+      Script: {instanceID: 13684}
     - Class: 114
-      Script: {instanceID: 14028}
+      Script: {instanceID: 13764}
     - Class: 114
-      Script: {instanceID: 14148}
+      Script: {instanceID: 14030}
     - Class: 114
-      Script: {instanceID: 14170}
+      Script: {instanceID: 14150}
     - Class: 114
-      Script: {instanceID: 14224}
+      Script: {instanceID: 14172}
     - Class: 114
-      Script: {instanceID: 14278}
+      Script: {instanceID: 14226}
     - Class: 114
-      Script: {instanceID: 14310}
+      Script: {instanceID: 14280}
     - Class: 114
-      Script: {instanceID: 14338}
+      Script: {instanceID: 14312}
     - Class: 114
-      Script: {instanceID: 14354}
+      Script: {instanceID: 14340}
     - Class: 114
-      Script: {instanceID: 14364}
+      Script: {instanceID: 14356}
     - Class: 114
-      Script: {instanceID: 14426}
+      Script: {instanceID: 14366}
     - Class: 114
-      Script: {instanceID: 198656}
+      Script: {instanceID: 14428}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -917,6 +917,12 @@ ScriptsOnlyBuild:
     className: rotor
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Generator
+  - hash:
+      serializedVersion: 2
       Hash: 14d684e5eb706041b258044f3a2d3861
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityStandardAssets.Water
@@ -1491,12 +1497,6 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ScoutDrone
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Generator
   platform: 5
   scenePathNames:
   - Assets/Scenes/MainLevel2/MainLevel2.unity

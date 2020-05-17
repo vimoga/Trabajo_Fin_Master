@@ -322,7 +322,7 @@ MonoBehaviour:
   timeBetweenShoots: 2
   barrel: {fileID: 934659074395950859}
   missile: {fileID: 2601522959508443774, guid: 7d67e38417d67ea49914f479cebd0d4c, type: 3}
-  missileSpeed: 5
+  missileSpeed: 7
   missileDamage: 50
 --- !u!1 &5184121076936795534
 GameObject:
