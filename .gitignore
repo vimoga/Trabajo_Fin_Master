@@ -15,7 +15,7 @@ TFM/[Uu]ser[Ss]ettings/
 TFM/[Mm]emoryCaptures/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
-!TFM/[Aa]ssets/**/*.meta
+#!TFM/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # TFM/[Aa]ssets/AssetStoreTools*
@@ -63,7 +63,7 @@ sysinfo.txt
 crashlytics-build.properties
 
 # Packed Addressables
-TFM/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+#TFM/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
 # Temporary auto-generated Android Assets
 TFM/[Aa]ssets/[Ss]treamingAssets/aa.meta
