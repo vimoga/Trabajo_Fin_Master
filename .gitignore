@@ -26,8 +26,8 @@ ExportedObj/
 *.svd
  
 # Builds
-*.apk
-*.unitypackage
-*.app
-*.exe
+#*.apk
+#*.unitypackage
+#*.app
+#*.exe
 
