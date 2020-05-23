@@ -12,7 +12,7 @@ public class Generator : MonoBehaviour
     {
         if (GameConstants.generatorDestroyed.Contains(gameObject.name))
         {
-            GetComponent<AudioSource>().enabled = false;
+            GetComponent<BasicStructure>().explosion.GetComponent<AudioSource>().enabled = false;
             GetComponent<BasicStructure>().DestroyStructure();
         }
     }

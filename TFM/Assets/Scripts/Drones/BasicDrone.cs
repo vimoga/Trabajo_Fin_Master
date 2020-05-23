@@ -90,6 +90,11 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public Canvas uiInfo;
 
     /// <summary>
+    /// Contains the icon to see the dron in the minimap
+    /// </summary>
+    public Canvas uiMinimap;
+
+    /// <summary>
     /// Indicathes if the dron is currently captured from the player
     /// </summary>
     public bool isCaptured = false;
@@ -240,6 +245,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         {
             gameObject.tag = "Player_Drone";
             isCaptured = true;
+            uiMinimap.gameObject.SetActive(true);
             ammoCount.text = "";
             gameObject.GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
             Debug.Log("Drone captured: " + captureStatus);
@@ -356,9 +362,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
                 if (GetComponent<NavMeshAgent>()) {
                     GetComponent<NavMeshAgent>().enabled = false;
                 }
-
-               
-                
+                              
                 Object.Destroy(gameObject, 2.0f);
             }
         }
@@ -372,6 +376,15 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     {
         uiInfo.transform.LookAt(Camera.main.transform);
         uiInfo.transform.Rotate(new Vector3(0,180,0));
+        //Map icon fix
+        if (GameConstants.currentLevel.Equals("MainLevel"))
+        {
+            uiMinimap.transform.rotation = Quaternion.Euler(90f, 0, 0);
+        }
+        else {
+            uiMinimap.transform.rotation = Quaternion.Euler(90f, 90F, 0);
+        }
+              
     }
 
    
