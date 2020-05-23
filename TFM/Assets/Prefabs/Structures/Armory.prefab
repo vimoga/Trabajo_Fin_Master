@@ -726,7 +726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoRecovery: 1
   ammoRecoveryRate: 1
-  firingRange: 40
+  firingRange: 20
   explosionDamage: 200
   ammoEffect: {fileID: 113289742175845060}
   ammoWave: {fileID: 6561595690334894049}
@@ -2167,17 +2167,17 @@ PrefabInstance:
     - target: {fileID: 3996097342319130564, guid: 802e3557f1bc23c4d836433d324e8610,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 40
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 3996097342319130564, guid: 802e3557f1bc23c4d836433d324e8610,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 3996097342319130564, guid: 802e3557f1bc23c4d836433d324e8610,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 40
+      value: 22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 802e3557f1bc23c4d836433d324e8610, type: 3}
@@ -2208,7 +2208,7 @@ PrefabInstance:
     - target: {fileID: 7919662398548786619, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7919662398548786619, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
@@ -2258,17 +2258,17 @@ PrefabInstance:
     - target: {fileID: 7919662398548786619, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 9
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7919662398548786619, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 9
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7919662398548786619, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 9
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7925468923472505403, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
@@ -2750,7 +2750,7 @@ PrefabInstance:
     - target: {fileID: 8112523915026576157, guid: 5b891fc625c5fb24185fc680767b9624,
         type: 3}
       propertyPath: m_Radius
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8112523915026576159, guid: 5b891fc625c5fb24185fc680767b9624,
         type: 3}

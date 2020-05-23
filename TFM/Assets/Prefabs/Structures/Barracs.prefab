@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heal: 0.1
-  firingRange: 40
+  firingRange: 20
   healEffect: {fileID: 3050849801566554301}
   HealWave: {fileID: 5165364859438781957}
 --- !u!82 &7638422953975180176
@@ -7869,6 +7869,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3996097342319130564, guid: 802e3557f1bc23c4d836433d324e8610,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996097342319130564, guid: 802e3557f1bc23c4d836433d324e8610,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996097342319130564, guid: 802e3557f1bc23c4d836433d324e8610,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 22
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 802e3557f1bc23c4d836433d324e8610, type: 3}
 --- !u!4 &3045517399986255353 stripped
@@ -8384,7 +8399,7 @@ PrefabInstance:
     - target: {fileID: 7919662398548786619, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7919662398548786619, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
@@ -8434,17 +8449,17 @@ PrefabInstance:
     - target: {fileID: 7919662398548786619, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 9
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7919662398548786619, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 9
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7919662398548786619, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 9
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7925468923472505403, guid: c15707e3317f07543a20ecbedc8b80d8,
         type: 3}
@@ -8633,7 +8648,7 @@ PrefabInstance:
     - target: {fileID: 8112523915026576157, guid: 5b891fc625c5fb24185fc680767b9624,
         type: 3}
       propertyPath: m_Radius
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8112523915026576159, guid: 5b891fc625c5fb24185fc680767b9624,
         type: 3}

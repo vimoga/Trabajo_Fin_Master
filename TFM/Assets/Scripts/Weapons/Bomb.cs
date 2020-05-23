@@ -42,7 +42,7 @@ public class Bomb : MonoBehaviour
         audioSource = GetComponent<AudioSource>();       
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
         //if collides with terrain or enemy explotes
         if (collision.gameObject.tag.Equals(targetTag) || collision.gameObject.tag.Equals("Terrain"))
