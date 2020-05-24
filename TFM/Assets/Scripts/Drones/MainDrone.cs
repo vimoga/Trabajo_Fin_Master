@@ -128,6 +128,11 @@ public class MainDrone : MonoBehaviour, DroneInterface
         }
         
         isCaptured = GetComponent<BasicDrone>().isCaptured;
+
+        if (AuxiliarOperations.IsDestroyed(gameObject))
+        {
+            beam.SetActive(false);
+        }
     }
 
     

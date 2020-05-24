@@ -33312,8 +33312,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: PEM Drone
   description: Makes PEM damage to the closest drones
-  life: 100
-  maxHeath: 100
+  life: 75
+  maxHeath: 75
   captureCost: 1
   ammo: -1
   maxAmmo: -1

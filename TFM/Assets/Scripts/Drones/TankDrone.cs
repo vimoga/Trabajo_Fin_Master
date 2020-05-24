@@ -242,6 +242,10 @@ public class TankDrone : MonoBehaviour,DroneInterface
                         drone.GoToPatrolState();
                     }
                 }
+                else if (!isCaptured && AuxiliarOperations.IsDestroyed(tnk_enemy))
+                {
+                    drone.GoToPatrolState();
+                }
                 break;
             case DroneState.PATROL:
                 //patrol map by waypoints

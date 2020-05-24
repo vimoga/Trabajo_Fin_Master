@@ -251,6 +251,10 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                         drone.GoToPatrolState();
                     }
                 }
+                else if (!isCaptured && AuxiliarOperations.IsDestroyed(scout_enemy))
+                {
+                    drone.GoToPatrolState();
+                }
                 break;
             case DroneState.PATROL:
                 //patrol map by waypoints
@@ -314,20 +318,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
         if (isCaptured && drone.currentState !=DroneState.CAPTURED) {
             drone.GoToCapturedState();
         }
-
-        /*if (isCaptured) {
-            float distance = Vector3.Distance(gameObject.transform.position, agent.destination);
-            //reducir velocidad temporalmente
-            if (distance < GetFiringRange())
-            {
-                agent.speed = topSpeed / 2;
-            }
-            else
-            {
-                agent.speed = topSpeed;
-            }
-        }*/
-
+      
         currentFireRate += Time.deltaTime;
 
         if (drone.currentState == DroneState.ALERT) {

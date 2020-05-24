@@ -304,7 +304,11 @@ public class HealerDrone : MonoBehaviour,DroneInterface
                 }
                 break;
             case DroneState.CAPTURED:
-                MakeAttack();
+                if (AuxiliarOperations.IsDestroyed(gameObject))
+                {
+                    MakeAttack();
+                }
+               
                 break;
         }
 
@@ -317,6 +321,10 @@ public class HealerDrone : MonoBehaviour,DroneInterface
         if (drone.currentState == DroneState.ALERT)
         {
             currentAlertTime += Time.deltaTime;
+        }
+
+        if (AuxiliarOperations.IsDestroyed(gameObject)) {
+            HealBeamCease();
         }
     }   
 }

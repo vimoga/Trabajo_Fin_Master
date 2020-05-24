@@ -743,8 +743,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Energy Generator
   description: Provides energy for PEM towers
-  life: 100
-  maxHeath: 100
+  life: 75
+  maxHeath: 75
   captureCost: 1
   smallDamage: {fileID: 571516987486559214}
   greatDamage: {fileID: 570649356338584300}

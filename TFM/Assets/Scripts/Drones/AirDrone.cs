@@ -232,7 +232,10 @@ public class AirDrone : MonoBehaviour, DroneInterface
                         drone.GoToPatrolState();
                     }
                 }
-                break;
+                else if (!isCaptured && AuxiliarOperations.IsDestroyed(airDroneEnemy)) {
+                    drone.GoToPatrolState();
+                }
+                    break;
             case DroneState.PATROL:
                 //patrol map by waypoints
                 if (!gameObject.GetComponent<CommonInterface>().isDestroyed())
