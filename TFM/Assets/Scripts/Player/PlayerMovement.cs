@@ -57,10 +57,7 @@ public class PlayerMovement : MonoBehaviour
         if (!currentSetection.activeSelf)
         {
             currentSetection.SetActive(true);
-        }
-
-        //enable only on build scenary
-        //Invoke("BuildFix", 1);
+        }     
     }
 
 
@@ -237,16 +234,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Fix for the bug of not getting the player on respanw on build scenary
-    /// </summary>
-    private void BuildFix() {
-        //if(GameConstants.playerTemp != null)
-        //{
-            ExternalSelect(GameConstants.playerTemp);
-        //}      
-    }
-
-    /// <summary>
     /// Allows to select a player from other script
     /// </summary>
     /// <param name="toSelect">drone to select</param>
@@ -334,15 +321,7 @@ public class PlayerMovement : MonoBehaviour
                     isAttacking = false;
                 }
             }
-        }
-
-        if (!buildFix && GameConstants.playerTemp != null) {
-            Debug.Log("player temp capturado");
-            GameConstants.playerTemp.GetComponent<NavMeshAgent>().speed = 7;
-            GameConstants.playerTemp.GetComponent<BasicDrone>().droneSpeed = 7;
-            BuildFix();
-            buildFix = true;
-        }
+        }     
             
     }
 }

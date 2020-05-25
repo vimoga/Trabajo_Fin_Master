@@ -108,7 +108,7 @@ public class BasicStructure : MonoBehaviour,CommonInterface
     public void Impact(float damage)
     {
         life -= damage;
-        Debug.Log("Drone hitted: " + life);
+        //Debug.Log("Drone hitted: " + life);
         healthBar.UpdateBar(life, maxHeath);
     }
 
@@ -118,7 +118,7 @@ public class BasicStructure : MonoBehaviour,CommonInterface
     public void Heal(float heal)
     {
         life += heal;
-        Debug.Log("Drone healed: " + life);
+        //Debug.Log("Drone healed: " + life);
         healthBar.UpdateBar(life, maxHeath);
     }
 
@@ -135,7 +135,7 @@ public class BasicStructure : MonoBehaviour,CommonInterface
             {
                 gameObject.tag = "Player_Structure";
                 isCaptured = true;
-                Debug.Log("Player_Structure captured: ");
+                //Debug.Log("Player_Structure captured: ");
             }
         }       
     }

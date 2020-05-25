@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Implements comom functions used to manage the gameplay
+/// Implements common functions used to manage the gameplay
 /// </summary>
 public class GameplayManager : MonoBehaviour
 {
@@ -44,15 +44,12 @@ public class GameplayManager : MonoBehaviour
         if (GameConstants.spawnPoint.x != 0 && GameConstants.spawnPoint.z != 0)
         {
             Destroy(player);
-            //playerPrebab.GetComponent<NavMeshAgent>().speed = agent.speed;
             player = Instantiate(playerPrebab, new Vector3(GameConstants.spawnPoint.x, player.transform.position.y, GameConstants.spawnPoint.z), Quaternion.identity);
             player.transform.parent = GameObject.FindGameObjectWithTag("DroneContainer").transform;
-            //player.GetComponent<NavMeshAgent>().speed = agent.speed;
             GameConstants.playerTemp = player;
         
             Debug.Log("player temp creado");
             //fix for build mode
-//            GameObject.FindObjectOfType<PlayerMovement>().ExternalSelect(player);
             GameObject.FindObjectOfType<RTS_Camera>().transform.position = new Vector3(GameConstants.spawnPoint.x, GameObject.FindObjectOfType<RTS_Camera>().transform.position.y, GameConstants.spawnPoint.z);
         }
         if (player) {
@@ -89,11 +86,19 @@ public class GameplayManager : MonoBehaviour
              
     }
 
+    /// <summary>
+    /// Adds a player drone in the hud and the game
+    /// </summary>
+    /// <param name="drone">drone to add</param>
     public void AddPlayerDrone(BasicDrone playerDrone) {
         playerDrones.Add(playerDrone);
         hudManager.AddPlayerDrone(playerDrone);
     }
 
+    /// <summary>
+    /// Removes a player drone from the hud and the game
+    /// </summary>
+    /// <param name="drone">drone to remove</param>
     public void RemovePlayerDrone(BasicDrone drone) {
 
         //game over when main drone is destroyed
@@ -112,33 +117,45 @@ public class GameplayManager : MonoBehaviour
         playerDrones.Remove(drone);
     }
 
+    /// <summary>
+    /// increments the current cpu power
+    /// </summary>
+    /// <param name="power">cpu to add</param>
     public void AddCPUPower(float power) {
         currentCPUGamePower += power;
         hudManager.AddCPUPower(power);
         GameConstants.currentCPUPower = currentCPUGamePower;
     }
 
+    /// <summary>
+    /// decreses the current cpu power
+    /// </summary>
+    /// <param name="power">cpu to decrese</param>
     public void RemoveCPUPower(float power) {
         hudManager.RemoveCPUPower(power);
         currentCPUGamePower -= power;
         GameConstants.currentCPUPower = currentCPUGamePower;
     }
 
+    /// <summary>
+    /// decreses the current maximum cpu to reach
+    /// </summary>
+    /// <param name="power">max cpu to decrese</param>
     public void AddMaxCPU(int power)
     {
         currentMaxCPUPower += power;
         hudManager.AddCPUMaxPower(power);
     }
 
+    /// <summary>
+    /// decreses the current maximum cpu to reach
+    /// </summary>
+    /// <param name="power">max cpu to decrese</param>
     public void RemoveMaxCPU(int power)
     {
         hudManager.RemoveCPUMaxPower(power);
         currentMaxCPUPower -= power;
     }
-
-    /*public bool IsCapturePosible(float cost) {       
-        return currentCPUGamePower >= cost;
-    }*/
 
     private void Respawn()
     {

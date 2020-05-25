@@ -116,8 +116,7 @@ public class AirDrone : MonoBehaviour, DroneInterface
                 }
                 else {
                     drone.GoToPatrolState();
-                }
-               
+                }               
             }
         }
     }

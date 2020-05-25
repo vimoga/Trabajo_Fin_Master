@@ -100,7 +100,6 @@ public class HealerDrone : MonoBehaviour,DroneInterface
             if (AuxiliarOperations.IsEnemyDrone(other))
             {
                 OnTriggerBehaviour(other);
-                //drone.GoToAttackState();
             }
         }
         else
@@ -132,16 +131,8 @@ public class HealerDrone : MonoBehaviour,DroneInterface
         }
         else {
             if (AuxiliarOperations.IsPlayerDrone(other))
-            {
-                /*if (healerObjective != null && healerObjective.Equals(other.gameObject))
-                {
-                    drone.GoToAlertState();
-                }
-                else
-                {*/
-                    healerObjective = null;
-
-                //}
+            {                
+                healerObjective = null;
                 HealBeamCease();
             }
         }

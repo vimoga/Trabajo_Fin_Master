@@ -161,7 +161,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public void Impact(float damage)
     {
         life -= damage;
-        Debug.Log("Drone hitted: " + life);
+        //Debug.Log("Drone hitted: " + life);
         healthBar.UpdateBar(life, maxHeath);
     }
 
@@ -171,7 +171,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public void Heal(float heal)
     {
         life += heal;
-        Debug.Log("Drone healed: " + life);
+        //Debug.Log("Drone healed: " + life);
         healthBar.UpdateBar(life, maxHeath);
     }
 
@@ -221,8 +221,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public void AmmoIn(int ammo)
     {
         this.ammo += ammo;
-        Debug.Log("Drone get ammo: " + this.ammo);
-        //SetAmmoCount();
+        //Debug.Log("Drone get ammo: " + this.ammo);
     }
 
     /// <summary>
@@ -231,8 +230,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     public void AmmoOut()
     {
         this.ammo -= 1;
-        Debug.Log("Drone loss ammo: " + this.ammo);
-        //SetAmmoCount();
+        //Debug.Log("Drone loss ammo: " + this.ammo);
     }
 
     /// <summary>
@@ -266,6 +264,9 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         }        
     }
 
+    /// <summary>
+    /// Destroys the drone
+    /// </summary>
     public void DestroyDrone() {
         life = 0;
     }
@@ -366,7 +367,6 @@ public class BasicDrone : MonoBehaviour, CommonInterface
                 Object.Destroy(gameObject, 2.0f);
             }
         }
-
     }
 
     /// <summary>
@@ -383,9 +383,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
         }
         else {
             uiMinimap.transform.rotation = Quaternion.Euler(90f, 90F, 0);
-        }
-              
+        }              
     }
-
    
 }

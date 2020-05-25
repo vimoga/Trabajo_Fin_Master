@@ -310,8 +310,6 @@ public class BomberDrone : MonoBehaviour, DroneInterface
         {
             currentAlertTime += Time.deltaTime;
         }
-    }
-
-    
+    }   
 }
 

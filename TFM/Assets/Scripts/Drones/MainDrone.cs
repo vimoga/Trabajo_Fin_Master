@@ -30,11 +30,8 @@ public class MainDrone : MonoBehaviour, DroneInterface
     {
         // Set the firing range distance
         firingRange = this.GetComponentInChildren<SphereCollider>().radius;
-
         audioSource = GetComponent<AudioSource>();
-
         isCaptured = GetComponent<BasicDrone>().isCaptured;
-
     }
 
     /// <summary>
@@ -133,7 +130,5 @@ public class MainDrone : MonoBehaviour, DroneInterface
         {
             beam.SetActive(false);
         }
-    }
-
-    
+    }    
 }

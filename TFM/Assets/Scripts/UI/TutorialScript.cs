@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Behaviour of the tutorial point os the scenary
+/// </summary>
 public class TutorialScript : MonoBehaviour
 {
     /// <summary>
@@ -28,6 +31,9 @@ public class TutorialScript : MonoBehaviour
         UpdateTutorial();
     }
 
+    /// <summary>
+    /// Reloads the tutorial variables and show it
+    /// </summary>
     public void UpdateTutorial()
     {
         currentTutorialTime = 0;

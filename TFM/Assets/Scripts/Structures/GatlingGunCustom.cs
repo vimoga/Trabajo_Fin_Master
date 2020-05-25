@@ -29,8 +29,14 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
 
     private GameObject enemy;
 
+    /// <summary>
+    /// damage dealed by the turret
+    /// </summary>
     public float damage = 1f;
 
+    /// <summary>
+    /// firerate of the turret
+    /// </summary>
     public float firerate = 0.15f;
 
     private float currentFireRate = 0;
@@ -210,15 +216,7 @@ public class GatlingGunCustom : MonoBehaviour, StructuresInterfaces
     {
         if (idleRotation) {
             go_baseRotation.transform.Rotate(0, (idleRotationControl*(barrelRotationSpeed/5)) * Time.deltaTime, 0);         
-        }
-        /*if (isAttacking) {
-            Quaternion OriginalRot = transform.rotation;
-            transform.LookAt(enemy.transform);
-            Quaternion NewRot = transform.rotation;
-            transform.rotation = OriginalRot;
-            transform.rotation = Quaternion.Lerp(transform.rotation, NewRot, barrelRotationSpeed * Time.deltaTime);
-        }*/
-            
+        }           
     }
    
 }

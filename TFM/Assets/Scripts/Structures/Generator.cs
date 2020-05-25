@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Behaviour of the generators attached to the PEM towers
+/// </summary>
 public class Generator : MonoBehaviour
 {
 

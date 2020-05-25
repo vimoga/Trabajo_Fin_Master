@@ -8,6 +8,9 @@ using UnityEngine;
 public class CommandPost : MonoBehaviour, StructuresInterfaces
 {
 
+    /// <summary>
+    /// CPU power to gain when is captured
+    /// </summary>
     public int cpuPower;
 
     private bool isCaptured = false;

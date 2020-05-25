@@ -7,8 +7,6 @@ using UnityEngine;
 /// </summary>
 public class Missile : MonoBehaviour
 {
-
-  
     /// <summary>
     /// objective of the missile
     /// </summary>
@@ -29,7 +27,6 @@ public class Missile : MonoBehaviour
     /// </summary>
     public AudioClip explosionSound;
 
-
     private AudioSource audioSource;
 
     private Transform target;
@@ -39,7 +36,6 @@ public class Missile : MonoBehaviour
     private bool isDestroyed =  false;
 
     private float followTime = 5;
-
 
     private float currentTime = 0;
 

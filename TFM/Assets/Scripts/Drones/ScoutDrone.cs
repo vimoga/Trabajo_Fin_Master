@@ -241,8 +241,7 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
                             if (agent.isOnNavMesh) {
                                 agent.destination = gameObject.transform.position;
                                 Attack(scout_enemy);
-                            }
-                            
+                            }                           
                         }
                     }
                     else
@@ -324,6 +323,5 @@ public class ScoutDrone : MonoBehaviour, DroneInterface
         if (drone.currentState == DroneState.ALERT) {
             currentAlertTime += Time.deltaTime;
         }
-
     }
 }
