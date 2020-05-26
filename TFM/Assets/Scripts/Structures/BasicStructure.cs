@@ -163,6 +163,7 @@ public class BasicStructure : MonoBehaviour,CommonInterface
     public void DestroyStructure()
     {
         life = 0;
+        healthBar.UpdateBar(life, maxHeath);
     }
 
     // Update is called once per frame

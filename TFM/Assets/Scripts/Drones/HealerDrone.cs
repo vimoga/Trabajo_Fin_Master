@@ -295,7 +295,7 @@ public class HealerDrone : MonoBehaviour,DroneInterface
                 }
                 break;
             case DroneState.CAPTURED:
-                if (AuxiliarOperations.IsDestroyed(gameObject))
+                if (!AuxiliarOperations.IsDestroyed(gameObject))
                 {
                     MakeAttack();
                 }
