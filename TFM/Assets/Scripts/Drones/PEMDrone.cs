@@ -94,7 +94,6 @@ public class PEMDrone : MonoBehaviour, DroneInterface
             if (AuxiliarOperations.IsPlayerDrone(other))
             {
                 ColliderBehaviour(colliderStatus.stay, other);
-                //PEMEnemy = other;
             }
         }
         else {
@@ -102,14 +101,13 @@ public class PEMDrone : MonoBehaviour, DroneInterface
             {
                 ColliderBehaviour(colliderStatus.stay, other);
             }
-            else
+            /*else
             {
-                //if (AuxiliarOperations.IsPlayerDrone(other) && other == PEMEnemy)
                 if (AuxiliarOperations.IsPlayerDrone(other))
                 {
                     CeaseDamage(other.transform.gameObject);
                 }
-            }
+            }*/
         }
     }
 

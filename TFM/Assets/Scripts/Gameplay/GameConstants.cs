@@ -15,7 +15,7 @@ static class GameConstants
     public static float CAPTURE_LIMIT = 80;
     public static float INFINITE_AMMO = -1;
     public static float MAX_CPU_POWER = 8;
-    public static float ALERT_TIME = 5f;
+    public static float ALERT_TIME = 3f;
     public static float WAYPOINT_STOP_AVOID = 1;
     public static float TUTORIAL_TIME = 5;
 
@@ -29,6 +29,7 @@ static class GameConstants
     public static ArrayList generatorDestroyedTemp = new ArrayList();
     public static ArrayList postCaptured = new ArrayList();
     public static ArrayList generatorDestroyed = new ArrayList();
+    public static ArrayList showedTutorials = new ArrayList();
     public static GameObject playerTemp;
 
 }

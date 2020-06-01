@@ -33,6 +33,7 @@ public class GameplayManager : MonoBehaviour
 
     private int currentMaxCPUPower = 1;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +41,8 @@ public class GameplayManager : MonoBehaviour
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
+
+        
 
         if (GameConstants.spawnPoint.x != 0 && GameConstants.spawnPoint.z != 0)
         {

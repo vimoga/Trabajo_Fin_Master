@@ -178,6 +178,8 @@ public class AirDrone : MonoBehaviour, DroneInterface
     {
         if ((currentFireRate > firerate))
         {
+            gameObject.transform.LookAt(enemy.transform);
+
             currentFireRate = 0;
 
             //generate new missile instance

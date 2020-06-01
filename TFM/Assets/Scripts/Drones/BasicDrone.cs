@@ -269,6 +269,7 @@ public class BasicDrone : MonoBehaviour, CommonInterface
     /// </summary>
     public void DestroyDrone() {
         life = 0;
+        healthBar.UpdateBar(life, maxHeath);
     }
 
     bool CommonInterface.isDestroyed()
