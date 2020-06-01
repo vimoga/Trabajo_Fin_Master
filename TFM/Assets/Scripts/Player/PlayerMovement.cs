@@ -308,7 +308,6 @@ public class PlayerMovement : MonoBehaviour
                         {
                             if ((jugador.GetComponent<BasicDrone>().maxAmmo != GameConstants.INFINITE_AMMO && jugador.GetComponent<BasicDrone>().ammo > 0) || jugador.GetComponent<BasicDrone>().maxAmmo == GameConstants.INFINITE_AMMO) {
                                 jugador.GetComponent<DroneInterface>().Attack(currentObjective);
-                                //agente.destination = agente.gameObject.transform.position;
                                 agente.isStopped=true;                               
                             }
                             

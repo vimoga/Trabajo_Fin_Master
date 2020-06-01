@@ -25,6 +25,8 @@ public class MainDrone : MonoBehaviour, DroneInterface
 
     private bool isCaptured = false;
 
+    private Vector3 oldPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +72,8 @@ public class MainDrone : MonoBehaviour, DroneInterface
         enemy.SendMessage("Capture", SendMessageOptions.RequireReceiver);
         beam.SetActive(true);
         audioSource.PlayOneShot(shootSound, 1);
+        oldPosition = gameObject.transform.position;
+
     }
 
     public void SetCaptured(bool isCaptured)
@@ -115,7 +119,16 @@ public class MainDrone : MonoBehaviour, DroneInterface
             }
             else
             {
-                beam.GetComponent<VolumetricLines.VolumetricLineBehavior>().EndPos = gameObject.transform.InverseTransformPoint(main_enemy.transform.position);
+                //fix for player movement
+                if (Vector3.Distance(oldPosition, transform.position) < 1)
+                {
+                    beam.GetComponent<VolumetricLines.VolumetricLineBehavior>().EndPos = gameObject.transform.InverseTransformPoint(main_enemy.transform.position);
+                }
+                else {
+                    beam.SetActive(false);
+                    main_enemy = null;
+                }
+                
             }
         }
         else {

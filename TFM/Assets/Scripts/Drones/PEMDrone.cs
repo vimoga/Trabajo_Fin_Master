@@ -41,6 +41,8 @@ public class PEMDrone : MonoBehaviour, DroneInterface
 
     private float currentAlertTime = 0;
 
+    private Collider enemyInZone;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,16 +100,17 @@ public class PEMDrone : MonoBehaviour, DroneInterface
         }
         else {
             if (AuxiliarOperations.IsEnemyDrone(other))
-            {
+            {         
                 ColliderBehaviour(colliderStatus.stay, other);
             }
-            /*else
+            else
             {
+                //bug fix
                 if (AuxiliarOperations.IsPlayerDrone(other))
                 {
                     CeaseDamage(other.transform.gameObject);
                 }
-            }*/
+            }
         }
     }
 
@@ -244,6 +247,8 @@ public class PEMDrone : MonoBehaviour, DroneInterface
             case DroneState.ALERT:
                 break;
             case DroneState.CAPTURED:
+                
+                
                 break;
         }
 
@@ -251,7 +256,7 @@ public class PEMDrone : MonoBehaviour, DroneInterface
 
         if (isCaptured && drone.currentState != DroneState.CAPTURED)
         {
-            drone.GoToCapturedState();
+            drone.GoToCapturedState();           
         }
 
         if (drone.currentState == DroneState.ALERT)
