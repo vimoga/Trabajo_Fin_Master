@@ -63408,7 +63408,7 @@ MonoBehaviour:
   uiInfo: {fileID: 7090233538120830077}
   uiMinimap: {fileID: 7731619609498051566}
   isCaptured: 0
-  isOnCover: 1
+  isOnCover: 0
   wayPoints: []
   isAerialUnit: 0
   droneSpeed: 0
@@ -84347,7 +84347,7 @@ PrefabInstance:
     - target: {fileID: 4834335707648075274, guid: a6ca16894259f274e8f5d627ddb48c46,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ca16894259f274e8f5d627ddb48c46, type: 3}

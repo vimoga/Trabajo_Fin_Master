@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1233642997919097049}
   - component: {fileID: 1233642997919097048}
   - component: {fileID: 1233642997919097051}
+  - component: {fileID: 1685662666714213929}
   m_Layer: 2
   m_Name: FogOfWar
   m_TagString: Untagged
@@ -50641,3 +50642,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &1685662666714213929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233642997919097050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 923441dd49249734e8b3f847a286e7a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
