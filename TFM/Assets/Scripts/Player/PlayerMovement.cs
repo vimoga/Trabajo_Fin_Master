@@ -147,11 +147,6 @@ public class PlayerMovement : MonoBehaviour
                                
                 if (!AuxiliarOperations.IsDestroyed(currentSetection))
                 {     
-                    //new
-                    /*if (currentSetection.transform.parent != null)
-                    {
-                        Unselect();
-                    }*/
                     Select(auxiliar);                
                 }
                 else
@@ -179,30 +174,7 @@ public class PlayerMovement : MonoBehaviour
         GameObject selection=AuxiliarOperations.GetChildObject(toSelect.transform, "Selection");
         if (selection)
         {
-            //selection.SetActive(true);
-
-            //new
             DrawnSelection(selection, toSelect.gameObject.tag);
-
-            /*RawImage rawImage = selection.GetComponent<RawImage>();
-            switch ()
-            {
-                case "Enemy":
-                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy");
-                    break;
-                case "Enemy_Structure":
-                    rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy");
-                    break;
-                case "Player_Drone":
-                    rawImage.texture = (Texture)Resources.Load("Textures/selection_friend");
-                    break;
-                case "Player_Structure":
-                    rawImage.texture = (Texture)Resources.Load("Textures/selection_friend");
-                    break;
-                case "Player":
-                    rawImage.texture = (Texture)Resources.Load("Textures/selection");
-                    break;
-            }*/
             currentSetection = selection;
         }            
     }
@@ -261,8 +233,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (currentPlayerSetection.activeSelf)
             {
-                //new
-                //currentPlayerSetection.SetActive(false);
                 DrawnSelection(currentPlayerSetection, "Player_Drone");
             }
         }
@@ -289,11 +259,6 @@ public class PlayerMovement : MonoBehaviour
 
             if (!AuxiliarOperations.IsDestroyed(currentSetection))
             {
-                //new
-                /*if (currentSetection.transform.parent != null)
-                {
-                    Unselect();
-                }*/
                 Select(toSelect);
             }
             else
@@ -356,7 +321,7 @@ public class PlayerMovement : MonoBehaviour
                     isAttacking = false;
                 }
             }
-        }     
-            
+        }
+                 
     }
 }

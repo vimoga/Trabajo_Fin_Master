@@ -50,7 +50,7 @@ public class GameplayManager : MonoBehaviour
             player = Instantiate(playerPrebab, new Vector3(GameConstants.spawnPoint.x, player.transform.position.y, GameConstants.spawnPoint.z), Quaternion.identity);
             player.transform.parent = GameObject.FindGameObjectWithTag("DroneContainer").transform;
             GameConstants.playerTemp = player;
-        
+
             Debug.Log("player temp creado");
             //fix for build mode
             GameObject.FindObjectOfType<RTS_Camera>().transform.position = new Vector3(GameConstants.spawnPoint.x, GameObject.FindObjectOfType<RTS_Camera>().transform.position.y, GameConstants.spawnPoint.z);

@@ -86,6 +86,8 @@ public class BasicStructure : MonoBehaviour,CommonInterface
 
     private bool isDestroyed = false;
 
+    private GameObject selection;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -101,6 +103,8 @@ public class BasicStructure : MonoBehaviour,CommonInterface
         isCaptured = AuxiliarOperations.IsCaptured(gameObject.tag);
 
         isCaptured = AuxiliarOperations.IsCaptured(gameObject.tag);
+
+        selection = AuxiliarOperations.GetChildObject(gameObject.transform, "Selection");
     }
 
     /// <summary>
@@ -141,11 +145,7 @@ public class BasicStructure : MonoBehaviour,CommonInterface
                 GameObject selection = AuxiliarOperations.GetChildObject(gameObject.transform, "Selection");
                 if (selection)
                 {
-                    //new
-                    //if (selection.activeSelf)
-                    //{
                     selection.GetComponent<RawImage>().texture = (Texture)Resources.Load("Textures/selection_friend");
-                    //}
                 }
             }
         }       
@@ -208,6 +208,7 @@ public class BasicStructure : MonoBehaviour,CommonInterface
                 explosion.SetActive(true);
                 isDestroyed = true;
                 isCaptured = true;
+                selection.SetActive(false);
                 AuxiliarOperations.GetChildObject(gameObject.transform,"Collider").SetActive(false);
 
             }

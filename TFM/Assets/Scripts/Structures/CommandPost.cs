@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Behaviour for the Command Post Structure
@@ -26,6 +27,13 @@ public class CommandPost : MonoBehaviour, StructuresInterfaces
         if (GameConstants.postCaptured.Contains(gameObject.name))
         {
             GetComponent<BasicStructure>().SetAsCatured();
+            //chage selection if active
+            GameObject selection = AuxiliarOperations.GetChildObject(gameObject.transform, "Selection");
+            if (selection)
+            {
+                selection.SetActive(true);
+                selection.GetComponent<RawImage>().texture = (Texture)Resources.Load("Textures/selection_friend");
+            }
         }
         else
         {
