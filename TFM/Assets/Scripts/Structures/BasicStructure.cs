@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Basic and shared behaviour of the structures
@@ -136,6 +137,16 @@ public class BasicStructure : MonoBehaviour,CommonInterface
                 gameObject.tag = "Player_Structure";
                 isCaptured = true;
                 //Debug.Log("Player_Structure captured: ");
+                // chage selection if active
+                GameObject selection = AuxiliarOperations.GetChildObject(gameObject.transform, "Selection");
+                if (selection)
+                {
+                    //new
+                    //if (selection.activeSelf)
+                    //{
+                    selection.GetComponent<RawImage>().texture = (Texture)Resources.Load("Textures/selection_friend");
+                    //}
+                }
             }
         }       
     }

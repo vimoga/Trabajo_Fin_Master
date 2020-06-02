@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
                 //select element clicked
                 if (!AuxiliarOperations.IsDestroyed(currentSetection))
                 {
-                    if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+                    if (currentSetection.transform.parent != null && AuxiliarOperations.IsEnemy(currentSetection.transform.parent.tag))
                     {
                         Unselect();
                     }
@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
                 if (!AuxiliarOperations.IsDestroyed(currentSetection))
                 {
-                    if (currentSetection.transform.parent != null && currentSetection.transform.parent.tag != "Player")
+                    if (currentSetection.transform.parent != null && AuxiliarOperations.IsEnemy(currentSetection.transform.parent.tag))
                     {
                         Unselect();
                     }                    
@@ -146,11 +146,12 @@ public class PlayerMovement : MonoBehaviour
                 }
                                
                 if (!AuxiliarOperations.IsDestroyed(currentSetection))
-                {                   
-                    if (currentSetection.transform.parent != null)
+                {     
+                    //new
+                    /*if (currentSetection.transform.parent != null)
                     {
                         Unselect();
-                    }
+                    }*/
                     Select(auxiliar);                
                 }
                 else
@@ -172,15 +173,19 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// selects the element on the gameplay screen
     /// </summary>
-    /// <param name="toSelect">ellemt to select</param>
+    /// <param name="toSelect">elelemt to select</param>
     private void Select(GameObject toSelect)
     {
         GameObject selection=AuxiliarOperations.GetChildObject(toSelect.transform, "Selection");
         if (selection)
         {
-            selection.SetActive(true);
-            RawImage rawImage = selection.GetComponent<RawImage>();
-            switch (toSelect.gameObject.tag)
+            //selection.SetActive(true);
+
+            //new
+            DrawnSelection(selection, toSelect.gameObject.tag);
+
+            /*RawImage rawImage = selection.GetComponent<RawImage>();
+            switch ()
             {
                 case "Enemy":
                     rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy");
@@ -197,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
                 case "Player":
                     rawImage.texture = (Texture)Resources.Load("Textures/selection");
                     break;
-            }
+            }*/
             currentSetection = selection;
         }            
     }
@@ -220,6 +225,34 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
+    /// Drawns de selection circle for an element
+    /// </summary>
+    /// <param name="selection">selection circle to drawn</param>
+    /// <param name="tag">tag of element</param>
+    private void DrawnSelection(GameObject selection, String tag) {
+        selection.SetActive(true);
+        RawImage rawImage = selection.GetComponent<RawImage>();
+        switch (tag)
+        {
+            case "Enemy":
+                rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy");
+                break;
+            case "Enemy_Structure":
+                rawImage.texture = (Texture)Resources.Load("Textures/selection_enemy");
+                break;
+            case "Player_Drone":
+                rawImage.texture = (Texture)Resources.Load("Textures/selection_friend");
+                break;
+            case "Player_Structure":
+                rawImage.texture = (Texture)Resources.Load("Textures/selection_friend");
+                break;
+            case "Player":
+                rawImage.texture = (Texture)Resources.Load("Textures/selection");
+                break;
+        }
+    }
+
+    /// <summary>
     /// Unselect the current player selection
     /// </summary>
     private void UnselectPlayer()
@@ -228,7 +261,9 @@ public class PlayerMovement : MonoBehaviour
         {
             if (currentPlayerSetection.activeSelf)
             {
-                currentPlayerSetection.SetActive(false);
+                //new
+                //currentPlayerSetection.SetActive(false);
+                DrawnSelection(currentPlayerSetection, "Player_Drone");
             }
         }
     }
@@ -254,10 +289,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (!AuxiliarOperations.IsDestroyed(currentSetection))
             {
-                if (currentSetection.transform.parent != null)
+                //new
+                /*if (currentSetection.transform.parent != null)
                 {
                     Unselect();
-                }
+                }*/
                 Select(toSelect);
             }
             else

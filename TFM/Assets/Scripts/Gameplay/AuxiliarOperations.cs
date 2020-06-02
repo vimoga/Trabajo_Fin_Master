@@ -60,20 +60,37 @@ public static class AuxiliarOperations
     /// <summary>
     /// Check if the game object is propierty of the player
     /// </summary>
-    /// <param name="gameObject">object to check</param>
+    /// <param name="other">collider to check</param>
     public static bool IsPlayer(this Collider other)
     {
         return (other.gameObject.tag == "Player" || other.gameObject.tag == "Player_Drone" || other.gameObject.tag == "Player_Structure") && !other.isTrigger;
     }
 
+    /// <summary>
+    /// Check if the game object is propierty of the player
+    /// </summary>
+    /// <param name="tag">tag to check</param>
+    public static bool IsPlayer(string tag)
+    {
+        return (tag == "Player" || tag == "Player_Drone" || tag == "Player_Structure");
+    }
 
     /// <summary>
     /// Check if the game object is enemy of the player
     /// </summary>
-    /// <param name="gameObject">object to check</param>
+    /// <param name="other">collider to check</param>
     public static bool IsEnemy(this Collider other)
     {
         return (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Enemy_Structure") && !other.isTrigger;
+    }
+
+    /// <summary>
+    /// Check if the game object is enemy of the player
+    /// </summary>
+    /// <param name="tag">tag to check</param>
+    public static bool IsEnemy(string tag)
+    {
+        return (tag == "Enemy" || tag == "Enemy_Structure");
     }
 
     /// <summary>

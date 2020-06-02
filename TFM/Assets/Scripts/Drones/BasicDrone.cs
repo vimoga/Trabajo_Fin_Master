@@ -256,10 +256,11 @@ public class BasicDrone : MonoBehaviour, CommonInterface
             GameObject selection = AuxiliarOperations.GetChildObject(gameObject.transform, "Selection");
             if (selection)
             {
-                if (selection.activeSelf)
-                {
+                //new
+                //if (selection.activeSelf)
+                //{
                     selection.GetComponent<RawImage>().texture = (Texture)Resources.Load("Textures/selection_friend");
-                }
+                //}
             }
         }        
     }
