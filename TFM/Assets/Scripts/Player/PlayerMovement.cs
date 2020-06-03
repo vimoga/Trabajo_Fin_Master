@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private GameObject jugador;
 
-
     /// <summary>
     /// Players NavMesh Agent
     /// </summary>
@@ -128,6 +127,7 @@ public class PlayerMovement : MonoBehaviour
                         GameObject.FindGameObjectWithTag("Player").tag = "Player_Drone";
                     }
 
+                    currentObjective = null;
                     UnselectPlayer();
                     auxiliar.tag = "Player";                   
                     jugador = auxiliar;
@@ -250,6 +250,7 @@ public class PlayerMovement : MonoBehaviour
                 GameObject.FindGameObjectWithTag("Player").tag = "Player_Drone";
             }
 
+            currentObjective = null;
             UnselectPlayer();
             toSelect.tag = "Player";
             jugador = toSelect;
